@@ -1,17 +1,23 @@
 ---
-import "@fontsource-variable/inter/standard.css";
-import "tailwindcss/tailwind.css";
+import Page from '../layouts/Page.astro';
+import { createGitHubReader } from '@keystatic/core/reader/github';
+import keystaticConfig from '../../keystatic.config'
+
+const reader = createGitHubReader(keystaticConfig, {
+    repo: 'wiener-diarium/curved-conjunction',
+    token: import.meta.env.KEYSTATIC_GITHUB_PAT,
+});
+const slugs = await reader.collections.posts.list();
+console.log(slugs);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/icon.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Astro</title>
-	</head>
-
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Page title="Home Page">
+  <p>My page content, wrapped in a layout!</p>
+  <ul>
+	{slugs.map(post => (
+		<li>
+			<a href={`/posts/${post}`}>{post}</a>
+		</li>	
+	))}
+  </ul>
+</Page>
