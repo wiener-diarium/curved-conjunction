@@ -7,7 +7,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      PRIMARY_FILE_FORMAT: ${{ secrets.PRIMARY_FILE_FORMAT }}
       KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
       KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
       KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
