@@ -1,6 +1,6 @@
 import markdoc from "@astrojs/markdoc";
-import node from "@astrojs/node";
 import react from "@astrojs/react";
+import vercel from "@astrojs/vercel/serverless";
 import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
@@ -36,7 +36,5 @@ export default defineConfig({
 	},
 	site: process.env.PUBLIC_APP_BASE_URL,
 	base: `/${process.env.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}`,
-	adapter: node({
-		mode: "standalone",
-	}),
+	adapter: vercel(),
 });
