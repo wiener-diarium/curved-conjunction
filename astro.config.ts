@@ -35,6 +35,6 @@ export default defineConfig({
 		port: 3000,
 	},
 	site: process.env.PUBLIC_APP_BASE_URL,
-	//base: `/${process.env.PUBLIC_KEYSTATIC_GITHUB_APP_SLUG}`,
+	base: process.env.PUBLIC_BASE,
 	adapter: vercel(),
 });
