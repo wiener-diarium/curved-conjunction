@@ -3,8 +3,8 @@
 	"license": "MIT",
 	"type": "module",
 	"engines": {
-		"node": "20.x",
-		"pnpm": "8.x"
+		"node": "20.11.1",
+		"pnpm": "8.15.3"
 	},
 	"packageManager": "pnpm@8.15.3",
 	"scripts": {
