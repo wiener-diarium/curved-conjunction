@@ -34,7 +34,7 @@ export default defineConfig({
 	server: {
 		port: 3000,
 	},
-	site: process.env.PUBLIC_APP_BASE_URL,
-	base: process.env.PUBLIC_BASE,
+	site: "https://wiener-diarium.github.io",
+	base: "/curved-conjunction",
 	adapter: vercel(),
 });
