@@ -5,6 +5,11 @@ import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
+const prodUrl = "https://wiener-diarium.github.io";
+const devUrl = "https://curved-conjunction.vercel.app";
+const prodBase = "/curved-conjunction";
+const devBase = "/";
+
 // https://astro.build/config
 export default defineConfig({
 	integrations: [
@@ -27,14 +32,14 @@ export default defineConfig({
 			},
 		}),
 		markdoc(),
-		keystatic(),
 		react(),
+		...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
 	],
-	output: "hybrid",
+	output: process.env.SKIP_KEYSTATIC ? "static" : "hybrid",
 	server: {
 		port: 3000,
 	},
-	site: process.env.PUBLIC_APP_BASE_URL,
-	base: process.env.PUBLIC_BASE,
-	adapter: vercel(),
+	site: process.env.SKIP_KEYSTATIC ? prodUrl : devUrl,
+	base: process.env.SKIP_KEYSTATIC ? prodBase : devBase,
+	adapter: process.env.SKIP_KEYSTATIC ? undefined : vercel(),
 });
