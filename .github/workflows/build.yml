@@ -19,17 +19,13 @@ jobs:
       KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
       KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
       PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: "wiener-diarium-keystatic"
-      PUBLIC_BASE: "/curved-conjunction"
+      PUBLIC_BASE: "/curved-conjunction/client"
       PUBLIC_APP_BASE_URL: "https://wiener-diarium.github.io"
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
       - name: Install, build, and upload your site
         uses: withastro/action@v2
-        with:
-          path: .
-          node-version: "18.x"
-          package-manager: pnpm@latest
 
   deploy:
     needs: build
