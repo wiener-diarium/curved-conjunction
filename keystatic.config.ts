@@ -1,10 +1,16 @@
-import { collection, config, fields } from "@keystatic/core";
+import { collection, config, fields, type GitHubConfig, type LocalConfig } from "@keystatic/core";
+
+const isProd = process.env.NODE_ENV === "production";
+const localMode: LocalConfig["storage"] = {
+	kind: "local",
+};
+const remoteMode: GitHubConfig["storage"] = {
+	kind: "github",
+	repo: "wiener-diarium/curved-conjunction",
+};
 
 export default config({
-	storage: {
-		kind: "github",
-		repo: "wiener-diarium/curved-conjunction",
-	},
+	storage: isProd ? remoteMode : localMode,
 	collections: {
 		posts: collection({
 			label: "Posts",
