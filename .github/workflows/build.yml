@@ -42,7 +42,7 @@ jobs:
       #     python ./scripts/python/make_ts_index.py
       - name: Install Saxon
         run: |
-          ./scripts/shellscripts/script.sh
+          ./scripts/shellscripts/dl_saxon.sh
       - name: Build the site
         run: |
           ant -f ./scripts/ant/build.xml
