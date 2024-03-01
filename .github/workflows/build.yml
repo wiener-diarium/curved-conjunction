@@ -42,6 +42,7 @@ jobs:
       #     python ./scripts/python/make_ts_index.py
       - name: Install Saxon
         run: |
+          apt-get update && apt-get install openjdk-11-jre-headless ant -y --no-install-recommend
           ./scripts/shellscripts/dl_saxon.sh
       - name: Build the site
         run: |
