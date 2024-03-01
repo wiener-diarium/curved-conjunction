@@ -1,0 +1,30 @@
+---
+const edition_paths = import.meta.glob("../pages/edition/*.astro");
+const paths = Object.keys(edition_paths).map((path) => {
+	const name = (path.match(/\.\/pages\/edition\/(.*)\.astro$/) ?? [])[1];
+	return {
+		name,
+		path,
+	};
+});
+// const edition_content = Astro.glob("../pages/edition/*.astro");
+// const content = await edition_content;
+// [...content].forEach((page) => {
+// 	console.log(page);
+// 	console.log(page.default);
+// });
+---
+
+<div>
+	<ul>
+		{
+			paths.map((path) => {
+				return (
+					<li>
+						<a href={`/edition/${path.name}`}>{path.name}</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</div>

@@ -16,6 +16,31 @@ export default config({
 			label: "Posts",
 			slugField: "title",
 			path: "src/content/posts/*",
+			entryLayout: "content",
+			format: { contentField: "content" },
+			schema: {
+				title: fields.slug({ name: { label: "Title" } }),
+				pubDate: fields.date({
+					label: "Publication Date",
+					defaultValue: "today",
+					validation: { isRequired: true },
+				}),
+				description: fields.text({ label: "Description" }),
+				author: fields.text({ label: "Author" }),
+				content: fields.document({
+					label: "Content",
+					formatting: true,
+					dividers: true,
+					links: true,
+					images: true,
+				}),
+			},
+		}),
+		pages: collection({
+			label: "Pages",
+			slugField: "title",
+			path: "src/content/pages/*/",
+			entryLayout: "content",
 			format: { contentField: "content" },
 			schema: {
 				title: fields.slug({ name: { label: "Title" } }),

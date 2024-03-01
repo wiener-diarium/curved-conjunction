@@ -24,3 +24,11 @@ node_modules/
 # astro
 dist/
 .astro/
+/src/pages/edition
+
+# python
+/env
+
+# xslt
+/saxon
+/data

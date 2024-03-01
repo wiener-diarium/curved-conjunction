@@ -1,4 +1,6 @@
 ---
+import { faFolderOpen, faMagnifyingGlass, faTable } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getCollection } from "astro:content";
 
 import Page from "../layouts/Page.astro";
@@ -6,15 +8,122 @@ import Page from "../layouts/Page.astro";
 const allPosts = await getCollection("posts");
 ---
 
-<Page title="Home Page">
-	<p>My page content, wrapped in a layout!</p>
-	<ul>
-		{
-			allPosts.map((post) => (
-				<li>
-					<a href={post.slug}>{post.body}</a>
-				</li>
-			))
-		}
-	</ul>
+<Page title="Wiener Diarium">
+	<div
+		class="relative w-full bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
+	>
+		<div class="flex h-80 flex-col justify-center bg-gray-500/30">
+			<div class="mx-auto bg-gray-300/50 p-10">
+				<h1 class="text-4xl font-medium text-cyan-950">
+					<div>Das Wiener Diarium:</div>
+					<div>Digitaler Datensatz für</div>
+					<span id="intro-typed"></span>
+				</h1>
+			</div>
+		</div>
+	</div>
+	<div class="flex flex-col">
+		<div class="container self-center py-4">
+			<div class="my-28 grid grid-cols-3 gap-8">
+				<a href="/search">
+					<div
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 shadow-md hover:bg-cyan-100"
+					>
+						<div class="flex flex-col items-center self-center p-4">
+							<h2 class="py-4 text-center text-3xl">Volltextsuche</h2>
+							<div class="w-40">
+								<FontAwesomeIcon icon={faMagnifyingGlass} />
+							</div>
+						</div>
+						<div
+							class="rounded bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
+						>
+							<div class="h-14 bg-gray-500/20"></div>
+						</div>
+					</div>
+				</a>
+				<a href="/toc">
+					<div
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 shadow-md hover:bg-cyan-100"
+					>
+						<div class="flex flex-col items-center self-center p-4">
+							<h2 class="py-4 text-center text-3xl">Inhaltsverzeichnis</h2>
+							<div class="w-40">
+								<FontAwesomeIcon icon={faTable} />
+							</div>
+						</div>
+						<div
+							class="rounded bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
+						>
+							<div class="h-14 bg-gray-500/20"></div>
+						</div>
+					</div>
+				</a>
+				<a href="/model">
+					<div
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 shadow-md hover:bg-cyan-100"
+					>
+						<div class="flex flex-col items-center self-center p-4">
+							<h2 class="py-4 text-center text-3xl">Fraktur Model</h2>
+							<div class="w-44">
+								<FontAwesomeIcon icon={faFolderOpen} />
+							</div>
+						</div>
+						<div
+							class="rounded bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
+						>
+							<div class="h-14 bg-gray-500/20"></div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="container self-center py-10">
+				<h1 class="mt-6 border-b-2 text-2xl font-bold">
+					<a href="/post-overview">Aktuelles</a>
+				</h1>
+				<div class="grid grid-cols-3 gap-4 py-4">
+					{
+						allPosts.map((post, index) => {
+							if (index < 3) {
+								return (
+									<div class="rounded-lg border border-cyan-500 bg-white p-4 shadow-md hover:bg-cyan-100">
+										<h2 class="text-xl font-bold">{post.data.title}</h2>
+										<p class="text-gray-500">Erstellt am: {post.data.pubDate}</p>
+										<p class="text-gray-500">Autor: {post.data.author}</p>
+										<p class="py-4">{post.data.description}</p>
+										<a href={`/posts/${post.slug}`} class="text-cyan-500">
+											Weiterlesen
+										</a>
+									</div>
+								);
+							}
+						})
+					}
+				</div>
+			</div>
+		</div>
+	</div>
 </Page>
+<script>
+	import Typed from "typed.js";
+
+	const options = {
+		strings: [
+			"Schüler*innen",
+			"Musikwissenschafter*innen",
+			"Journalist*innen",
+			"Genealog*innen",
+			"Numismatiker*innen",
+			"Zeitreisende",
+			"Medienhistoriker*innen",
+			"Medizinhistoriker*innen",
+			"Wissbegierige",
+			"Namensforscher*innen",
+		],
+		typeSpeed: 80,
+		backSpeed: 60,
+		loop: true,
+	};
+
+	const typed = new Typed("#intro-typed", options);
+</script>

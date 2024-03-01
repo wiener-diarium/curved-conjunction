@@ -1,0 +1,477 @@
+---
+import Page from "../layouts/Page.astro";
+---
+
+<Page title="Volltextsuche">
+	<div class="my-8">
+		<div class="mx-auto w-6/12 px-5 py-4 align-middle">
+			<div class="px-4 text-center">
+				<h4 class="pt-2">Volltextsuche</h4>
+				<div id="searchbox" class="w-full" style="margin: 0 auto;"></div>
+				<div class="flex flex-col items-center p-4" id="current-refinements"></div>
+			</div>
+			<div class="px-4">
+				<h5 class="py-2">Jahrgänge</h5>
+				<div id="refinement-range-year"></div>
+			</div>
+		</div>
+		<div class="mt-12 flex flex-row p-4">
+			<div class="w-3/12 basis-1/6 rounded border border-cyan-500 px-4">
+				<div class="py-2 text-center" id="clear-refinements"></div>
+				<h5 class="pt-2">Edition wählen</h5>
+				<div class="p-2" id="menu-edition"></div>
+				<h5 class="pt-2">Korrekturstatus</h5>
+				<div id="corrections"></div>
+				<h5 class="hidemobile pt-2">Orte</h5>
+				<div id="refinement-list-places" class="hidemobile"></div>
+				<h5 class="hidemobile pt-2">Schlagworte</h5>
+				<div id="refinement-list-keywords" class="hidemobile pb-4"></div>
+			</div>
+			<div class="basis-5/6 px-4">
+				<div class="grid grid-cols-3">
+					<div>
+						<h5 class="pt-2">Sortierung</h5>
+						<div id="sort-by"></div>
+					</div>
+					<div>
+						<div id="pagination0"></div>
+					</div>
+				</div>
+				<div class="mb-4 text-center" id="stats-container"></div>
+				<div id="hits"></div>
+				<div class="mt-8" id="pagination"></div>
+			</div>
+		</div>
+	</div>
+</Page>
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+/>
+<script>
+	import instantsearch from "instantsearch.js";
+	import {
+		searchBox,
+		hits,
+		pagination,
+		refinementList,
+		menu,
+		stats,
+		sortBy,
+		configure,
+		rangeInput,
+		clearRefinements,
+		currentRefinements,
+	} from "instantsearch.js/es/widgets";
+	import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
+
+	var project_collection_name = "gestrich_index";
+	const annoUrl = "https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=";
+	const annoImgUrl = "https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|";
+
+	function makeAnnoLink(hit) {
+		let hitDate = hit.day;
+		let hitPage = hit.page;
+		let hitDigit = hit.digitarium_issue;
+		let hidId = hit.id;
+		let hitGestrich = hit.gestrich;
+		if (hitDigit) {
+			let wr_app_id = hidId.split("__")[0].replace("wr_", "");
+			return `/edition/${wr_app_id}#wr_page_${hitPage}`;
+		} else if (hitGestrich) {
+			let wr_app_id = hidId.split("__")[0];
+			return `/edition/${wr_app_id}#wr_page_${hitPage}`;
+		} else {
+			return `${annoUrl}${hitDate}&seite=${hitPage}`;
+		}
+	}
+	function makeAnnoImgUrl(hit) {
+		let hitDate = hit.day;
+		let hitPage = hit.page;
+		return `${annoImgUrl}${hitDate}|${hitPage}|10.0|0`;
+	}
+	function makeTitle(hit) {
+		let hitDigit = hit.digitarium_issue;
+		let hitGestrich = hit.gestrich;
+		if (hitDigit) {
+			var title = hit.title.split(", ")[0];
+		} else if (hitGestrich) {
+			var title = hit.title.split(", ")[2];
+		}
+		return title;
+	}
+	function makeCorrections(hit, label = false) {
+		if (label) {
+			var hitCorrections = hit.label;
+		} else {
+			var hitCorrections = hit.corrections;
+		}
+		if (hitCorrections == "0") {
+			return "unkorrigiert";
+		} else if (hitCorrections == "1") {
+			return "einmal korrigiert";
+		} else if (hitCorrections == "2") {
+			return "zweimal korrigiert";
+		} else if (hitCorrections == "3") {
+			return "mehrfach korrigiert";
+		} else {
+			return hitCorrections;
+		}
+	}
+	const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
+		server: {
+			apiKey: "jgQAkG16CRrqpASNqV0Zn8xUNtZ5nq96",
+			nodes: [
+				{
+					host: "typesense.acdh-dev.oeaw.ac.at",
+					port: 443,
+					protocol: "https",
+				},
+			],
+		},
+		additionalSearchParameters: {
+			query_by: "full_text,extra_full_text",
+		},
+	});
+
+	const searchClient = typesenseInstantsearchAdapter.searchClient;
+	const search = instantsearch({
+		searchClient,
+		indexName: project_collection_name,
+		routing: true,
+	});
+
+	search.addWidgets([
+		searchBox({
+			container: "#searchbox",
+			autofocus: true,
+			cssClasses: {
+				form: "form-inline",
+				input: "form-control",
+				submit: "btn",
+				reset: "btn",
+			},
+		}),
+
+		hits({
+			container: "#hits",
+			cssClasses: {
+				item: "border-light rounded hover-shadow w-full hover:bg-cyan-50",
+			},
+			templates: {
+				empty: "Keine Resultate für <q>{{ query }}</q>",
+				item(hit, { html, components }) {
+					return html`
+						<a
+							class="text-decoration-none text-dark"
+							href="${makeAnnoLink(hit)}"
+							aria-label="Link zu Dokument: ${hit.title}"
+						>
+							<div>
+								<h5 class=${hit._snippetResult.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
+									${hit._snippetResult.full_text.matchedWords.length > 0
+										? "Schlagworte im Kontext:"
+										: ""}
+								</h5>
+								<p class=${hit._snippetResult.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
+									${hit._snippetResult.full_text.matchedWords.length > 0
+										? "Schlagworte im Kontext:"
+										: ""}
+									${hit._snippetResult.full_text.matchedWords.length > 0
+										? components.Snippet({ hit, attribute: "full_text" })
+										: ""}
+								</p>
+							</div>
+							<div class="flex flex-row">
+								<div class="basis-1/4 self-center mx-2 p-1 border-2 rounded border-cyan-100">
+									<img src="${makeAnnoImgUrl(hit)}" class="img-thumbnail" alt="Bild" />
+								</div>
+								<div class="basis-3/4">
+									<table>
+										<tr>
+											<td><em>Ausgabe:</em></td>
+											<td class="px-2">${makeTitle(hit)}</td>
+										</tr>
+										<tr>
+											<td><em>Seite:</em></td>
+											<td class="px-2">${hit.page}</td>
+										</tr>
+										<tr>
+											<td><em>Jahr:</em></td>
+											<td class="px-2">${hit.year}</td>
+										</tr>
+										<tr>
+											<td><em>Edition:</em></td>
+											<td class="px-2">${hit.edition[0]}</td>
+										</tr>
+										<tr>
+											<td><em>Korrekturstatus:</em></td>
+											<td class="px-2">${makeCorrections(hit)}</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</a>
+					`;
+				},
+			},
+		}),
+
+		pagination({
+			container: "#pagination",
+		}),
+
+		menu({
+			container: "#menu-edition",
+			attribute: "edition",
+		}),
+
+		stats({
+			container: "#stats-container",
+			templates: {
+				text: `
+            {{#areHitsSorted}}
+              {{#hasNoSortedResults}}keine Treffer{{/hasNoSortedResults}}
+              {{#hasOneSortedResults}}1 Treffer{{/hasOneSortedResults}}
+              {{#hasManySortedResults}}{{#helpers.formatNumber}}{{nbSortedHits}}{{/helpers.formatNumber}} Treffer {{/hasManySortedResults}}
+              aus {{#helpers.formatNumber}}{{nbHits}}{{/helpers.formatNumber}}
+            {{/areHitsSorted}}
+            {{^areHitsSorted}}
+              {{#hasNoResults}}keine Treffer{{/hasNoResults}}
+              {{#hasOneResult}}1 Treffer{{/hasOneResult}}
+              {{#hasManyResults}}{{#helpers.formatNumber}}{{nbHits}}{{/helpers.formatNumber}} Treffer{{/hasManyResults}}
+            {{/areHitsSorted}}
+            gefunden in {{processingTimeMS}}ms
+          `,
+			},
+		}),
+
+		refinementList({
+			container: "#corrections",
+			attribute: "corrections",
+			searchable: false,
+			transformItems(items) {
+				return items.map((item) => ({
+					...item,
+					highlighted: (item.highlighted = makeCorrections(item, true)),
+				}));
+			},
+			cssClasses: {
+				searchableInput: "form-control form-control-sm m-2 border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+		// refinementList({
+		// 	container: "#has-fulltext",
+		// 	attribute: "has_fulltext",
+		// 	searchable: false,
+		// 	transformItems(items) {
+		// 		return items.map((item) => ({
+		// 			...item,
+		// 			highlighted: (item.highlighted =
+		// 				item.label === "true" ? "mit Volltext" : "ohne Volltext"),
+		// 		}));
+		// 	},
+		// 	cssClasses: {
+		// 		searchableInput: "form-control form-control-sm m-2 border-light-2",
+		// 		searchableSubmit: "d-none",
+		// 		searchableReset: "d-none",
+		// 		showMore: "btn btn-secondary btn-sm align-content-center",
+		// 		list: "list-unstyled",
+		// 		count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+		// 		label: "d-flex align-items-start text-left",
+		// 		checkbox: "m-2",
+		// 	},
+		// }),
+		// instantsearch.widgets.refinementList({
+		//     container: "#digitarium-issue",
+		//     attribute: "digitarium_issue",
+		//     searchable: false,
+		//     cssClasses: {
+		//         searchableInput: "form-control form-control-sm m-2 border-light-2",
+		//         searchableSubmit: "d-none",
+		//         searchableReset: "d-none",
+		//         showMore: "btn btn-secondary btn-sm align-content-center",
+		//         list: "list-unstyled",
+		//         count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+		//         label: "d-flex align-items-start text-left text-capitalize",
+		//         checkbox: "m-2",
+		//     },
+		// }),
+		// instantsearch.widgets.refinementList({
+		//     container: "#gestrich",
+		//     attribute: "gestrich",
+		//     searchable: false,
+		//     cssClasses: {
+		//         searchableInput: "form-control form-control-sm m-2 border-light-2",
+		//         searchableSubmit: "d-none",
+		//         searchableReset: "d-none",
+		//         showMore: "btn btn-secondary btn-sm align-content-center",
+		//         list: "list-unstyled",
+		//         count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+		//         label: "d-flex align-items-start text-left text-capitalize",
+		//         checkbox: "m-2",
+		//     },
+		// }),
+
+		refinementList({
+			container: "#refinement-list-keywords",
+			attribute: "keywords",
+			searchable: true,
+			searchablePlaceholder: "Suchen",
+			cssClasses: {
+				searchableInput: "form-control form-control-sm border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+
+		// instantsearch.widgets.refinementList({
+		//     container: "#refinement-list-persons",
+		//     attribute: "persons.title",
+		//     searchable: true,
+		//     cssClasses: {
+		//         showMore: "btn btn-secondary btn-sm align-content-center",
+		//         list: "list-unstyled",
+		//         count: "badge m-2 badge-secondary hideme",
+		//         label: "d-flex align-items-center",
+		//         checkbox: "m-2",
+		//     },
+		// }),
+
+		refinementList({
+			container: "#refinement-list-places",
+			attribute: "places",
+			searchable: true,
+			cssClasses: {
+				searchableInput: "form-control form-control-sm border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+
+		// instantsearch.widgets.refinementList({
+		//     container: "#refinement-list-case",
+		//     attribute: "case.title",
+		//     searchable: true,
+		//     searchablePlaceholder: "Suchen",
+		//     cssClasses: {
+		//         showMore: "btn btn-secondary btn-sm align-content-center",
+		//         list: "list-unstyled",
+		//         count: "badge m-2 badge-secondary hideme",
+		//         label: "d-flex align-items-center text-capitalize",
+		//         checkbox: "m-2",
+		//     },
+		// }),
+
+		// instantsearch.widgets.refinementList({
+		//     container: "#refinement-list-materials",
+		//     attribute: "materials",
+		//     searchable: true,
+		//     cssClasses: {
+		//         showMore: "btn btn-secondary btn-sm align-content-center",
+		//         list: "list-unstyled",
+		//         count: "badge m-2 badge-secondary hideme",
+		//         label: "d-flex align-items-center text-capitalize",
+		//         checkbox: "m-2",
+		//     },
+		// }),
+
+		rangeInput({
+			container: "#refinement-range-year",
+			attribute: "year",
+			templates: {
+				separatorText: "bis",
+				submitText: "Suchen",
+			},
+			cssClasses: {
+				form: "form-inline",
+				input: "form-control",
+				submit: "btn",
+			},
+		}),
+
+		// rangeInput({
+		// 	container: "#refinement-article_count",
+		// 	attribute: "article_count",
+		// 	templates: {
+		// 		separatorText: "bis",
+		// 		submitText: "Suchen",
+		// 	},
+		// 	cssClasses: {
+		// 		form: "form-inline",
+		// 		input: "form-control",
+		// 		submit: "btn",
+		// 	},
+		// }),
+
+		pagination({
+			container: "#pagination",
+			padding: 2,
+			cssClasses: {
+				list: "pagination my-4",
+				item: "page-item",
+				link: "page-link",
+			},
+		}),
+
+		pagination({
+			container: "#pagination0",
+			padding: 2,
+			cssClasses: {
+				list: "pagination my-4",
+				item: "page-item",
+				link: "page-link",
+			},
+		}),
+
+		clearRefinements({
+			container: "#clear-refinements",
+			templates: {
+				resetLabel: "Filter zurücksetzen",
+			},
+			cssClasses: {
+				button: "btn",
+			},
+		}),
+
+		currentRefinements({
+			container: "#current-refinements",
+			cssClasses: {
+				delete: "btn",
+				label: "badge",
+			},
+		}),
+
+		sortBy({
+			container: "#sort-by",
+			items: [
+				{ label: "Jahr (aufsteigend)", value: "gestrich_index/sort/year:asc" },
+				{ label: "Jahr (absteigend)", value: "gestrich_index/sort/year:desc" },
+			],
+		}),
+
+		configure({
+			hitsPerPage: 20,
+			attributesToSnippet: ["full_text"],
+		}),
+	]);
+
+	search.start();
+</script>

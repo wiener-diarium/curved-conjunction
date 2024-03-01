@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+
+import Page from "../layouts/Page.astro";
+
+const allPosts = await getCollection("posts");
+---
+
+<Page title="Neuigkeiten Überblick">
+	<div class="flex flex-col">
+		<div class="container self-center py-4">
+			<h1 class="mt-6 border-b-2 text-2xl font-bold">
+				<a href="/post-overview">News</a>
+			</h1>
+			<div class="grid grid-cols-1 gap-4 py-4">
+				{
+					allPosts.map((post) => {
+						return (
+							<div class="rounded-lg bg-white p-4 shadow-md">
+								<h2 class="text-xl font-bold">{post.data.title}</h2>
+								<p class="text-gray-500">{post.data.pubDate}</p>
+								<p>{post.data.description}</p>
+								<a href={`/posts/${post.slug}/`} class="text-blue-500">
+									Weiterlesen
+								</a>
+							</div>
+						);
+					})
+				}
+			</div>
+		</div>
+	</div>
+</Page>
