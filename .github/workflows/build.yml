@@ -37,9 +37,9 @@ jobs:
       - name: Add attributes
         run: |
           ./scripts/shellscripts/attributes.sh
-      - name: Make ts index
-        run: |
-          python ./scripts/python/make_ts_index.py
+      # - name: Make ts index
+      #   run: |
+      #     python ./scripts/python/make_ts_index.py
       - name: Install Saxon
         run: |
           ./scripts/shellscripts/script.sh
