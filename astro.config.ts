@@ -1,15 +1,13 @@
 import markdoc from "@astrojs/markdoc";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
-import vercel from "@astrojs/vercel/serverless";
-import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
 const prodUrl = "https://wiener-diarium.github.io";
-const devUrl = "https://curved-conjunction.vercel.app";
+// const devUrl = "https://curved-conjunction.vercel.app";
 const prodBase = "/curved-conjunction";
-const devBase = "/";
+// const devBase = "/";
 
 // https://astro.build/config
 export default defineConfig({
@@ -34,15 +32,12 @@ export default defineConfig({
 		}),
 		markdoc(),
 		react(),
-		...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
 		tailwind(),
 	],
-	output: process.env.SKIP_KEYSTATIC ? "static" : "hybrid",
+	output: "static",
 	server: {
 		port: 3000,
 	},
-	site: process.env.SKIP_KEYSTATIC ? prodUrl : devUrl,
-	base: process.env.SKIP_KEYSTATIC ? prodBase : devBase,
-	trailingSlash: always,
-	adapter: process.env.SKIP_KEYSTATIC ? undefined : vercel(),
+	site: prodUrl,
+	base: prodBase,
 });
