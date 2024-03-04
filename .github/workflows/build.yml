@@ -19,7 +19,7 @@ jobs:
       KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
       KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
       PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: "wiener-diarium-keystatic"
-      SKIP_KEYSTATIC: true
+      SKIP_KEYSTATIC: "true"
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
