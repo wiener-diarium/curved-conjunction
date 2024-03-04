@@ -4,11 +4,6 @@ import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
-const prodUrl = "https://wiener-diarium.github.io";
-// const devUrl = "https://curved-conjunction.vercel.app";
-const prodBase = "/curved-conjunction";
-// const devBase = "/";
-
 // https://astro.build/config
 export default defineConfig({
 	integrations: [
@@ -38,6 +33,6 @@ export default defineConfig({
 	server: {
 		port: 3000,
 	},
-	site: prodUrl,
-	base: prodBase,
+	site: "https://wiener-diarium.github.io",
+	base: "/curved-conjunction",
 });
