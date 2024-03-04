@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project basedir="../.." name="tei2html">
-	<property name="target" value="${basedir}/src/pages/edition"/>
+	<property name="target" value="${basedir}/edition"/>
 	<mkdir dir="${target}"/>
 	<delete>
-			<fileset dir="${target}" includes="*.astro"/>
+			<fileset dir="${target}" includes="*.html"/>
 	</delete>
 	<delete>
 			<fileset dir="${target}" includes="*.xml"/>
 	</delete>
-	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/present" destdir="${target}" includes="*.xml" extension=".astro">
+	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/present" destdir="${target}" includes="*.xml">
 			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
 			<classpath location="${basedir}/saxon/saxon9he.jar"/>
 	</xslt>
-	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/legacy" destdir="${target}" includes="*.xml" extension=".astro">
+	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/legacy" destdir="${target}" includes="*.xml">
 			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
 			<classpath location="${basedir}/saxon/saxon9he.jar"/>
 	</xslt>

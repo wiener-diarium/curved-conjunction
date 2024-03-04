@@ -1,12 +1,9 @@
 ---
-import "@fontsource-variable/inter/standard.css";
-import "tailwindcss/tailwind.css";
-
-import Navigation from "@/components/Navigation.astro";
+import Navigation from "./Navigation.astro";
 
 const { backgroundcolor } = Astro.props;
 ---
 
 <nav class={backgroundcolor}>
-	<Navigation textcolor="text-white" client:load />
+	<Navigation textcolor="text-white" />
 </nav>

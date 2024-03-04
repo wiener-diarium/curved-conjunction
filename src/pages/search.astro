@@ -69,7 +69,7 @@ import Page from "../layouts/Page.astro";
 	const annoUrl = "https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=";
 	const annoImgUrl = "https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|";
 
-	function makeAnnoLink(hit) {
+	function makeAnnoLink(hit: any) {
 		let hitDate = hit.day;
 		let hitPage = hit.page;
 		let hitDigit = hit.digitarium_issue;
@@ -85,14 +85,15 @@ import Page from "../layouts/Page.astro";
 			return `${annoUrl}${hitDate}&seite=${hitPage}`;
 		}
 	}
-	function makeAnnoImgUrl(hit) {
+	function makeAnnoImgUrl(hit: any) {
 		let hitDate = hit.day;
 		let hitPage = hit.page;
 		return `${annoImgUrl}${hitDate}|${hitPage}|10.0|0`;
 	}
-	function makeTitle(hit) {
+	function makeTitle(hit: any) {
 		let hitDigit = hit.digitarium_issue;
 		let hitGestrich = hit.gestrich;
+		var title = hit.title;
 		if (hitDigit) {
 			var title = hit.title.split(", ")[0];
 		} else if (hitGestrich) {
@@ -100,11 +101,11 @@ import Page from "../layouts/Page.astro";
 		}
 		return title;
 	}
-	function makeCorrections(hit, label = false) {
+	function makeCorrections(items: any, label = false) {
 		if (label) {
-			var hitCorrections = hit.label;
+			var hitCorrections = items.label;
 		} else {
-			var hitCorrections = hit.corrections;
+			var hitCorrections = items.corrections;
 		}
 		if (hitCorrections == "0") {
 			return "unkorrigiert";
@@ -167,20 +168,8 @@ import Page from "../layouts/Page.astro";
 							href="${makeAnnoLink(hit)}"
 							aria-label="Link zu Dokument: ${hit.title}"
 						>
-							<div>
-								<h5 class=${hit._snippetResult.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
-									${hit._snippetResult.full_text.matchedWords.length > 0
-										? "Schlagworte im Kontext:"
-										: ""}
-								</h5>
-								<p class=${hit._snippetResult.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
-									${hit._snippetResult.full_text.matchedWords.length > 0
-										? "Schlagworte im Kontext:"
-										: ""}
-									${hit._snippetResult.full_text.matchedWords.length > 0
-										? components.Snippet({ hit, attribute: "full_text" })
-										: ""}
-								</p>
+							<div class="flex flex-row">
+								${components.Snippet({ hit, attribute: "full_text" })}
 							</div>
 							<div class="flex flex-row">
 								<div class="basis-1/4 self-center mx-2 p-1 border-2 rounded border-cyan-100">
@@ -216,6 +205,22 @@ import Page from "../layouts/Page.astro";
 				},
 			},
 		}),
+
+		// <div>
+		// 	<h5 class=${hit._snippetResult?.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
+		// 		${hit._snippetResult?.full_text.matchedWords.length > 0
+		// 			? "Schlagworte im Kontext:"
+		// 			: ""}
+		// 	</h5>
+		// 	<p class=${hit._snippetResult?.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
+		// 		${hit._snippetResult?.full_text.matchedWords.length > 0
+		// 			? "Schlagworte im Kontext:"
+		// 			: ""}
+		// 		${hit._snippetResult?.full_text.matchedWords.length > 0
+		// 			? components.Snippet({ hit, attribute: "full_text" })
+		// 			: ""}
+		// 	</p>
+		// </div>
 
 		pagination({
 			container: "#pagination",

@@ -1,4 +1,4 @@
-src/pages/edition/*.astro
+/edition/*.astro
 node_modules/*
 public/*
 /tailwind.config.ts

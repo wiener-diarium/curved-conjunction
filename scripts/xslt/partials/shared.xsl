@@ -13,13 +13,13 @@
         </xsl:variable>
         <xsl:value-of select="concat(name($currentNode), '__', $nodeCurrNr)"/>
     </xsl:function>
-    
+
     <xsl:template match="tei:pb">
         <xsl:variable name="graphic-id" select="data(substring-after(@facs, '#'))"/>
         <xsl:choose>
             <xsl:when test="starts-with(ancestor::tei:TEI/@xml:id, 'edoc_wd_')">
                 <xsl:variable name="date" select="substring-after(ancestor::tei:TEI/@xml:id, 'edoc_wd_')"/>
-                <xsl:variable name="img-url" select="'https://diarium-images.acdh-dev.oeaw.ac.at/'"/>
+                <xsl:variable name="img-url" select="'digit__'"/>
                 <xsl:variable name="img-fn" select="substring-after(ancestor::tei:TEI//tei:surface[@xml:id=$graphic-id]/tei:graphic[1]/@url, 'anno:')"/>
                 <xsl:variable name="img-1" select="replace(replace(tokenize($img-fn, '_')[last()], '.jpg', ''), '.png', '')"/>
                 <xsl:variable name="img-dir1" select="tokenize($img-1, '-')[1]"/>
@@ -30,17 +30,17 @@
                 <xsl:variable name="graphic-url" select="concat($img-url, $img-dir-yearx, '/', $img-dir-year, '/', $img-dir-month, '/', $img-dir1, '/', $img-1, '/full/full/0/default.jpg')"/>
                 <div class="grid-item grid-item--width2 my-5" id="wr_page_{@n}">
                     <span class="anchor-pb"></span>
-                    <span class="pb lightgrey" source="{$graphic-url}">-----[<xsl:value-of select="./@n"/>]-----</span>
+                    <span class="pb lightgrey" id="{$graphic-url}">-----[<xsl:value-of select="./@n"/>]-----</span>
                 </div>
             </xsl:when>
             <xsl:otherwise>
                 <!--<xsl:variable name="graphic-url" select="ancestor::tei:TEI//tei:surface[@xml:id=$graphic-id]/tei:graphic[starts-with(@url, 'http')]/@url"/>-->
-                <xsl:variable name="anno-url" select="'https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|'"/>
+                <xsl:variable name="anno-url" select="'wrz|'"/>
                 <xsl:variable name="date" select="replace(substring-after(ancestor::tei:TEI/@xml:id, 'wr_'), '.xml', '')"/>
                 <xsl:variable name="graphic-url" select="concat($anno-url, replace($date, '-', ''), '|', @n, '|99.9|0')"/>
                 <div class="grid-item grid-item--width2 my-5" id="wr_page_{@n}">
                     <span class="anchor-pb"></span>
-                    <span class="pb lightgrey" source="{$graphic-url}">-----[<xsl:value-of select="./@n"/>]-----</span>
+                    <span class="pb lightgrey" id="{$graphic-url}">-----[<xsl:value-of select="./@n"/>]-----</span>
                 </div>
             </xsl:otherwise>
         </xsl:choose>
@@ -66,7 +66,7 @@
 
     <xsl:template match="tei:note">
         <xsl:element name="a">
-            <xsl:attribute name="name">
+            <xsl:attribute name="id">
                 <xsl:text>fna_</xsl:text>
                 <xsl:number level="any" format="1" count="tei:note"/>
             </xsl:attribute>
@@ -74,7 +74,7 @@
                 <xsl:text>#fn</xsl:text>
                 <xsl:number level="any" format="1" count="tei:note"/>
             </xsl:attribute>
-            <xsl:attribute name="title">
+            <xsl:attribute name="aria-label">
                 <xsl:value-of select="normalize-space(.)"/>
             </xsl:attribute>
             <sup>
@@ -149,7 +149,7 @@
     <xsl:template match="tei:p">
        <p><xsl:apply-templates/></p>
     </xsl:template>
-    
+
     <xsl:template match="tei:table">
         <div class="grid-item">
             <xsl:element name="table">
@@ -430,7 +430,7 @@
             </div>
         </div>
     </xsl:template>
-    
+
     <xsl:template match="tei:listOrg">
         <xsl:apply-templates/>
     </xsl:template>
@@ -548,7 +548,7 @@
                     <div class="modal-body">
                         <table class="table">
                             <tbody>
-                                
+
                                 <tr>
                                     <th>
                                         Autor(en)
@@ -641,7 +641,7 @@
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </xsl:template>
 
     <!-- <xsl:template match="tei:rs[@ref or @key]">
@@ -655,5 +655,5 @@
             </xsl:element>
         </strong>
     </xsl:template> -->
-    
+
 </xsl:stylesheet>
