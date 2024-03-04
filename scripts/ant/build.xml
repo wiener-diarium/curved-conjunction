@@ -10,11 +10,11 @@
 	</delete>
 	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/present" destdir="${target}" includes="*.xml" extension=".astro">
 			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
-			<classpath location="$${basedir}/saxon/saxon9he.jar"/>
+			<classpath location="${basedir}/saxon/saxon9he.jar"/>
 	</xslt>
 	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/legacy" destdir="${target}" includes="*.xml" extension=".astro">
 			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
-			<classpath location="$${basedir}/saxon/saxon9he.jar"/>
+			<classpath location="${basedir}/saxon/saxon9he.jar"/>
 	</xslt>
 	<replace dir="${target}" value="">
 			<include name="*.astro"/>
