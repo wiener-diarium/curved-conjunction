@@ -11,15 +11,10 @@ concurrency:
 
 jobs:
   build:
-    name: Publish Edition as GitHub Pages Website
+    name: Get data and build edition templates
     runs-on: ubuntu-latest
     env:
       ANT_OPTS: -Xmx5g
-      KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
-      KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
-      KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
-      PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: "wiener-diarium-keystatic"
-      SKIP_KEYSTATIC: "true"
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
@@ -43,13 +38,44 @@ jobs:
       - name: Build the site
         run: |
           ant -f ./scripts/ant/build.xml
+      - name: Cache the site
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-site-build
+        with:
+          path: ./edition
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+  astro:
+    needs: [build]
+    runs-on: ubuntu-latest
+    env:
+      KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
+      KEYSTATIC_GITHUB_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
+      KEYSTATIC_SECRET: ${{ secrets.KEYSTATIC_SECRET }}
+      PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: "wiener-diarium-keystatic"
+      SKIP_KEYSTATIC: true
+    steps:
+      - name: Checkout your repository using git
+        uses: actions/checkout@v4
+      - name: Use chache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-site-build
+        with:
+          path: ./edition
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
           node-version: 20
 
   deploy:
-    needs: [build]
+    needs: [astro]
     runs-on: ubuntu-latest
     permissions:
       contents: read
