@@ -43,5 +43,6 @@ export default defineConfig({
 	},
 	site: process.env.SKIP_KEYSTATIC ? prodUrl : devUrl,
 	base: process.env.SKIP_KEYSTATIC ? prodBase : devBase,
+	trailingSlash: always,
 	adapter: process.env.SKIP_KEYSTATIC ? undefined : vercel(),
 });
