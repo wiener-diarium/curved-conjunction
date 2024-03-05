@@ -25,12 +25,11 @@ jobs:
         with:
           path: ./edition
           key:
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
+            build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
             hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            build-${{ env.cache-name }}-
+            build-
       - name: Install Saxon, ant
         run: |
           apt-get update && apt-get install openjdk-11-jre-headless ant -y --no-install-recommend
@@ -71,8 +70,11 @@ jobs:
         with:
           path: ./edition
           key:
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
+            build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
             hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            build-${{ env.cache-name }}-
+            build-
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:
