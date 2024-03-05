@@ -38,13 +38,13 @@ jobs:
       - name: Fetch Edition Data
         run: |
           ./scripts/shellscripts/fetch_data.sh
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Add attributes
-        run: |
-          ./scripts/shellscripts/attributes.sh
+      # - name: Install dependencies
+      #   run: |
+      #     python -m pip install --upgrade pip
+      #     pip install -r requirements.txt
+      # - name: Add attributes
+      #   run: |
+      #     ./scripts/shellscripts/attributes.sh
       # - name: Make ts index
       #   run: |
       #     python ./scripts/python/make_ts_index.py
