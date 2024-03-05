@@ -18,6 +18,19 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
+      - name: Cache the site
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-site-build
+        with:
+          path: ./edition
+          key:
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
+            hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Install Saxon, ant
         run: |
           apt-get update && apt-get install openjdk-11-jre-headless ant -y --no-install-recommend
@@ -38,17 +51,6 @@ jobs:
       - name: Build the site
         run: |
           ant -f ./scripts/ant/build.xml
-      - name: Cache the site
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-site-build
-        with:
-          path: ./edition
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
 
   astro:
     needs: [build]
@@ -68,7 +70,9 @@ jobs:
           cache-name: cache-site-build
         with:
           path: ./edition
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}
+          key:
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
+            hashFiles('**/pnpm-lock.yaml') }}
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:

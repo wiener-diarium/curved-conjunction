@@ -7,9 +7,10 @@ async function impressum() {
 	return impressum;
 }
 const imprint = impressum();
+const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
-<Page title="Imprint">
+<Page title="Imprint" baseurl={baseurl}>
 	<div class="container mx-auto my-12">{imprint}</div>
 </Page>
 <style>

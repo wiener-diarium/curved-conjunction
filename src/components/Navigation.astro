@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 
 const allPosts = await getCollection("pages");
-const { textcolor } = Astro.props;
+const { textcolor, baseurl } = Astro.props;
 ---
 
 <div class="mx-auto h-16 max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -45,7 +45,7 @@ const { textcolor } = Astro.props;
 			class="flex flex-1 items-center justify-center align-middle sm:items-stretch sm:justify-start"
 		>
 			<div class="flex shrink-0 items-center">
-				<a href="/" aria-label="Index">
+				<a href=`${baseurl}` aria-label="Index">
 					<img
 						class="h-12 w-auto"
 						src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/08/Digitarium-Logo-Vector-final.png"
@@ -56,7 +56,7 @@ const { textcolor } = Astro.props;
 			<div class="hidden sm:ml-6 sm:block">
 				<div class="flex space-x-4">
 					<a
-						href="/toc"
+						href={`${baseurl}toc`}
 						class={`block px-4 py-2 text-lg ${textcolor}`}
 						role="menuitem"
 						tabindex="-1"
@@ -65,7 +65,7 @@ const { textcolor } = Astro.props;
 						Inhaltsverzeichnis
 					</a>
 					<a
-						href="/model"
+						href={`${baseurl}model`}
 						class={`block px-4 py-2 text-lg ${textcolor}`}
 						role="menuitem"
 						tabindex="-1"
@@ -76,7 +76,7 @@ const { textcolor } = Astro.props;
 					{
 						allPosts.map((post) => (
 							<a
-								href={`/static/${post.slug}`}
+								href={`${baseurl}static/${post.slug}`}
 								class={`block px-4 py-2 text-lg ${textcolor}`}
 								role="menuitem"
 								tabindex="-1"
@@ -93,7 +93,7 @@ const { textcolor } = Astro.props;
 			<form
 				class="my-3 hidden sm:ml-6 sm:block"
 				method="get"
-				action="/search?gestrich_index[query]"
+				action={`${baseurl}search?gestrich_index[query]`}
 				role="search"
 			>
 				<input
@@ -106,13 +106,7 @@ const { textcolor } = Astro.props;
 					autocomplete="off"
 				/>
 				<button type="submit" class="absolute right-2 top-6">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						width="16"
-						height="16"
-						fill="currentColor"
-						viewBox="0 0 16 16"
-					>
+					<svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
 						<path
 							d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
 						></path>
@@ -127,7 +121,7 @@ const { textcolor } = Astro.props;
 		{
 			allPosts.map((post) => (
 				<a
-					href={post.slug}
+					href={`${baseurl}${post.slug}`}
 					class="block rounded-md px-3 py-2 text-base font-light text-white hover:bg-gray-700"
 					aria-current="page"
 				>
@@ -135,7 +129,7 @@ const { textcolor } = Astro.props;
 				</a>
 			))
 		}
-		<form class="my-3" method="get" action="search.html?ltw[query]" role="search">
+		<form class="my-3" method="get" action={`${baseurl}search.html?ltw[query]`} role="search">
 			<input
 				class="w-full rounded-md border-0 p-2 focus:outline-none focus:ring-0"
 				id="s"
@@ -146,13 +140,7 @@ const { textcolor } = Astro.props;
 				autocomplete="off"
 			/>
 			<button type="submit" class="absolute right-5 mt-2">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					width="16"
-					height="16"
-					fill="currentColor"
-					viewBox="0 0 16 16"
-				>
+				<svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
 					<path
 						d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
 					></path>

@@ -8,7 +8,7 @@ import icon from "astro-icon";
 
 const prodUrl = "https://wiener-diarium.github.io";
 const devUrl = "https://curved-conjunction.vercel.app";
-const prodBase = "/curved-conjunction";
+const prodBase = "/curved-conjunction/";
 const devBase = "/";
 
 // https://astro.build/config
@@ -37,7 +37,7 @@ export default defineConfig({
 		...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
 		tailwind(),
 	],
-	output: "hybrid",
+	output: process.env.SKIP_KEYSTATIC ? "static" : "hybrid",
 	server: {
 		port: 3000,
 	},
