@@ -13,18 +13,39 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+const content_text = entry.body.replace(/!\[.+\]?\((.+)\)/g, "");
+const content_imgs = entry.body.match(/!\[.+\]?\((.+)\)/g);
+const images: Array<string> = [];
+content_imgs?.map((img) => {
+	const img_url = img.replace(/!\[.+\]?\((.+)\)/, "$1").replace("public", "");
+	images.push(img_url);
+});
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title={entry.data.title} baseurl={baseurl}>
-	<div class="flex flex-col items-center">
-		<div class="container self-center py-6">
-			<div class="border-b-2">
-				<h1>{entry.data.title}</h1>
+	<div class="flex flex-col">
+		<div class="container mx-auto py-6">
+			<div class="border-b-2 text-gray-400">
 				<p>{entry.data.pubDate}</p>
 				<p>{entry.data.author}</p>
 			</div>
 			<div class="py-6">
+				<h1 class="mb-8 text-center text-2xl">{entry.data.title}</h1>
+				{
+					images.map((_img) => {
+						return (
+							<article class="flex flex-row">
+								<div class="basis-2/12">
+									{images.map((img) => (
+										<img class="w-6/12" src={img} alt="Logo" />
+									))}
+								</div>
+								<p class="basis-10/12">{content_text}</p>
+							</article>
+						);
+					})
+				}
 				<Content />
 			</div>
 		</div>

@@ -160,7 +160,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		hits({
 			container: "#hits",
 			cssClasses: {
-				item: "border-light rounded hover-shadow w-full hover:bg-cyan-50",
+				item: "border-light rounded hover-shadow hover:bg-cyan-50",
 			},
 			templates: {
 				empty: "Keine Resultate für <q>{{ query }}</q>",
@@ -172,13 +172,59 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 							aria-label="Link zu Dokument: ${hit.title}"
 						>
 							<div class="flex flex-row">
-								${components.Snippet({ hit, attribute: "full_text" })}
+								<div>
+									<h5
+										class=${
+											// @ts-expect-error
+											hit._snippetResult?.full_text.matchedWords.length > 0
+												? "pb-4 font-semibold"
+												: ""
+										}
+									>
+										${
+											// @ts-expect-error
+											hit._snippetResult?.full_text.matchedWords.length > 0
+												? "Schlagworte im Kontext:"
+												: ""
+										}
+									</h5>
+									<p
+										class=${
+											// @ts-expect-error
+											hit._snippetResult?.full_text.matchedWords.length > 0 ? "pb-4" : ""
+										}
+									>
+										${
+											// @ts-expect-error
+											hit._snippetResult?.full_text.matchedWords.length > 0
+												? "Schlagworte im Kontext:"
+												: ""
+										}
+										${
+											// @ts-expect-error
+											hit._snippetResult?.full_text.matchedWords.length > 0
+												? components.Snippet({ hit, attribute: "full_text" })
+												: ""
+										}
+									</p>
+								</div>
 							</div>
 							<div class="flex flex-row">
-								<div class="basis-1/4 self-center mx-2 p-1 border-2 rounded border-cyan-100">
+								<div
+									class="basis-4/12 self-center mx-2 p-1 border-2 rounded ${makeCorrections(hit) ==
+									"unkorrigiert"
+										? "border-black-200"
+										: makeCorrections(hit) == "einmal korrigiert"
+											? "border-cyan-100"
+											: makeCorrections(hit) == "zweimal korrigiert"
+												? "border-cyan-500"
+												: makeCorrections(hit) == "mehrfach korrigiert"
+													? "border-cyan-700"
+													: ""}"
+								>
 									<img src="${makeAnnoImgUrl(hit)}" class="img-thumbnail" alt="Bild" />
 								</div>
-								<div class="basis-3/4">
+								<div class="basis-8/12">
 									<table>
 										<tr>
 											<td><em>Ausgabe:</em></td>
@@ -208,22 +254,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				},
 			},
 		}),
-
-		// <div>
-		// 	<h5 class=${hit._snippetResult?.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
-		// 		${hit._snippetResult?.full_text.matchedWords.length > 0
-		// 			? "Schlagworte im Kontext:"
-		// 			: ""}
-		// 	</h5>
-		// 	<p class=${hit._snippetResult?.full_text.matchedWords.length > 0 ? "pb-4" : ""}>
-		// 		${hit._snippetResult?.full_text.matchedWords.length > 0
-		// 			? "Schlagworte im Kontext:"
-		// 			: ""}
-		// 		${hit._snippetResult?.full_text.matchedWords.length > 0
-		// 			? components.Snippet({ hit, attribute: "full_text" })
-		// 			: ""}
-		// 	</p>
-		// </div>
 
 		pagination({
 			container: "#pagination",

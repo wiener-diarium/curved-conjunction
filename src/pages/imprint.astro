@@ -11,7 +11,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Imprint" baseurl={baseurl}>
-	<div class="container mx-auto my-12">{imprint}</div>
+	<div class="container mx-auto my-12" set:html={imprint} />
 </Page>
 <style>
 	h2 {

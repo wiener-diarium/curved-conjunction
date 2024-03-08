@@ -1,4 +1,11 @@
-import { collection, config, fields, type GitHubConfig, type LocalConfig } from "@keystatic/core";
+import {
+	collection,
+	component,
+	config,
+	fields,
+	type GitHubConfig,
+	type LocalConfig,
+} from "@keystatic/core";
 
 const isProd = process.env.NODE_ENV === "production";
 const localMode: LocalConfig["storage"] = {
@@ -32,8 +39,39 @@ export default config({
 					formatting: true,
 					dividers: true,
 					links: true,
-					images: true,
+					images: {
+						directory: "public/images",
+						publicPath: "public/images",
+						schema: {
+							title: fields.text({
+								label: "Title",
+								description: "The text to display under the image in a caption.",
+							}),
+						},
+					},
+					componentBlocks: {
+						"text-image": component({
+							label: "Container with text and image",
+							schema: {
+								textContainer: fields.text({
+									label: "Insert Text",
+									description: "Text to show nex to the image",
+									validation: {
+										length: {
+											min: 20,
+										},
+									},
+								}),
+								image: fields.image({
+									label: "Title Image",
+									directory: "public/images",
+								}),
+							},
+							preview: () => null,
+						}),
+					},
 				}),
+				image: fields.image({ label: "Image", directory: "public/images" }),
 			},
 		}),
 		pages: collection({
@@ -49,8 +87,18 @@ export default config({
 					formatting: true,
 					dividers: true,
 					links: true,
-					images: true,
+					images: {
+						directory: "public/images",
+						publicPath: "public/images",
+						schema: {
+							title: fields.text({
+								label: "Title",
+								description: "The text to display under the image in a caption.",
+							}),
+						},
+					},
 				}),
+				image: fields.image({ label: "Image", directory: "public/images" }),
 			},
 		}),
 	},
