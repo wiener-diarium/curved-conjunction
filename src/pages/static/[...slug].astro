@@ -1,32 +1,26 @@
 ---
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
+import PageContent from "../../components/PageContent.astro";
 import Page from "../../layouts/Page.astro";
 
 export async function getStaticPaths() {
-	const blogEntries = await getCollection("pages");
-	return blogEntries.map((entry) => ({
-		params: { slug: entry.slug },
-		props: { entry },
+	const posts = await getCollection("pages");
+	return posts.map((page) => ({
+		params: { slug: page.slug },
+		props: { page },
 	}));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
+type Props = CollectionEntry<"pages">;
+
+const { page } = Astro.props;
+const { Content } = await page.render();
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
-<Page title={entry.data.title} baseurl={baseurl}>
-	<div class="flex flex-col items-center">
-		<div class="container self-center py-6">
-			<div class="py-6 text-center">
-				<h1 class="text-3xl">{entry.data.title}</h1>
-			</div>
-			<div>
-				<div class="py-6">
-					<Content />
-				</div>
-			</div>
-		</div>
-	</div>
+<Page {...page.data} title={page.data.title} baseurl={baseurl}>
+	<PageContent {...page.data}>
+		<Content />
+	</PageContent>
 </Page>

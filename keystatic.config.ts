@@ -40,8 +40,8 @@ export default config({
 					dividers: true,
 					links: true,
 					images: {
-						directory: "public/images",
-						publicPath: "public/images",
+						directory: "/src/assets",
+						publicPath: "/src/assets",
 						schema: {
 							title: fields.text({
 								label: "Title",
@@ -64,14 +64,23 @@ export default config({
 								}),
 								image: fields.image({
 									label: "Title Image",
-									directory: "public/images",
+									directory: "/src/assets",
+									publicPath: "/src/assets",
+								}),
+								image_alt: fields.text({
+									label: "Image Alt",
+									description: "The alt text for the image",
 								}),
 							},
 							preview: () => null,
 						}),
 					},
 				}),
-				image: fields.image({ label: "Image", directory: "public/images" }),
+				image: fields.image({
+					label: "Image",
+					directory: "/src/assets",
+					publicPath: "/src/assets",
+				}),
 			},
 		}),
 		pages: collection({
@@ -88,8 +97,8 @@ export default config({
 					dividers: true,
 					links: true,
 					images: {
-						directory: "public/images",
-						publicPath: "public/images",
+						directory: "public",
+						publicPath: "public",
 						schema: {
 							title: fields.text({
 								label: "Title",
@@ -98,7 +107,11 @@ export default config({
 						},
 					},
 				}),
-				image: fields.image({ label: "Image", directory: "public/images" }),
+				image: fields.image({
+					label: "Image",
+					directory: "/src/assets",
+					publicPath: "/src/assets",
+				}),
 			},
 		}),
 	},

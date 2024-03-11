@@ -1,53 +1,26 @@
 ---
-import { getCollection } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
+import PostsContent from "../../components/PostsContent.astro";
 import Page from "../../layouts/Page.astro";
 
 export async function getStaticPaths() {
-	const blogEntries = await getCollection("posts");
-	return blogEntries.map((entry) => ({
-		params: { slug: entry.slug },
-		props: { entry },
+	const posts = await getCollection("posts");
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
 	}));
 }
 
-const { entry } = Astro.props;
-const { Content } = await entry.render();
-const content_text = entry.body.replace(/!\[.+\]?\((.+)\)/g, "");
-const content_imgs = entry.body.match(/!\[.+\]?\((.+)\)/g);
-const images: Array<string> = [];
-content_imgs?.map((img) => {
-	const img_url = img.replace(/!\[.+\]?\((.+)\)/, "$1").replace("public", "");
-	images.push(img_url);
-});
+type Props = CollectionEntry<"posts">;
+
+const { post } = Astro.props;
+const { Content } = await post.render();
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
-<Page title={entry.data.title} baseurl={baseurl}>
-	<div class="flex flex-col">
-		<div class="container mx-auto py-6">
-			<div class="border-b-2 text-gray-400">
-				<p>{entry.data.pubDate}</p>
-				<p>{entry.data.author}</p>
-			</div>
-			<div class="py-6">
-				<h1 class="mb-8 text-center text-2xl">{entry.data.title}</h1>
-				{
-					images.map((_img) => {
-						return (
-							<article class="flex flex-row">
-								<div class="basis-2/12">
-									{images.map((img) => (
-										<img class="w-6/12" src={img} alt="Logo" />
-									))}
-								</div>
-								<p class="basis-10/12">{content_text}</p>
-							</article>
-						);
-					})
-				}
-				<Content />
-			</div>
-		</div>
-	</div>
+<Page {...post.data} title={post.data.title} baseurl={baseurl}>
+	<PostsContent {...post.data}>
+		<Content />
+	</PostsContent>
 </Page>
