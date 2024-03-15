@@ -4,6 +4,10 @@ import Page from "../layouts/Page.astro";
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+/>
 <Page title="Volltextsuche" baseurl={baseurl}>
 	<div class="my-8">
 		<div class="mx-auto w-6/12 px-5 py-4 align-middle">
@@ -20,7 +24,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		<div class="mt-12 flex flex-row p-4">
 			<div class="w-3/12 basis-1/6 rounded border border-cyan-500 px-4">
 				<div class="py-2 text-center" id="clear-refinements"></div>
-				<h5 class="pt-2">Edition wählen</h5>
+				<h5 class="pt-2">Sammlung wählen</h5>
 				<div class="p-2" id="menu-edition"></div>
 				<h5 class="pt-2">Korrekturstatus</h5>
 				<div id="corrections"></div>
@@ -46,10 +50,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		</div>
 	</div>
 </Page>
-<link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
-/>
 <script>
 	import instantsearch from "instantsearch.js";
 	import {
@@ -160,7 +160,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		hits({
 			container: "#hits",
 			cssClasses: {
-				item: "border-light rounded hover-shadow hover:bg-cyan-50",
+				item: "border-light rounded hover-shadow hover:bg-cyan-50 w-[32%]",
 			},
 			templates: {
 				empty: "Keine Resultate für <q>{{ query }}</q>",
@@ -194,12 +194,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 											hit._snippetResult?.full_text.matchedWords.length > 0 ? "pb-4" : ""
 										}
 									>
-										${
-											// @ts-expect-error
-											hit._snippetResult?.full_text.matchedWords.length > 0
-												? "Schlagworte im Kontext:"
-												: ""
-										}
 										${
 											// @ts-expect-error
 											hit._snippetResult?.full_text.matchedWords.length > 0
