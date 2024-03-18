@@ -14,7 +14,7 @@
         <xsl:value-of select="concat(name($currentNode), '__', $nodeCurrNr)"/>
     </xsl:function>
 
-    <xsl:template match="tei:pb">
+    <xsl:template match="tei:pb" name="tei-pb">
         <xsl:variable name="graphic-id" select="data(substring-after(@facs, '#'))"/>
         <xsl:choose>
             <xsl:when test="starts-with(ancestor::tei:TEI/@xml:id, 'edoc_wd_')">
@@ -28,7 +28,7 @@
                 <xsl:variable name="img-dir-day" select="tokenize($date, '-')[3]"/>
                 <xsl:variable name="img-dir-yearx" select="concat(substring($img-dir-year, 1, 3), 'x')"/>
                 <xsl:variable name="graphic-url" select="concat($img-url, $img-dir-yearx, '/', $img-dir-year, '/', $img-dir-month, '/', $img-dir1, '/', $img-1, '/full/full/0/default.jpg')"/>
-                <div class="grid-item grid-item--width2 my-5" id="wr_page_{@n}">
+                <div class="my-5" id="wr_page_{@n}">
                     <span class="anchor-pb"></span>
                     <span class="pb lightgrey" id="{$graphic-url}">-----[<xsl:value-of select="./@n"/>]-----</span>
                 </div>
@@ -38,7 +38,7 @@
                 <xsl:variable name="anno-url" select="'wrz|'"/>
                 <xsl:variable name="date" select="replace(substring-after(ancestor::tei:TEI/@xml:id, 'wr_'), '.xml', '')"/>
                 <xsl:variable name="graphic-url" select="concat($anno-url, replace($date, '-', ''), '|', @n, '|99.9|0')"/>
-                <div class="grid-item grid-item--width2 my-5" id="wr_page_{@n}">
+                <div class="my-5" id="wr_page_{@n}">
                     <span class="anchor-pb"></span>
                     <span class="pb lightgrey" id="{$graphic-url}">-----[<xsl:value-of select="./@n"/>]-----</span>
                 </div>

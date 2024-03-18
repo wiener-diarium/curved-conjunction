@@ -1,27 +1,16 @@
 ---
-const edition_paths = import.meta.glob("../pages/edition/*.astro");
-const paths = Object.keys(edition_paths).map((path) => {
-	const name = (path.match(/\.\/pages\/edition\/(.*)\.astro$/) ?? [])[1];
-	return {
-		name,
-		path,
-	};
-});
-// const edition_content = Astro.glob("../pages/edition/*.astro");
-// const content = await edition_content;
-// [...content].forEach((page) => {
-// 	console.log(page);
-// 	console.log(page.default);
-// });
+import { readdir } from "node:fs/promises";
+
+const entries = await readdir("edition", { withFileTypes: true });
 ---
 
 <div>
 	<ul>
 		{
-			paths.map((path) => {
+			entries.map((s) => {
 				return (
 					<li>
-						<a href={`/edition/${path.name}`}>{path.name}</a>
+						<a href={`/edition/${s.name}`}>{s.name}</a>
 					</li>
 				);
 			})
