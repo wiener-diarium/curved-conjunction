@@ -20,55 +20,8 @@ ul {
 	display: inline !important;
 }
 
-/* clear fix */
-.grid-overview::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-.grid-overview {
-	width: 100%;
-}
-
-.grid-overview-sizer,
-.grid-overview-item {
-	width: 10%;
-}
-
-.grid-overview-item {
-	float: left;
-	cursor: pointer;
-}
-
-.grid-overview-item:hover {
-	transform: scale(1.05);
-}
-
 img {
 	max-height: 250px;
-}
-
-.grid-overview-item-header {
-	vertical-align: middle;
-	height: 4em;
-	color: #000 !important;
-	text-decoration: none !important;
-}
-
-.grid-overview-item-footer {
-	vertical-align: middle;
-	color: #000 !important;
-	text-decoration: none !important;
-}
-
-p,
-ul,
-.catch-word {
-	margin: 0;
-	padding: 0 10px 10px;
-	font-size: 0.95em;
-	text-align: justify;
 }
 
 h5 {
