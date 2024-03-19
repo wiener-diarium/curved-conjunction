@@ -10,7 +10,7 @@ const entries = await readdir("edition", { withFileTypes: true });
 			entries.map((s) => {
 				return (
 					<li>
-						<a href={`/edition/${s.name}`}>{s.name}</a>
+						<a href={`/edition/${s.name.replace(".html", "")}`}>{s.name}</a>
 					</li>
 				);
 			})

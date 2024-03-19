@@ -1,11 +1,5 @@
-import {
-	collection,
-	component,
-	config,
-	fields,
-	type GitHubConfig,
-	type LocalConfig,
-} from "@keystatic/core";
+import { collection, config, fields, type GitHubConfig, type LocalConfig } from "@keystatic/core";
+import { wrapper } from "@keystatic/core/content-components";
 
 const isProd = process.env.NODE_ENV === "production";
 const localMode: LocalConfig["storage"] = {
@@ -34,7 +28,49 @@ export default config({
 				}),
 				description: fields.text({ label: "Description" }),
 				author: fields.text({ label: "Author" }),
-				content: fields.document({
+				// content: fields.document({
+				// 	label: "Content",
+				// 	formatting: true,
+				// 	dividers: true,
+				// 	links: true,
+				// 	images: {
+				// 		directory: "/src/assets",
+				// 		publicPath: "/src/assets",
+				// 		schema: {
+				// 			title: fields.text({
+				// 				label: "Title",
+				// 				description: "The text to display under the image in a caption.",
+				// 			}),
+				// 		},
+				// 	},
+				// 	componentBlocks: {
+				// 		"text-image": component({
+				// 			label: "Container with text and image",
+				// 			schema: {
+				// 				textContainer: fields.text({
+				// 					label: "Insert Text",
+				// 					description: "Text to show nex to the image",
+				// 					validation: {
+				// 						length: {
+				// 							min: 20,
+				// 						},
+				// 					},
+				// 				}),
+				// 				image: fields.image({
+				// 					label: "Title Image",
+				// 					directory: "/src/assets",
+				// 					publicPath: "/src/assets",
+				// 				}),
+				// 				image_alt: fields.text({
+				// 					label: "Image Alt",
+				// 					description: "The alt text for the image",
+				// 				}),
+				// 			},
+				// 			preview: () => null,
+				// 		}),
+				// 	},
+				// }),
+				content: fields.mdx({
 					label: "Content",
 					formatting: true,
 					dividers: true,
@@ -49,13 +85,14 @@ export default config({
 							}),
 						},
 					},
-					componentBlocks: {
-						"text-image": component({
-							label: "Container with text and image",
+					components: {
+						TextImage: wrapper({
+							label: "Text and Image",
+							description: "A container with text and an image",
 							schema: {
-								textContainer: fields.text({
-									label: "Insert Text",
-									description: "Text to show nex to the image",
+								text: fields.text({
+									label: "Text",
+									description: "The text to display next to the image.",
 									validation: {
 										length: {
 											min: 20,
@@ -63,7 +100,7 @@ export default config({
 									},
 								}),
 								image: fields.image({
-									label: "Title Image",
+									label: "Image",
 									directory: "/src/assets",
 									publicPath: "/src/assets",
 								}),
@@ -72,7 +109,6 @@ export default config({
 									description: "The alt text for the image",
 								}),
 							},
-							preview: () => null,
 						}),
 					},
 				}),

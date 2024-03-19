@@ -1,4 +1,5 @@
 import markdoc from "@astrojs/markdoc";
+import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import vercel from "@astrojs/vercel/serverless";
@@ -36,6 +37,7 @@ export default defineConfig({
 		react(),
 		...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
 		tailwind(),
+		mdx(),
 	],
 	output: process.env.SKIP_KEYSTATIC ? "static" : "hybrid",
 	server: {

@@ -2,7 +2,10 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 
 import PostsContent from "../../components/PostsContent.astro";
+import TextImage from "../../components/TextImage.astro";
 import Page from "../../layouts/Page.astro";
+
+export const components = { TextImage };
 
 export async function getStaticPaths() {
 	const posts = await getCollection("posts");
@@ -21,6 +24,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 
 <Page {...post.data} title={post.data.title} baseurl={baseurl}>
 	<PostsContent {...post.data}>
-		<Content />
+		<Content components={{ ...components }} />
 	</PostsContent>
 </Page>

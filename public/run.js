@@ -3,23 +3,6 @@ var editor = new LoadEditor({
 		title: "Text Annotations",
 		variants: [
 			{
-				opt: "br",
-				opt_slider: "column-features-slider",
-				title: "Spaltenansicht",
-				color: "undefined",
-				html_class: "reading",
-				css_class: "hidden",
-				chg_citation: "citation-url",
-				hide: {
-					hidden: true,
-					class: "reading.column",
-				},
-				features: {
-					all: false,
-					class: "features-1",
-				},
-			},
-			{
 				opt: "lb",
 				opt_slider: "linebreak-features-slider",
 				title: "Zeilenumbrüche",
