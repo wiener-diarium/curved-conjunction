@@ -72,19 +72,16 @@ export default config({
 				// }),
 				content: fields.mdx({
 					label: "Content",
-					formatting: true,
-					dividers: true,
-					links: true,
-					images: {
-						directory: "/src/assets",
-						publicPath: "/src/assets",
-						schema: {
-							title: fields.text({
-								label: "Title",
-								description: "The text to display under the image in a caption.",
-							}),
-						},
-					},
+					// images: {
+					// 	directory: "/src/assets",
+					// 	publicPath: "/src/assets",
+					// 	schema: {
+					// 		title: fields.text({
+					// 			label: "Title",
+					// 			description: "The text to display under the image in a caption.",
+					// 		}),
+					// 	},
+					// },
 					components: {
 						TextImage: wrapper({
 							label: "Text and Image",

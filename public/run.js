@@ -1,4 +1,5 @@
-var editor = new LoadEditor({
+import { LoadEditor } from "./index.js";
+new LoadEditor({
 	aot: {
 		title: "Text Annotations",
 		variants: [

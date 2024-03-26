@@ -33,44 +33,6 @@
 	<div class="flex flex-row my-4 transcript active p-6">
 		<div class="basis-6/12 text px-4 .yes-index">
 			<div class="section">
-				<div class="sticky top-0 flex flex-row bg-cyan-100 rounded">
-					<div class="flex basis-1/12 p-2">
-						<a href="/curved-conjunction/search" aria-label="Zurück zur Volltextsuche" class="text-gray-500">
-							<svg width="16" height="16" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16"><path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"></path></svg>
-						</a>
-						<a id="show-on-scroll" href="#top_page" aria-label="Zurück zur ersten Seite" class="text-gray-500 fade px-2">
-								<svg width="16" height="16" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
-										<path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
-								</svg>
-						</a>
-					</div>
-					<div class="flex basis-3/12 p-2">
-							<!-- <input type="checkbox" name="opt[]" value="separateWordSearch" checked="checked"/>Wörter einzeln suchen -->
-							<input type="text" name="keyword" class="mx-2 px-2 border border-gray-200 rounded" placeholder="Schlagwort eingeben..."/>
-					</div>
-					<ul class="flex flex-row basis-8/12 align-middle justify-center items-center">
-						<li class="px-2">
-							<image-switch opt="es" class="flex"></image-switch>
-						</li>
-						<li class="px-2">
-							<font-size opt="fs"></font-size>
-						</li>
-						<li class="px-2">
-							<font-family opt="ff"></font-family>
-						</li>
-						<li class="px-2">
-							<annotation-slider opt="lb"></annotation-slider>
-						</li>
-					</ul>
-				</div>
-				<div class="sticky top-8 flex">
-					<div id="mark-scroll" class="fade-lang my-4 bg-white rounded border border-gray-100 p-2">
-						<button class="btn text-xl" data-search="next" disabled="disabled">&#x2193;</button>
-						<button class="btn text-xl" data-search="prev" disabled="disabled">&#x2191;</button>
-						<button class="btn text-xl" data-search="clear" disabled="disabled">✖</button>
-						<div id="results-div"></div>
-					</div>
-				</div>
 				<div class="flex flex-col items-center">
 					<xsl:for-each select=".//tei:front/tei:titlePage|.//tei:body">
 							<xsl:apply-templates/>
