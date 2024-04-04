@@ -40,6 +40,7 @@ export default defineConfig({
 		mdx(),
 	],
 	output: process.env.SKIP_KEYSTATIC ? "static" : "hybrid",
+	// output: "static",
 	server: {
 		port: 3000,
 	},
