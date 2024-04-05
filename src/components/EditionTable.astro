@@ -2,6 +2,7 @@
 import { readdir } from "node:fs/promises";
 
 const entries = await readdir("edition", { withFileTypes: true });
+const { baseurl } = Astro.props;
 ---
 
 <div>
@@ -10,7 +11,7 @@ const entries = await readdir("edition", { withFileTypes: true });
 			entries.map((s) => {
 				return (
 					<li>
-						<a href={`/edition/${s.name.replace(".html", "")}`}>{s.name}</a>
+						<a href={`${baseurl}edition/${s.name.replace(".html", "")}`}>{s.name}</a>
 					</li>
 				);
 			})

@@ -31,45 +31,43 @@
 <xsl:template match="/">
 <div class="flex flex-col">
 	<div class="flex flex-row my-4 transcript active p-6">
-		<div class="basis-6/12 text px-4 .yes-index">
-			<div class="section">
-				<div id="column-view" class="reading column">
-					<xsl:for-each-group select=".//tei:front/tei:titlePage/*|.//tei:body/tei:div[@type='article']/*" group-starting-with="self::tei:pb">
-						<xsl:for-each select="current-group()/self::tei:pb">
-							<!-- <xsl:value-of select="*/name()"/> -->
-							<xsl:apply-templates select="self::tei:pb"/>
-							<xsl:for-each select="current-group()">
-								<xsl:apply-templates select="self::tei:docTitle|self::tei:milestone|self::tei:imprimatur|self::tei:ab[@type='imprint']|self::tei:ab[@type='count-date']"/>
-							</xsl:for-each>
-							<div class="flex flex-row">
-								<xsl:choose>
-									<xsl:when test="current-group()/self::*[@rendition='#lc'] or current-group()/self::*[@rendition='#rc']">
-										<div class="flex flex-col items-center basis-6/12">
-											<xsl:for-each select="current-group()">
-												<xsl:apply-templates select="self::*[@rendition='#lc']"/>
-											</xsl:for-each>
-										</div>
-										<div class="flex flex-col items-center basis-6/12">
-											<xsl:for-each select="current-group()">
-												<xsl:apply-templates select="self::*[@rendition='#rc']"/>
-											</xsl:for-each>
-										</div>
-									</xsl:when>
-									<xsl:when test="current-group()/self::*[rendition='#f'] or current-group()/self::*[rendition='#fc']">
-										<div class="flex flex-col items-center basis-full">
-											<xsl:for-each select="current-group()">
-												<xsl:apply-templates select="self::*[rendition='#f']|self::*[rendition='#fc']"/>
-											</xsl:for-each>
-										</div>
-									</xsl:when>
-								</xsl:choose>
-							</div>
-							<xsl:for-each select="current-group()">
-								<xsl:apply-templates select="self::tei:fw"/>
-							</xsl:for-each>
+		<div class="basis-6/12 text px-4 yes-index">
+			<div class="flex flex-col section">
+				<xsl:for-each-group select=".//tei:front/tei:titlePage/*|.//tei:body/tei:div[@type='article']/*" group-starting-with="self::tei:pb">
+					<xsl:for-each select="current-group()/self::tei:pb">
+						<!-- <xsl:value-of select="*/name()"/> -->
+						<xsl:apply-templates select="self::tei:pb"/>
+						<xsl:for-each select="current-group()">
+							<xsl:apply-templates select="self::tei:docTitle|self::tei:milestone|self::tei:imprimatur|self::tei:ab[@type='imprint']|self::tei:ab[@type='count-date']"/>
 						</xsl:for-each>
-					</xsl:for-each-group>
-				</div>
+						<div class="flex flex-row">
+							<xsl:choose>
+								<xsl:when test="current-group()/self::*[@rendition='#lc'] or current-group()/self::*[@rendition='#rc']">
+									<div class="flex flex-col items-center basis-6/12">
+										<xsl:for-each select="current-group()">
+											<xsl:apply-templates select="self::*[@rendition='#lc']"/>
+										</xsl:for-each>
+									</div>
+									<div class="flex flex-col items-center basis-6/12">
+										<xsl:for-each select="current-group()">
+											<xsl:apply-templates select="self::*[@rendition='#rc']"/>
+										</xsl:for-each>
+									</div>
+								</xsl:when>
+								<xsl:when test="current-group()/self::*[rendition='#f'] or current-group()/self::*[rendition='#fc']">
+									<div class="flex flex-col items-center basis-full">
+										<xsl:for-each select="current-group()">
+											<xsl:apply-templates select="self::*[rendition='#f']|self::*[rendition='#fc']"/>
+										</xsl:for-each>
+									</div>
+								</xsl:when>
+							</xsl:choose>
+						</div>
+						<xsl:for-each select="current-group()">
+							<xsl:apply-templates select="self::tei:fw"/>
+						</xsl:for-each>
+					</xsl:for-each>
+				</xsl:for-each-group>
 			</div>
 		</div>
 		<div class="basis-6/12 facsimiles">
@@ -110,22 +108,6 @@
 
 </xsl:template>
 
-<xsl:template match="//text()[parent::tei:p[ancestor::tei:body]]|
-										//text()[parent::tei:ab[ancestor::tei:body]]|
-										//text()[parent::tei:head[ancestor::tei:body]]">
-	<xsl:choose>
-		<xsl:when test="following-sibling::tei:*[1]/@break='no'">
-			<xsl:value-of select="replace(., '\s+$', '')"/>
-		</xsl:when>
-		<xsl:when test="matches(., '=$', 'm')">
-			<xsl:value-of select="replace(., '\s+$', '')"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="."/>
-		</xsl:otherwise>
-	</xsl:choose>
-</xsl:template>
-
 <xsl:template match="tei:docTitle">
 	<div class="title-page py-4 text-lg" id="#top_page">
 		<xsl:apply-templates/>
@@ -159,19 +141,76 @@
 	</h5>
 </xsl:template>
 
-<xsl:template match="tei:lb">
+<xsl:template match="tei:lb[not(@break)]">
 	<br class="linebreak"/>
 </xsl:template>
 
-<xsl:template match="tei:w">
+<!-- <xsl:template match="tei:lb[@break]"/>
+
+<xsl:template match="tei:lb[parent::tei:list]"/> -->
+
+<!-- <xsl:template match="//text()[parent::tei:w[ancestor::tei:body]]">
+	<xsl:choose>
+		<xsl:when test="parent::tei:w/following-sibling::tei:*[1]/@break='no'">
+			<xsl:value-of select="replace(., '\s+$', '')"/>
+		</xsl:when>
+		<xsl:when test="parent::tei:w/preceding-sibling::tei:*[1]/@break='no'">
+			<xsl:value-of select="replace(., '^\s', '')"/>
+		</xsl:when>
+		<xsl:when test="matches(., '=$', 'm')">
+			<xsl:value-of select="replace(., '\s+$', '')"/>
+		</xsl:when>
+		<xsl:when test="matches(., '-$', 'm')">
+				<xsl:value-of select="replace(., '\s+$', '')"/>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:value-of select="."/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template> -->
+
+<xsl:template match="tei:w[parent::tei:item]">
 	<xsl:apply-templates/>
-	<xsl:if test="following-sibling::*[1][@break]">
+	<xsl:if test="following-sibling::tei:*[1]/@break='no'">
+			<xsl:value-of select="."/><span class="linebreak"><xsl:text>=</xsl:text></span>
+		</xsl:if>
+	<xsl:if test="self::tei:w[not(following-sibling::tei:w) or not(following-sibling::tei:pc)]/parent::tei:item/following-sibling::*[1][@break]">
 		<span class="linebreak"><xsl:text>=</xsl:text></span>
 	</xsl:if>
-	<xsl:if test="self::tei:w[not(following-sibling::tei:w)]/parent::tei:item/following-sibling::*[1][@break]">
-		<xsl:text>=</xsl:text>
+	<xsl:if test="following-sibling::*[1]/name() = 'pc'">
+		<xsl:value-of select="following-sibling::*[1]"/>
 	</xsl:if>
 </xsl:template>
+
+<xsl:template match="tei:w[not(parent::tei:item)]">
+	<xsl:choose>
+		<xsl:when test="following-sibling::tei:*[1]/@break='no'">
+			<xsl:value-of select="."/><span class="linebreak"><xsl:text>=</xsl:text></span>
+			<br class="linebreak"/>
+			<xsl:value-of select="following-sibling::tei:w[1]"/>
+		</xsl:when>
+		<xsl:when test="preceding-sibling::tei:*[1]/@break='no'">
+			<!-- do not serialize -->
+		</xsl:when>
+		<!-- <xsl:when test="matches(., '=$', 'm')">
+			<xsl:value-of select="replace(., '\s+$', '')"/>
+		</xsl:when>
+		<xsl:when test="matches(., '-$', 'm')">
+				<xsl:value-of select="replace(., '\s+$', '')"/>
+		</xsl:when> -->
+		<xsl:otherwise>
+			<xsl:value-of select="."/>
+		</xsl:otherwise>
+	</xsl:choose>
+	<xsl:if test="self::tei:w[not(following-sibling::tei:w) or not(following-sibling::tei:pc)]/parent::tei:item/following-sibling::*[1][@break]">
+		<span class="linebreak"><xsl:text>=</xsl:text></span>
+	</xsl:if>
+	<xsl:if test="following-sibling::*[1]/name() = 'pc'">
+		<xsl:value-of select="following-sibling::*[1]"/>
+	</xsl:if>
+</xsl:template>
+
+<xsl:template match="tei:pc"/>
 
 <xsl:template match="tei:fw[@type='catch']">
 	<div id="{local:makeId(.)}" class="basis-full float-right text-right px-4">

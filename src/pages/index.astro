@@ -10,12 +10,17 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Wiener Diarium" baseurl={baseurl}>
-	<div
-		class="relative w-full bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
-	>
-		<div class="flex h-80 flex-col justify-center bg-gray-500/30">
-			<div class="mx-auto bg-gray-300/80 p-10">
-				<h1 class="text-4xl font-medium text-cyan-800">
+	<div class="container mx-auto mt-[2%] flex flex-row justify-center">
+		<div class="basis-5/12 content-center align-middle">
+			<img
+				class="float-left max-w-[100%] rounded-lg border-2 border-cyan-800 shadow-md"
+				src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg"
+				alt="Wiener Diarium"
+			/>
+		</div>
+		<div class="float-left flex h-80 basis-7/12 flex-col justify-center">
+			<div class="ml-10 p-10">
+				<h1 class="text-5xl font-medium text-cyan-800">
 					<div>Das Wiener Diarium:</div>
 					<div>Digitaler Datensatz für</div>
 					<span id="intro-typed"></span>
@@ -25,10 +30,10 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	</div>
 	<div class="flex flex-col">
 		<div class="container self-center py-4">
-			<div class="my-28 grid grid-cols-3 gap-8">
+			<div class="mb-28 mt-6 grid grid-cols-3 gap-8">
 				<a href={`${baseurl}search`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
 					>
 						<div class="flex flex-col items-center self-center p-4">
 							<h2 class="py-4 text-center text-3xl">Volltextsuche</h2>
@@ -36,16 +41,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 								<FontAwesomeIcon icon={faMagnifyingGlass} />
 							</div>
 						</div>
-						<div
-							class="rounded bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
-						>
-							<div class="h-14 bg-gray-500/20"></div>
-						</div>
 					</div>
 				</a>
 				<a href={`${baseurl}toc`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
 					>
 						<div class="flex flex-col items-center self-center p-4">
 							<h2 class="py-4 text-center text-3xl">Inhaltsverzeichnis</h2>
@@ -53,27 +53,17 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 								<FontAwesomeIcon icon={faTable} />
 							</div>
 						</div>
-						<div
-							class="rounded bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
-						>
-							<div class="h-14 bg-gray-500/20"></div>
-						</div>
 					</div>
 				</a>
 				<a href={`${baseurl}model`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
 					>
 						<div class="flex flex-col items-center self-center p-4">
 							<h2 class="py-4 text-center text-3xl">Fraktur Model</h2>
 							<div class="w-44">
 								<FontAwesomeIcon icon={faFolderOpen} />
 							</div>
-						</div>
-						<div
-							class="rounded bg-[url('https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg')] bg-cover bg-center"
-						>
-							<div class="h-14 bg-gray-500/20"></div>
 						</div>
 					</div>
 				</a>

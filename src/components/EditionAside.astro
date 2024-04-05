@@ -1,0 +1,19 @@
+---
+import EditionEditor from "./EditionEditor.astro";
+
+const { textcolor, baseurl, backgroundcolor, width } = Astro.props;
+---
+
+<aside class=`${width} ${backgroundcolor} ${textcolor}`>
+	<div class="flex shrink-0 items-center text-center text-white">
+		<a href=`${baseurl}` aria-label="Zurück zur Hauptseite">
+			<img
+				class="w-auto p-6"
+				src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/08/Digitarium-Logo-Vector-final.png"
+				alt="Wiener Diarium Logo"
+			/>
+			Zurück zur Hauptseite
+		</a>
+	</div>
+	<EditionEditor />
+</aside>

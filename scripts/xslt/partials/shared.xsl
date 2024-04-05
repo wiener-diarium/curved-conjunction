@@ -60,9 +60,9 @@
     <xsl:template match="tei:date">
         <span class="date"><xsl:apply-templates/></span>
     </xsl:template>
-    <xsl:template match="tei:lb">
+    <!-- <xsl:template match="tei:lb">
         <br/>
-    </xsl:template>
+    </xsl:template> -->
 
     <xsl:template match="tei:note">
         <xsl:element name="a">
