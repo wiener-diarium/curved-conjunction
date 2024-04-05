@@ -57,9 +57,7 @@ jobs:
           cache-name: cache-site-build
         with:
           path: ./edition
-          key:
-            build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}-${{
-            hashFiles('**/pnpm-lock.yaml') }}
+          key: build-${{ env.cache-name }}-${{ hashFiles('**/editions.xsl') }}
           restore-keys: |
             build-${{ env.cache-name }}-
             build-
