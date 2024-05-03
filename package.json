@@ -4,9 +4,9 @@
 	"type": "module",
 	"engines": {
 		"node": "20.x",
-		"pnpm": "8.x"
+		"pnpm": "9.x"
 	},
-	"packageManager": "pnpm@8.15.3",
+	"packageManager": "pnpm@9.0.6",
 	"scripts": {
 		"build": "astro build",
 		"dev": "astro dev --host 127.0.0.1",
@@ -52,6 +52,7 @@
 		"cva": "^1.0.0-beta.1",
 		"de-micro-editor": "^0.4.2",
 		"instantsearch.js": "^4.66.0",
+		"node-fetch": "^3.3.2",
 		"openseadragon": "^4.1.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
@@ -68,6 +69,7 @@
 		"@acdh-oeaw/tsconfig": "^1.0.2",
 		"@astrojs/check": "^0.5.4",
 		"@astrojs/ts-plugin": "^1.5.2",
+		"@hey-api/openapi-ts": "^0.42.1",
 		"eslint": "^8.56.0",
 		"eslint-plugin-tailwindcss": "^3.14.2",
 		"is-ci": "^3.0.1",
@@ -110,7 +112,8 @@
 		},
 		"ignorePatterns": [
 			"/edition/**/*.astro",
-			"/public/*"
+			"/public/*",
+			"/src/client/**"
 		],
 		"rules": {
 			"@typescript-eslint/no-unsafe-assignment": "off",

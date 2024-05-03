@@ -1,0 +1,58 @@
+---
+import Noske from "../components/Noske.astro";
+import Page from "../layouts/Page.astro";
+
+// import { CorpusSearchService } from "../client/services.gen.ts";
+
+// async function getCorpus(query: string) {
+// 	const response = await CorpusSearchService.getConcordance({
+// 		corpname: "diarium",
+// 		q: `q[word="${query}"]`,
+// 		viewmode: "kwic",
+// 		attrs: "word",
+// 		format: "json",
+// 		structs: "doc,head,p,imprimatur",
+// 		kwicrightctx: "100#",
+// 		kwicleftctx: "100#",
+// 		refs: "doc.id,p.id",
+// 	});
+// 	var lines: Array<String> = [];
+// 	response.Lines?.map((line) => {
+// 		let left = line.Left?.map((word) => word.str).join(" ");
+// 		let right = line.Right?.map((word) => word.str).join(" ");
+// 		let kwic = line.Kwic?.map((word) => word.str).join(" ");
+// 		let refs: Array<String> = [];
+// 		line.Refs?.map((ref) => {
+// 			if (ref.startsWith("doc.id=")) {
+// 				let v = ref
+// 					.replace("doc.id=", "")
+// 					.replace("edoc_wd_", "edition/")
+// 					.replace("wr_", "edition/wr_");
+// 				refs.push(v);
+// 			}
+// 		});
+// 		line.Refs?.map((ref) => {
+// 			if (ref.startsWith("p.id=")) {
+// 				let v = ref.replace("p.id=", "");
+// 				refs.push(v);
+// 			}
+// 		});
+// 		lines.push(
+// 			`<div class="p-2 border">
+// 				<a href=${refs[0]}?mark=${kwic}#${refs[1]}>
+// 					<span class="text-sm text-gray-500">${left}</span>
+// 					<span class="text-lg text-red-500">${kwic}</span>
+// 					<span class="text-sm text-gray-500">${right}</span>
+// 				</a>
+// 			</div>`,
+// 		);
+// 	});
+// 	return lines;
+// }
+
+const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
+---
+
+<Page title="Volltextsuche" baseurl={baseurl}>
+	<Noske id="hits" />
+</Page>

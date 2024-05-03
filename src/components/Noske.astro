@@ -1,0 +1,98 @@
+---
+const { id = "hits" } = Astro.props;
+---
+
+<div class="my-8">
+	<div class="mx-auto w-6/12 px-5 py-4 align-middle">
+		<div class="px-4 text-center">
+			<h4 class="pt-2">NoSke Suche</h4>
+			<div id="searchbox" class="w-full" style="margin: 0 auto;">
+				<input
+					type="search"
+					id="search-input"
+					class="w-full rounded border border-cyan-500 p-2"
+					placeholder="Suche nach Wörtern oder Phrasen"
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="basis-5/6 px-4">
+		<div id={id}></div>
+	</div>
+</div>
+
+<script>
+	import { CorpusSearchService } from "../client/services.gen.ts";
+	import { OpenAPI } from "../client/core/OpenAPI.ts";
+
+	OpenAPI.interceptors.response.use((response) => {
+		if (response.status === 200) {
+			console.log(`request to ${response.url} was successful`);
+		}
+		return response;
+	});
+
+	async function getCorpus(query: string) {
+		const response = await CorpusSearchService.getConcordance({
+			corpname: "diarium",
+			q: `q[word="${query}"]`,
+			viewmode: "kwic",
+			attrs: "word",
+			format: "json",
+			structs: "doc,head,p,imprimatur",
+			kwicrightctx: "50#",
+			kwicleftctx: "50#",
+			refs: "doc.id,p.id,head.id",
+		});
+		var lines: Array<String> = [];
+		response.Lines?.map((line) => {
+			let left = line.Left?.map((word) => word.str).join(" ");
+			let right = line.Right?.map((word) => word.str).join(" ");
+			let kwic = line.Kwic?.map((word) => word.str).join(" ");
+			let refs: Array<String> = [];
+			line.Refs?.map((ref) => {
+				if (ref.startsWith("doc.id=")) {
+					let v = ref
+						.replace("doc.id=", "")
+						.replace("edoc_wd_", "edition/")
+						.replace("wr_", "edition/wr_");
+					refs.push(v);
+				}
+			});
+			line.Refs?.map((ref) => {
+				if (
+					ref.startsWith("p.id=") ||
+					ref.startsWith("head.id=") ||
+					ref.startsWith("imprimatur.id=")
+				) {
+					let v = ref.replace("p.id=", "").replace("head.id=", "").replace("imprimatur.id=", "");
+					refs.push(v);
+				}
+			});
+			lines.push(
+				`<div class="p-2 border">
+				<a href=${refs[0]}?mark=${kwic}#${refs[1]}>
+					<span class="text-sm text-gray-500">${left}</span>
+					<span class="text-lg text-red-500">${kwic}</span>
+					<span class="text-sm text-gray-500">${right}</span>
+				</a>
+			</div>`,
+			);
+		});
+		return lines;
+	}
+
+	const input = document.querySelector("input#search-input") as HTMLInputElement;
+	console.log(input);
+	input.addEventListener("input", async (e) => {
+		const query = e.target!.value;
+		if (query.length > 3) {
+			const lines = await getCorpus(query);
+			const hits = document.querySelector("#hits");
+			hits!.innerHTML = lines.join("");
+		} else if (query.length === 0) {
+			const hits = document.querySelector("#hits");
+			hits!.innerHTML = "";
+		}
+	});
+</script>
