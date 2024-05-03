@@ -103,13 +103,13 @@
 <xsl:template match="tei:titlePart">
 	<xsl:choose>
 		<xsl:when test="@type='num'">
-			<h5 id="{local:makeId(.)}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-xl"><xsl:apply-templates/></h5>
+			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-xl"><xsl:apply-templates/></h5>
 		</xsl:when>
 		<xsl:when test="@type='main'">
-			<h4	id="{local:makeId(.)}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-3xl"><xsl:apply-templates/></h4>
+			<h4	id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-3xl"><xsl:apply-templates/></h4>
 		</xsl:when>
 		<xsl:otherwise>
-			<h5 id="{local:makeId(.)}" class="yes-index {if(contains(@rendition, 'f')) then('text-justify') else('text-right')} py-4 text-xl"><xsl:apply-templates/></h5>
+			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-justify') else('text-right')} py-4 text-xl"><xsl:apply-templates/></h5>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -189,13 +189,13 @@
 </xsl:template>
 
 <xsl:template match="tei:head">
-	<h5 id="{local:makeId(.)}" class="yes-index text-center font-semibold text-lg px-4 pt-2">
+	<h5 id="{@xml:id}" class="yes-index text-center font-semibold text-lg px-4 pt-2">
 		<xsl:apply-templates/>
 	</h5>
 </xsl:template>
 
 <xsl:template match="tei:p">
-	<p id="{local:makeId(.)}" class="yes-index text-justify text-lg px-4 py-2">
+	<p id="{@xml:id}" class="yes-index text-justify text-lg px-4 py-2">
 		<xsl:apply-templates/>
 		<!--<xsl:if test="following-sibling::tei:p[@prev]">
 				<xsl:if test="following-sibling::*[1]/name() = 'pb'">

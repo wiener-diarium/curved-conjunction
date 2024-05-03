@@ -16,7 +16,7 @@ const { id = "hits" } = Astro.props;
 			</div>
 		</div>
 	</div>
-	<div class="basis-5/6 px-4">
+	<div class="mx-auto basis-5/6 px-4">
 		<div id={id}></div>
 	</div>
 </div>
@@ -25,9 +25,11 @@ const { id = "hits" } = Astro.props;
 	import { CorpusSearchService } from "../client/services.gen.ts";
 	import { OpenAPI } from "../client/core/OpenAPI.ts";
 
+	const base_url = "https://wiener-diarium.github.io/curved-conjunction/";
+
 	OpenAPI.interceptors.response.use((response) => {
 		if (response.status === 200) {
-			console.log(`request to ${response.url} was successful`);
+			console.log(`request to ${response.status} was successful`);
 		}
 		return response;
 	});
@@ -43,7 +45,9 @@ const { id = "hits" } = Astro.props;
 			kwicrightctx: "50#",
 			kwicleftctx: "50#",
 			refs: "doc.id,p.id,head.id",
+			pagesize: 20,
 		});
+		console.log(response);
 		var lines: Array<String> = [];
 		response.Lines?.map((line) => {
 			let left = line.Left?.map((word) => word.str).join(" ");
@@ -71,20 +75,19 @@ const { id = "hits" } = Astro.props;
 			});
 			lines.push(
 				`<div class="p-2 border">
-				<a href=${refs[0]}?mark=${kwic}#${refs[1]}>
-					<span class="text-sm text-gray-500">${left}</span>
-					<span class="text-lg text-red-500">${kwic}</span>
-					<span class="text-sm text-gray-500">${right}</span>
-				</a>
-			</div>`,
+					<a href=${base_url}${refs[0]}?mark=${kwic}#${refs[1]}>
+						<span class="text-sm text-gray-500">${left}</span>
+						<span class="text-lg text-red-500">${kwic}</span>
+						<span class="text-sm text-gray-500">${right}</span>
+					</a>
+				</div>`,
 			);
 		});
 		return lines;
 	}
 
-	const input = document.querySelector("input#search-input") as HTMLInputElement;
-	console.log(input);
-	input.addEventListener("input", async (e) => {
+	const input = document.querySelector<HTMLInputElement>("input#search-input");
+	input!.addEventListener("input", async (e) => {
 		const query = e.target!.value;
 		if (query.length > 3) {
 			const lines = await getCorpus(query);
