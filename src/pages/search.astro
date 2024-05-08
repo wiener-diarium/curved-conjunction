@@ -30,7 +30,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<div class="py-2 text-center" id="clear-refinements"></div>
 				<h5 class="pt-2">Sammlung wählen</h5>
 				<div class="p-2" id="menu-edition"></div>
-				<h5 class="pt-2">Korrekturstatus</h5>
+				<h5 class="pt-2">Status (automatisch erstellter Text )</h5>
 				<div id="corrections"></div>
 				<h5 class="hidemobile pt-2">Orte</h5>
 				<div id="refinement-list-places" class="hidemobile"></div>
@@ -115,13 +115,13 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			var hitCorrections = items.corrections;
 		}
 		if (hitCorrections == "0") {
-			return "unkorrigiert";
+			return "unüberprüft";
 		} else if (hitCorrections == "1") {
-			return "einmal korrigiert";
+			return "einmal überprüft";
 		} else if (hitCorrections == "2") {
-			return "zweimal korrigiert";
+			return "zweimal überprüft";
 		} else if (hitCorrections == "3") {
-			return "mehrfach korrigiert";
+			return "mehrfach überprüft";
 		} else {
 			return hitCorrections;
 		}
@@ -212,13 +212,13 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 							<div class="flex flex-row">
 								<div
 									class="basis-4/12 self-center mx-2 p-1 border-2 rounded ${makeCorrections(hit) ==
-									"unkorrigiert"
+									"unüberprüft"
 										? "border-black-200"
-										: makeCorrections(hit) == "einmal korrigiert"
+										: makeCorrections(hit) == "einmal überprüft"
 											? "border-cyan-100"
-											: makeCorrections(hit) == "zweimal korrigiert"
+											: makeCorrections(hit) == "zweimal überprüft"
 												? "border-cyan-500"
-												: makeCorrections(hit) == "mehrfach korrigiert"
+												: makeCorrections(hit) == "mehrfach überprüft"
 													? "border-cyan-700"
 													: ""}"
 								>
@@ -243,7 +243,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 											<td class="px-2">${hit.edition[0]}</td>
 										</tr>
 										<tr>
-											<td><em>Korrekturstatus:</em></td>
+											<td><em>Status:</em></td>
 											<td class="px-2">${makeCorrections(hit)}</td>
 										</tr>
 										${hit.confidence
