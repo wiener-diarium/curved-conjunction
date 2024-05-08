@@ -5,7 +5,12 @@
 <div class="my-8">
 	<div class="mx-auto w-6/12 px-5 py-4 align-middle">
 		<div class="px-4 text-center">
-			<h4 class="pt-2">NoSke Suche</h4>
+			<h4 class="pt-2 text-lg">Einfache Suche in den Wiener Diarium Transkripten</h4>
+			<div class="text-sm text-gray-600">
+				<a target="_blank" href="https://diarium-noske.acdh-dev.oeaw.ac.at/crystal"
+					>Erweiterte Suche in Crystal</a
+				>
+			</div>
 			<div id="noske-search" class="w-full" style="margin: 0 auto;"></div>
 		</div>
 	</div>
@@ -20,13 +25,13 @@
 		viewmode: "kwic",
 		attrs: "word,id",
 		format: "json",
-		structs: "doc,head,p,imprimatur,list",
+		structs: "doc,p,head,list,docTitle,imprimatur,g",
 		kwicrightctx: "100#",
 		kwicleftctx: "100#",
-		refs: "doc.id,p.id,head.id,imprimatur.id,list.id",
+		refs: "doc.id,p.id,head.id,list.id,docTitle.id,imprimatur.id",
 		pagesize: 20,
 		fromp: 1,
-		inputPlaceholder: "Suche nach Wörter, Phrase oder CQL-Query (Regex erlaubt)",
+		inputPlaceholder: "Suche nach Wort, Phrase oder CQL-Query (Regex erlaubt)",
 		customUrl: "https://wiener-diarium.github.io/curved-conjunction/edition",
 	});
 
