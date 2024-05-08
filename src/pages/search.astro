@@ -360,6 +360,18 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			attribute: "keywords",
 			searchable: true,
 			searchablePlaceholder: "Suchen",
+			showMore: true,
+			searchableIsAlwaysActive: false,
+			sortBy: ["isRefined", "name:asc"],
+			showMoreLimit: 9999,
+			templates: {
+				showMoreText({ isShowingMore }) {
+					return isShowingMore ? "Weniger anzeigen" : "Mehr anzeigen";
+				},
+				searchableNoResults() {
+					return "Keine Ergebnisse gefunden ";
+				},
+			},
 			cssClasses: {
 				searchableInput: "form-control form-control-sm border-light-2",
 				searchableSubmit: "d-none",
@@ -389,6 +401,18 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			container: "#refinement-list-places",
 			attribute: "places",
 			searchable: true,
+			showMore: true,
+			sortBy: ["isRefined", "name:asc"],
+			showMoreLimit: 9999,
+			searchableIsAlwaysActive: false,
+			templates: {
+				showMoreText({ isShowingMore }) {
+					return isShowingMore ? "Weniger anzeigen" : "Mehr anzeigen";
+				},
+				searchableNoResults() {
+					return "Keine Ergebnisse gefunden ";
+				},
+			},
 			cssClasses: {
 				searchableInput: "form-control form-control-sm border-light-2",
 				searchableSubmit: "d-none",
