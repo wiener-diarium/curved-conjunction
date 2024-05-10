@@ -1,7 +1,7 @@
 ---
 import EditionEditor from "./EditionEditor.astro";
 
-const { textcolor, baseurl, backgroundcolor, width } = Astro.props;
+const { textcolor, baseurl, backgroundcolor, width, title, date, issue } = Astro.props;
 ---
 
 <aside class=`${width} ${backgroundcolor} ${textcolor}`>
@@ -14,6 +14,13 @@ const { textcolor, baseurl, backgroundcolor, width } = Astro.props;
 			/>
 			Zurück zur Hauptseite
 		</a>
+	</div>
+	<div class="flex items-center justify-center text-center text-white">
+		<div class="p-6">
+			<h1 class="text-sm font-bold">{title}</h1>
+			<p class="text-sm">{date}</p>
+			<p class="text-sm">{issue}</p>
+		</div>
 	</div>
 	<EditionEditor />
 </aside>

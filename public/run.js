@@ -101,8 +101,8 @@ new LoadEditor({
 				chg_citation: "citation-url",
 				fade: "hidden",
 				column_small: {
-					class: "basis-6/12",
-					percent: "50",
+					class: "basis-5/12",
+					percent: "40",
 				},
 				column_full: {
 					class: "basis-full",

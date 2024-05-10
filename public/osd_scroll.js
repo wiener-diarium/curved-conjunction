@@ -8,7 +8,7 @@ get container wrapper of osd viewer
 // var container = document.getElementById("container_facs_2");
 // container.style.display = "none";
 var height = screen.height;
-var width = screen.width / 2;
+var width = screen.width / 2.8;
 var container = document.getElementById("container_facs_1");
 var wrapper = document.getElementsByClassName("facsimiles")[0];
 var anno_url = "https://anno.onb.ac.at/cgi-content/annoshow?call=";

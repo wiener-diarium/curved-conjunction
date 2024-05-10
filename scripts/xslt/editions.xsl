@@ -31,7 +31,7 @@
 <xsl:template match="/">
 <div class="flex flex-col">
 	<div class="flex flex-row my-4 transcript active p-6">
-		<div class="basis-6/12 text px-4 yes-index">
+		<div class="basis-7/12 text px-4 yes-index">
 			<div class="flex flex-col section">
 				<xsl:for-each-group select=".//tei:front/tei:titlePage/*|.//tei:body/tei:div[@type='article']/*" group-starting-with="self::tei:pb">
 					<xsl:for-each select="current-group()/self::tei:pb">
@@ -70,7 +70,7 @@
 				</xsl:for-each-group>
 			</div>
 		</div>
-		<div class="basis-6/12 facsimiles">
+		<div class="basis-5/12 facsimiles">
 			<div id="viewer-1" class="sticky top-4">
 				<div id="container_facs_1">
 				</div>
