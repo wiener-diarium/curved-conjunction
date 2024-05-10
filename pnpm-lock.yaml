@@ -66,8 +66,8 @@ importers:
         specifier: ^18.2.19
         version: 18.2.19
       acdh-noske-search:
-        specifier: ^0.0.4
-        version: 0.0.4
+        specifier: ^0.0.5
+        version: 0.0.5
       algoliasearch:
         specifier: ^4.22.1
         version: 4.22.1
@@ -1848,8 +1848,8 @@ packages:
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
 
-  acdh-noske-search@0.0.4:
-    resolution: {integrity: sha512-EzfNEzLmzS7CWElfAbkmXifNOVDQA0idmu+Esq8D0dH+j0hOmnLHlVsTFnEbZXAeM9eJDhhk67RPgZ7HuV2hPw==}
+  acdh-noske-search@0.0.5:
+    resolution: {integrity: sha512-3LBFlHKe9swMsSDt5P1Pf3d0IEK9XDrlM08LsjCnZU4f5WPXWv6kMlXtNC1oHDuH68aCHsTqlnmjwXM8Jonetw==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -7625,7 +7625,7 @@ snapshots:
 
   abbrev@1.1.1: {}
 
-  acdh-noske-search@0.0.4: {}
+  acdh-noske-search@0.0.5: {}
 
   acorn-jsx@5.3.2(acorn@8.11.3):
     dependencies:
