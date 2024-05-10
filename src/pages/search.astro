@@ -30,7 +30,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<div class="py-2 text-center" id="clear-refinements"></div>
 				<h5 class="pt-2">Sammlung wählen</h5>
 				<div class="p-2" id="menu-edition"></div>
-				<h5 class="pt-2">Status (automatisch erstellter Text )</h5>
+				<h5 class="pt-2">Status (automatisch erstellter Text)</h5>
 				<div id="corrections"></div>
 				<h5 class="hidemobile pt-2">Orte</h5>
 				<div id="refinement-list-places" class="hidemobile"></div>
@@ -236,8 +236,17 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 											<td class="px-2">${hit.page}</td>
 										</tr>
 										<tr>
-											<td><em>Jahr:</em></td>
-											<td class="px-2">${hit.year}</td>
+											<td><em>Datum:</em></td>
+											<td class="px-2">
+												${new Date(hit.id.replace("wr_", "").split("__")[0]).toLocaleDateString(
+													"de-De",
+													{
+														year: "numeric",
+														month: "long",
+														day: "numeric",
+													},
+												)}
+											</td>
 										</tr>
 										<tr>
 											<td><em>Edition:</em></td>
