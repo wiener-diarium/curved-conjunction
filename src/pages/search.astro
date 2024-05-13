@@ -32,6 +32,10 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<div class="p-2" id="menu-edition"></div>
 				<h5 class="pt-2">Status (automatisch erstellter Text)</h5>
 				<div id="corrections"></div>
+				<h5 class="pt-2">Wochentag</h5>
+				<div id="weekday"></div>
+				<h5 class="pt-2">Jahrzehnt</h5>
+				<div id="decade"></div>
 				<h5 class="hidemobile pt-2">Orte</h5>
 				<div id="refinement-list-places" class="hidemobile"></div>
 				<h5 class="hidemobile pt-2">Schlagworte</h5>
@@ -75,6 +79,25 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	const annoUrl = "https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=";
 	const annoImgUrl = "https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|";
 	const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
+
+	function weekdayToString(weekday: any) {
+		switch (parseInt(weekday.label)) {
+			case 0:
+				return "Montag";
+			case 1:
+				return "Dienstag";
+			case 2:
+				return "Mittwoch";
+			case 3:
+				return "Donnerstag";
+			case 4:
+				return "Freitag";
+			case 5:
+				return "Samstag";
+			case 6:
+				return "Sonntag";
+		}
+	}
 
 	function makeAnnoLink(hit: any) {
 		let hitDate = hit.day;
@@ -312,6 +335,54 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				checkbox: "m-2",
 			},
 		}),
+
+		refinementList({
+			container: "#weekday",
+			attribute: "weekday",
+			searchable: false,
+			sortBy: ["isRefined", "name:asc"],
+			transformItems(items) {
+				return items.map((item) => ({
+					...item,
+					highlighted: (item.highlighted = weekdayToString(item)),
+				}));
+			},
+			cssClasses: {
+				searchableInput: "form-control form-control-sm m-2 border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+
+		refinementList({
+			container: "#decade",
+			attribute: "decade",
+			searchable: false,
+			sortBy: ["isRefined", "name:asc"],
+			limit: 10,
+			// transformItems(items) {
+			// 	return items.map((item) => ({
+			// 		...item,
+			// 		highlighted: (item.highlighted = yearToDecade(item)),
+			// 	}));
+			// },
+			cssClasses: {
+				searchableInput: "form-control form-control-sm m-2 border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+
 		// refinementList({
 		// 	container: "#has-fulltext",
 		// 	attribute: "has_fulltext",

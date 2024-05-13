@@ -18,7 +18,16 @@ const { textcolor, baseurl, backgroundcolor, width, title, date, issue } = Astro
 	<div class="flex items-center justify-center text-center text-white">
 		<div class="p-6">
 			<h1 class="text-sm font-bold">{title}</h1>
-			<p class="text-sm">{date}</p>
+			<p class="text-sm">
+				{
+					date.toLocaleDateString("de-De", {
+						weekday: "long",
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})
+				}
+			</p>
 			<p class="text-sm">{issue}</p>
 		</div>
 	</div>

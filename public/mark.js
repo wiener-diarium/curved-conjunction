@@ -39,7 +39,6 @@ function performMarkUrl() {
 	// get current url parameters
 	let url = new URL(window.location.href);
 	let urlParam = new URLSearchParams(url.search);
-	console.log(urlParam.get("noSearch"));
 	let jumpto = urlParam.get("noSearch") === "true" ? false : true;
 	// Determine selected options
 	var options = {

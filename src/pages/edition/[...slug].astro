@@ -28,14 +28,7 @@ export async function getStaticPaths() {
 			params: { slug: entry.name.replace(/\.html$/, "") },
 			props: {
 				html: readFile(`edition/${entry.name}`, "utf-8"),
-				date: new Date(entry.name.replace(/\.html$/, "").replace("wr_", "")).toLocaleDateString(
-					"de-De",
-					{
-						year: "numeric",
-						month: "long",
-						day: "numeric",
-					},
-				),
+				date: new Date(entry.name.replace(/\.html$/, "").replace("wr_", "")),
 				// issue: getMeta(entry.name),
 			},
 		}));
