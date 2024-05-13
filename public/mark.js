@@ -36,13 +36,18 @@ function jumpTo(trigger) {
 }
 
 function performMarkUrl() {
+	// get current url parameters
+	let url = new URL(window.location.href);
+	let urlParam = new URLSearchParams(url.search);
+	console.log(urlParam.get("noSearch"));
+	let jumpto = urlParam.get("noSearch") === "true" ? false : true;
 	// Determine selected options
 	var options = {
 		accrossElements: true,
 		done: function () {
 			results = input[0].querySelectorAll("mark");
 			currentIndex = 0;
-			jumpTo(true);
+			jumpTo(jumpto);
 			setTimeout(() => {
 				resultDiv.innerHTML = "Hits: " + results.length;
 			}, 500);
@@ -51,10 +56,6 @@ function performMarkUrl() {
 	[].forEach.call(optionInputs, function (opt) {
 		options[opt.value] = opt.checked;
 	});
-
-	// get current url parameters
-	let url = new URL(window.location.href);
-	let urlParam = new URLSearchParams(url.search);
 	if (urlParam.get("mark") === null) {
 		urlParam.set("mark", "default");
 	} else if (urlParam.get("mark") == "default") {
@@ -69,6 +70,17 @@ function performMarkUrl() {
 				}
 			},
 		});
+	}
+	if (jumpto === false) {
+		let hash = url.hash;
+		if (hash) {
+			let element = document.getElementById(hash.substring(1));
+			element.scrollIntoView({
+				block: "start",
+				inline: "nearest",
+				smooth: "true",
+			});
+		}
 	}
 }
 
