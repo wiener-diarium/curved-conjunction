@@ -31,7 +31,9 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	<div class="flex flex-col">
 		<div class="container self-center py-4">
 			<div class="mb-28 mt-6 grid grid-cols-4 gap-8">
-				<a href={`${baseurl}search`}>
+				<a
+					href={`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`}
+				>
 					<div
 						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
 					>

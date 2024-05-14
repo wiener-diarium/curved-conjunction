@@ -19,7 +19,10 @@ const { textcolor, baseurl, backgroundcolor, width, issue, corpus } = Astro.prop
 					</a>
 				</li>
 				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
-					<a href=`${baseurl}search` aria-label="Zurück zur Volltextsuche">
+					<a
+						href=`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`
+						aria-label="Zurück zur Volltextsuche"
+					>
 						Zurück zur Volltextsuche
 					</a>
 				</li>
