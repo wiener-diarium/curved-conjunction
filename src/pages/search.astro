@@ -78,6 +78,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	var project_collection_name = "gestrich_index";
 	const annoUrl = "https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=";
 	const annoImgUrl = "https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|";
+	const digitUrl = "https://diarium-images.acdh-dev.oeaw.ac.at/";
 	const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 
 	function weekdayToString(weekday: any) {
@@ -120,6 +121,26 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		let hitDate = hit.day;
 		let hitPage = hit.page;
 		return `${annoImgUrl}${hitDate}|${hitPage}|10.0|0`;
+	}
+	function makeDigitImgUrl(hit: any) {
+		let date = String(hit.day);
+		let page = String(hit.page);
+		console.log(date, page);
+		let part1 = `${date.slice(0, 3)}x`;
+		let part2 = date.slice(0, 4);
+		let part3 = date.slice(4, 6);
+		let part4 = date;
+		let part5 = `${date}-000`;
+		let part6 = "full/full/0/default.jpg";
+		return `${digitUrl}${part1}/${part2}/${part3}/${part4}/${part5}/${part6}`;
+	}
+	function whichEdition(hit: any) {
+		let hitDigit = hit.digitarium_issue;
+		if (hitDigit) {
+			return makeDigitImgUrl(hit);
+		} else {
+			return makeAnnoImgUrl(hit);
+		}
 	}
 	function makeTitle(hit: any) {
 		let hitDigit = hit.digitarium_issue;
@@ -246,7 +267,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 													? "border-cyan-700"
 													: ""}"
 								>
-									<img src="${makeAnnoImgUrl(hit)}" class="img-thumbnail" alt="Bild" />
+									<img src="${whichEdition(hit)}" class="img-thumbnail" alt="Bild" />
 								</div>
 								<div class="basis-8/12">
 									<table>
