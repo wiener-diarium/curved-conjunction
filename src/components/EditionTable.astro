@@ -1,20 +1,26 @@
 ---
-import { readdir } from "node:fs/promises";
-
-const entries = await readdir("edition", { withFileTypes: true });
 const { baseurl } = Astro.props;
 ---
 
-<div>
-	<ul>
-		{
-			entries.map((s) => {
-				return (
-					<li>
-						<a href={`${baseurl}edition/${s.name.replace(".html", "")}`}>{s.name}</a>
-					</li>
-				);
-			})
-		}
-	</ul>
-</div>
+<div id="toc"></div>
+<script is:inline define:vars={{ baseurl }}>
+	import "tabulator-tables/dist/css/tabulator.min.css";
+	import { Tabulator, FormatModule, EditModule } from "tabulator-tables";
+
+	Tabulator.registerModule([FormatModule, EditModule]);
+
+	const table = new Tabulator("#toc", {
+		height: 400,
+		layout: "fitColumns",
+		columns: [
+			{ title: "Name", field: "name" },
+			{
+				title: "Link",
+				field: "link",
+				formatter: "link",
+				formatterParams: { label: "Open" },
+			},
+		],
+	});
+	table.setData("");
+</script>

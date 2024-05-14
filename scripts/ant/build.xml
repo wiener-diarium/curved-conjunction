@@ -8,6 +8,14 @@
 	<delete>
 			<fileset dir="${target}" includes="*.xml"/>
 	</delete>
+	<delete>
+			<fileset dir="${target}" includes="*.json"/>
+	</delete>
+	<xslt in="${basedir}/data/editions/about.xml" out="${target}/about.json" style="${basedir}/scripts/xslt/xml-to-json.xsl">
+			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
+			<classpath location="${basedir}/saxon/saxon9he.jar"/>
+	</xslt>
+	<delete file="${basedir}/data/editons/about.xml"/>
 	<xslt style="${basedir}/scripts/xslt/editions.xsl"  basedir="${basedir}/data/editions/present" destdir="${target}" includes="*.xml">
 			<factory name="net.sf.saxon.TransformerFactoryImpl"/>
 			<classpath location="${basedir}/saxon/saxon9he.jar"/>

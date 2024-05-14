@@ -102,7 +102,7 @@ new LoadEditor({
 				fade: "hidden",
 				column_small: {
 					class: "basis-5/12",
-					percent: "40",
+					percent: "34",
 				},
 				column_full: {
 					class: "basis-full",

@@ -1,35 +1,63 @@
 ---
 import EditionEditor from "./EditionEditor.astro";
 
-const { textcolor, baseurl, backgroundcolor, width, title, date, issue } = Astro.props;
+const { textcolor, baseurl, backgroundcolor, width, issue, corpus } = Astro.props;
 ---
 
 <aside class=`${width} ${backgroundcolor} ${textcolor}`>
-	<div class="flex shrink-0 items-center text-center text-white">
-		<a href=`${baseurl}` aria-label="Zurück zur Hauptseite">
-			<img
-				class="w-auto p-6"
-				src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/08/Digitarium-Logo-Vector-final.png"
-				alt="Wiener Diarium Logo"
-			/>
-			Zurück zur Hauptseite
-		</a>
-	</div>
-	<div class="flex items-center justify-center text-center text-white">
-		<div class="p-6">
-			<h1 class="text-sm font-bold">{title}</h1>
-			<p class="text-sm">
-				{
-					date.toLocaleDateString("de-De", {
-						weekday: "long",
-						year: "numeric",
-						month: "long",
-						day: "numeric",
-					})
-				}
-			</p>
-			<p class="text-sm">{issue}</p>
+	<div class="sticky top-4">
+		<div class="my-6 flex shrink-0 text-center text-white">
+			<ul class="mx-auto p-2">
+				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
+					<a href=`${baseurl}` aria-label="Zurück zur Hauptseite">
+						<img
+							class="w-auto p-6"
+							src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/08/Digitarium-Logo-Vector-final.png"
+							alt="Wiener Diarium Logo"
+						/>
+						Zurück zur Hauptseite
+					</a>
+				</li>
+				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
+					<a href=`${baseurl}search` aria-label="Zurück zur Volltextsuche">
+						Zurück zur Volltextsuche
+					</a>
+				</li>
+				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
+					<a href=`${baseurl}noSearch` aria-label="Zurück zur NoSketch Suche">
+						Zurück zur NoSketch Suche
+					</a>
+				</li>
+			</ul>
 		</div>
+		<div class="flex items-center justify-center text-center text-white">
+			<div class="p-6">
+				<p>
+					{
+						(() => {
+							if (corpus === "1") {
+								return "Ausgewählte Ausgaben 18. Jahrhundert";
+							} else {
+								return "Alle Ausgaben Siebenjähriger Krieg";
+							}
+						})()
+					}
+				</p>
+				<h1 class="text-xl font-bold">{issue}</h1>
+				<!-- <p class="text-sm">
+					{
+						date.toLocaleDateString("de-De", {
+							weekday: "long",
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})
+					}
+				</p> -->
+				<!-- <p class="text-xl">{title}</p> -->
+				<p>Wienerisches Diarium</p>
+			</div>
+		</div>
+		<EditionEditor />
 	</div>
-	<EditionEditor />
 </aside>

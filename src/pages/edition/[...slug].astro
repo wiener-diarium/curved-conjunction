@@ -22,6 +22,8 @@ import Edition from "../../layouts/Edition.astro";
 
 export async function getStaticPaths() {
 	const entries = await readdir("edition", { withFileTypes: true });
+	const about = await readFile("edition/about.json", "utf-8");
+	const editions = JSON.parse(about);
 	return entries
 		.filter((entry) => entry.isFile() && entry.name.endsWith(".html"))
 		.map((entry) => ({
@@ -29,13 +31,26 @@ export async function getStaticPaths() {
 			props: {
 				html: readFile(`edition/${entry.name}`, "utf-8"),
 				date: new Date(entry.name.replace(/\.html$/, "").replace("wr_", "")),
-				// issue: getMeta(entry.name),
+				issue:
+					editions[
+						(() => {
+							const name = entry.name.replace(/\.html$/, "");
+							return name.startsWith("wr_") ? name : `edoc_wd_${name}`;
+						})()
+					].title,
+				corpus:
+					editions[
+						(() => {
+							const name = entry.name.replace(/\.html$/, "");
+							return name.startsWith("wr_") ? name : `edoc_wd_${name}`;
+						})()
+					].corpus,
 			},
 		}));
 }
 
 const { slug } = Astro.params;
-const { html, date } = Astro.props;
+const { html, date, issue, corpus } = Astro.props;
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
@@ -45,6 +60,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		margin: 0 auto !important;
 	}
 </style>
-<Edition title={slug} baseurl={baseurl} date={date}>
+<Edition title={slug} baseurl={baseurl} date={date} issue={issue} corpus={corpus}>
 	<div set:html={html} />
 </Edition>
