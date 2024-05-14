@@ -5,7 +5,7 @@ const allPosts = await getCollection("pages");
 const { textcolor, baseurl } = Astro.props;
 ---
 
-<div class="mx-auto h-16 max-w-7xl px-2 sm:px-6 lg:px-8">
+<div class="mx-auto h-20 max-w-7xl px-2 sm:px-6 lg:px-8">
 	<div class="relative flex items-center justify-between">
 		<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
 			<button
@@ -42,7 +42,7 @@ const { textcolor, baseurl } = Astro.props;
 			</button>
 		</div>
 		<div
-			class="flex flex-1 items-center justify-center align-middle sm:items-stretch sm:justify-start"
+			class="mt-4 flex flex-1 items-center justify-center align-middle sm:items-stretch sm:justify-start"
 		>
 			<div class="flex shrink-0 items-center">
 				<a href=`${baseurl}` aria-label="Index">
@@ -73,7 +73,25 @@ const { textcolor, baseurl } = Astro.props;
 					>
 						Model
 					</a>
-					{
+					<a
+						href={`${baseurl}search`}
+						class={`block px-4 py-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+						id="search"
+					>
+						Volltextsuche
+					</a>
+					<a
+						href={`${baseurl}noSearch`}
+						class={`block px-4 py-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+						id="noSearch"
+					>
+						NoSketch Suche
+					</a>
+					<!-- {
 						allPosts.map((post) => (
 							<a
 								href={`${baseurl}static/${post.slug}`}
@@ -85,11 +103,11 @@ const { textcolor, baseurl } = Astro.props;
 								{post.data.title}
 							</a>
 						))
-					}
+					} -->
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
+		<!-- <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
 			<form
 				class="my-3 hidden sm:ml-6 sm:block"
 				method="get"
@@ -113,7 +131,7 @@ const { textcolor, baseurl } = Astro.props;
 					</svg>
 				</button>
 			</form>
-		</div>
+		</div> -->
 	</div>
 </div>
 <div class="sm:hidden" id="mobile-menu">

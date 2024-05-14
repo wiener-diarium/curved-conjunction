@@ -19,6 +19,8 @@ const meta: Record<
 > = JSON.parse(about);
 const data = [] as Array<Meta>;
 for (const [id, { title, corpus }] of Object.entries(meta)) {
+	let data_normalized = new Date(id.replace("edoc_wd_", "").replace(/_/g, "-"));
+	let date = data_normalized.toISOString();
 	data.push({
 		id: id,
 		title: title,
@@ -31,7 +33,7 @@ for (const [id, { title, corpus }] of Object.entries(meta)) {
 			}
 		})(),
 		link: `${baseurl}edition/${id.replace("edoc_wd_", "")}`,
-		date: new Date(id.replace("edoc_wd_", "").replace(/_/g, "-")).toLocaleDateString("de-DE"),
+		date: date.replace(/T.+/g, ""),
 	});
 }
 ---

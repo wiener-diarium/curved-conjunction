@@ -1,11 +1,11 @@
 ---
 import { faFolderOpen, faMagnifyingGlass, faTable } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { getCollection } from "astro:content";
 
+// import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
 
-const allPosts = await getCollection("posts");
+// const allPosts = await getCollection("posts");
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
@@ -80,7 +80,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					</div>
 				</a>
 			</div>
-			<div class="container self-center py-10">
+			<!-- <div class="container self-center py-10">
 				<h1 class="mt-6 border-b-2 text-2xl font-bold">
 					<a href="/post-overview">Aktuelles</a>
 				</h1>
@@ -101,7 +101,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						})
 					}
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </Page>
