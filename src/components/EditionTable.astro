@@ -32,7 +32,7 @@ for (const [id, { title, corpus }] of Object.entries(meta)) {
 					return "Ausgewählte Ausgaben Siebenjähriger Krieg";
 			}
 		})(),
-		link: `${baseurl}edition/${id.replace("edoc_wd_", "")}`,
+		link: `${baseurl}edition/${id.replace("edoc_wd_", "")}?img=on`,
 		date: date.replace(/T.+/g, ""),
 	});
 }
