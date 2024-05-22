@@ -14,14 +14,14 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<li class="px-4"><a href="#annotation">Annotation</a></li>
 			</ul>
 		</div>
-		<div class="mx-auto my-[3%] flex h-screen flex-col">
+		<div class="mx-auto my-[3%] flex flex-col">
 			<span id="call" class="mb-16"></span>
 			<div class="mx-auto overflow-hidden">
 				<figure class="p-2">
 					<img
 						alt="Basem Saifo, 2021"
 						class="w-full rounded-lg border object-cover object-center shadow-md"
-						src="/acdh-digitarium-konferenz_vom_diarium_zum_digitarium-06-Basem_Saifo-1024x683.jpg"
+						src={`${baseurl}acdh-digitarium-konferenz_vom_diarium_zum_digitarium-06-Basem_Saifo-1024x683.jpg`}
 					/>
 					<figcaption>
 						<em>© Basem Saifo</em>
@@ -38,7 +38,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						<img
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Zeitungen haben mancherley Sachen im Blick."
-							src="/acdh-digitarium-caspar_stieler-15-Claudia_Resch-e1534861817939-185x300.jpg"
+							src={`${baseurl}acdh-digitarium-caspar_stieler-15-Claudia_Resch-e1534861817939-185x300.jpg`}
 						/>
 						<figcaption class="mr-4">
 							<em>Zeitungen haben mancherley Sachen im Blick.</em>
@@ -70,7 +70,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						<img
 							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Zeitungen liest imer einer anders als der andere."
-							src="/acdh-digitarium-caspar_stieler-17-Claudia_Resch-e1534865099692-232x300.jpg"
+							src={`${baseurl}acdh-digitarium-caspar_stieler-17-Claudia_Resch-e1534865099692-232x300.jpg`}
 						/>
 						<figcaption class="ml-4">
 							<em>Von derer Zeitungen Würde und Wichtigkeit.</em>
@@ -80,14 +80,14 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			</div>
 		</div>
 
-		<div class="mx-auto my-[3%] flex h-screen flex-col">
+		<div class="mx-auto my-[3%] flex flex-col">
 			<span id="digit" class="mb-16"></span>
 			<div class="mx-auto overflow-hidden">
 				<figure class="p-2">
 					<img
 						alt="Sandra Lehecka, 2021"
 						class="w-full rounded-lg border object-cover object-center shadow-md"
-						src="/acdh-digitarium-originalausgaben-11-Sandra_Lehecka-2-e1534170763123-1024x217.jpg"
+						src={`${baseurl}acdh-digitarium-originalausgaben-11-Sandra_Lehecka-2-e1534170763123-1024x217.jpg`}
 					/>
 					<figcaption>
 						<em>© Sandra Lehecka</em>
@@ -103,7 +103,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						<img
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Transkribus Screenshot"
-							src="/acdh-digitarium-transkribus-screenshot-02-300x175.png"
+							src={`${baseurl}acdh-digitarium-transkribus-screenshot-02-300x175.png`}
 						/>
 					</figure>
 					<p>
@@ -132,7 +132,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						Genauigkeit und Trefferquote automatisch erkennen zu können. Unser Modell steht zur
 						Nachnutzung zur Verfügung – Sie können es <a
 							class="hover:text-cyan-500"
-							href="https://digitarium.acdh.oeaw.ac.at/fraktur-modell/"><strong>hier</strong></a
+							href=`${baseurl}model`><strong>hier</strong></a
 						> ausprobieren oder über <a
 							class="hover:text-cyan-500"
 							href="https://readcoop.eu/de/modelle/german-fraktur-18th-century/"
@@ -143,7 +143,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						<img
 							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Transkribus Screenshot"
-							src="/acdh-digitarium-transkribus-screenshot-01-768x466.jpg"
+							src={`${baseurl}acdh-digitarium-transkribus-screenshot-01-768x466.jpg`}
 						/>
 					</figure>
 				</div>
@@ -153,7 +153,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					<img
 						class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 						alt="Zeitungen erfordern gute Vorrectores."
-						src="/acdh-digitarium-caspar_stieler-20-Claudia_Resch-e1534862625266-276x300.jpg"
+						src={`${baseurl}acdh-digitarium-caspar_stieler-20-Claudia_Resch-e1534862625266-276x300.jpg`}
 					/>
 					<figcaption class="mr-4">
 						<em>Zeitungen erfordern gute Vorrectores.</em>
@@ -166,21 +166,21 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					internationaler Standards der Text Encoding Initiative (TEI) kodiert wird, steht bei der
 					Erstellung dieses historischen Zeitungskorpus jedenfalls an erster Stelle.
 					<br /><br />
-					Wenn Sie Fehler im <a class="hover:text-cyan-500" href=`${baseurl}search`
+					Wenn Sie Fehler im <a class="hover:text-cyan-500" href=`${baseurl}digitarium`
 						><strong>DIGITARIUM</strong></a
 					> entdecken, nehmen Sie bitte Kontakt auf – wir sind um deren baldige Behebung bemüht!
 				</p>
 			</div>
 		</div>
 
-		<div class="mx-auto my-[3%] flex h-screen flex-col">
+		<div class="mx-auto my-[3%] flex flex-col">
 			<span id="transcription" class="mb-16"></span>
 			<div class="mx-auto overflow-hidden">
 				<figure class="p-2">
 					<img
 						alt="Claudia Resch, 2021"
 						class="w-full rounded-lg border object-cover object-center shadow-md"
-						src="/acdh-digitarium-setzkasten-Claudia_Resch-1024x576.jpg"
+						src={`${baseurl}acdh-digitarium-setzkasten-Claudia_Resch-1024x576.jpg`}
 					/>
 					<figcaption>
 						<em>© Claudia Resch</em>
@@ -215,7 +215,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Unleserliche Textstelle (Ausgabe vom 5. November 1712, S. 7)
 							© Claudia Resch"
-							src="/acdh-digitarium-Ausgabe_0511171_S.7-768x238.png"
+							src={`${baseurl}acdh-digitarium-Ausgabe_0511171_S.7-768x238.png`}
 						/>
 						<figcaption class="mr-4">
 							<em>Unleserliche Textstelle (Ausgabe vom 5. November 1712, S. 7) © Claudia Resch</em>
@@ -232,14 +232,14 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			</div>
 		</div>
 
-		<div class="mx-auto my-[3%] flex h-screen flex-col">
+		<div class="mx-auto my-[3%] flex flex-col">
 			<span id="annotation" class="mb-16"></span>
 			<div class="mx-auto flex flex-row">
 				<figure class="p-2">
 					<img
 						class="w-[500px] rounded-lg border shadow-md"
 						alt="Foto von Besuchern eines Vortrages über das Wiener Darium."
-						src="/acdh-digitarium-workshop-05-Sandra_Lehecka-1024x681.jpg"
+						src={`${baseurl}acdh-digitarium-workshop-05-Sandra_Lehecka-1024x681.jpg`}
 					/>
 					<figcaption>
 						<em>© Sandra Lehecka.</em>
@@ -249,7 +249,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					<img
 						class="w-[500px] rounded-lg border shadow-md"
 						alt="Foto von Besuchern eines Vortrages über das Wiener Darium."
-						src="/acdh-digitarium-workshop-06-Sandra_Lehecka-1024x681.jpg"
+						src={`${baseurl}acdh-digitarium-workshop-06-Sandra_Lehecka-1024x681.jpg`}
 					/>
 					<figcaption>
 						<em>© Sandra Lehecka</em>
@@ -259,7 +259,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					<img
 						class="w-[500px] rounded-lg border shadow-md"
 						alt="Foto von Besuchern eines Vortrages über das Wiener Darium."
-						src="/acdh-digitarium-workshop-01-Sandra_Lehecka-e1534774011518-1024x500.jpg"
+						src={`${baseurl}acdh-digitarium-workshop-01-Sandra_Lehecka-e1534774011518-1024x500.jpg`}
 					/>
 					<figcaption>
 						<em>© Sandra Lehecka</em>
@@ -286,7 +286,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						dabei die technische Umsetzbarkeit der vorgeschlagenen Annotationskonzepte im Blick. Im Dialog
 						mit künftigen User*innen stellt sich heraus, auf welche Kernfunktionalitäten im <a
 							class="hover:text-cyan-500"
-							href=`${baseurl}search`><strong>DIGITARIUM</strong></a
+							href=`${baseurl}digitarium`><strong>DIGITARIUM</strong></a
 						>
 						nicht verzichtet werden kann und was darüber hinaus wünschenswert wäre.
 					</p>
@@ -309,7 +309,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						Bereichen) besser kennenzulernen, ihre Erkenntnisinteressen und Forschungspraktiken zu
 						erfragen und – davon ausgehend – Anforderungen an das entstehende <a
 							class="hover:text-cyan-500"
-							href=`${baseurl}search`><strong>DIGITARIUM</strong></a
+							href=`${baseurl}digitarium`><strong>DIGITARIUM</strong></a
 						> abzuleiten.
 						<br /><br />
 						Idealerweise erfolgt die Entwicklung von Prototypen daher partizipativ und wird von Interviews,
@@ -321,7 +321,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						<img
 							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Was die Zeitungsleser vor Geräte haben müssen?"
-							src="/acdh-digitarium-caspar_stieler-18-Claudia_Resch-e1534865307383-189x300.jpg"
+							src={`${baseurl}acdh-digitarium-caspar_stieler-18-Claudia_Resch-e1534865307383-189x300.jpg`}
 						/>
 						<figcaption class="ml-4">
 							<em>Was die Zeitungsleser vor Geräte haben müssen?</em>

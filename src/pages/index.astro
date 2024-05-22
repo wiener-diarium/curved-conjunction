@@ -10,8 +10,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Wiener Diarium" baseurl={baseurl}>
-	<div class="container mx-auto flex flex-col">
-		<div class="float-left mx-auto my-[5%] basis-full text-center">
+	<div class="container mx-auto flex flex-col p-2">
+		<div class="float-left mx-auto my-[5%] text-center">
 			<div class="ml-10 p-10">
 				<h1 class="font-medium text-cyan-800">
 					<div class="text-6xl">Das Wiener Diarium</div>
@@ -20,14 +20,14 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				</h1>
 			</div>
 		</div>
-		<div class="mb-[10%] flex basis-full flex-col">
+		<div class="mb-[3%] flex flex-col">
 			<div class="mx-auto max-w-[1200px] basis-full">
-				<div class="flex flex-row px-6">
+				<div class="flex flex-row">
 					<figure>
 						<img
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Vorrede. Geehrte Leserin."
-							src="/acdh-digitarium-caspar_stieler-06-Claudia_Resch-e1534863442705-300x140.jpg"
+							src={`${baseurl}acdh-digitarium-caspar_stieler-06-Claudia_Resch-e1534863442705-300x140.jpg`}
 						/>
 						<figcaption class="mr-4">
 							<em>Vorrede. Geehrte Leserin.</em>
@@ -46,13 +46,12 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						u.v.m.
 					</p>
 				</div>
-				<hr class="m-4" />
-				<div class="flex flex-row px-6">
+				<div class="mt-10 flex flex-row">
 					<figure>
 						<img
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Von derer Zeitungen Würde und Wichtigkeit."
-							src="/acdh-digitarium-caspar_stieler-02-Claudia_Resch-e1534172057675-300x103.jpg"
+							src={`${baseurl}acdh-digitarium-caspar_stieler-02-Claudia_Resch-e1534172057675-300x103.jpg`}
 						/>
 						<figcaption class="mr-4">
 							<em>Von derer Zeitungen Würde und Wichtigkeit.</em>
@@ -71,7 +70,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						Erschließung einzubringen. Die Innovation des Projekts besteht vor allem darin, dass Forscher*innen
 						von Beginn an in den interdisziplinär angelegten Erschließungsprozess involviert sind. Die
 						Zeitungsausgaben stehen der Forschungsgemeinschaft, aber auch interessierten Laien in der
-						Webapplikation <a href=`${baseurl}search` class="hover:text-cyan-500"
+						Webapplikation <a href=`${baseurl}digitarium` class="hover:text-cyan-500"
 							><strong>DIGITARIUM</strong></a
 						> zur Verfügung.
 						<br /><br />
@@ -80,14 +79,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				</div>
 			</div>
 		</div>
-		<!-- <div class="mx-auto mb-[10%] basis-4/12">
-			<img
-				class="float-left max-w-[700px] shadow-md"
-				src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg"
-				alt="Wiener Diarium"
-			/>
-		</div> -->
-		<div class="container mb-[5%] max-w-[1200px] self-center py-4">
+		<div class="mb-[3%] max-w-[1200px] self-center py-4">
 			<div class="mb-28 mt-6 grid grid-cols-4 gap-8">
 				<a
 					href={`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`}

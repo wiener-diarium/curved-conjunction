@@ -5,13 +5,13 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Projekt" baseurl={baseurl}>
-	<div class="container mx-auto flex h-screen flex-col">
+	<div class="container mx-auto flex flex-col">
 		<div class="mx-auto my-[3%] flex flex-col">
 			<div class="mx-auto my-12 overflow-hidden">
 				<img
 					alt="Screenshot des DIGITARIUMs"
 					class="w-full rounded-lg border object-cover object-center shadow-md"
-					src="/F-A-1024x288_cropped.png"
+					src={`${baseurl}F-A-1024x288_cropped.png`}
 				/>
 			</div>
 			<div class="mx-auto mb-8 flex flex-col">
@@ -21,7 +21,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<div class="max-w-[1200px] basis-full p-4">
 					<h4 class="text-2xl">Für wen wurde das DIGITARIUM erstellt?</h4>
 					<p>
-						Das DIGITARIUM steht <a class="hover:text-cyan-500" href="baseurl"
+						Das DIGITARIUM steht <a class="hover:text-cyan-500" href={baseurl}
 							><strong>allen</strong></a
 						> zur Verfügung, die Interesse an der historischen Wiener Zeitung, dem sogenannten Wien[n]erischen
 						Diarium haben. Hier können Sie diese originalen Zeitungsausgaben kostenlos Wort für Wort
@@ -70,7 +70,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					<p>
 						Der automatisiert erstellte Text wird von ausgewiesenen Expert*innen <a
 							class="hover:text-cyan-500"
-							href=`${baseurl}team`><strong>(Projektteam)</strong></a
+							href=`${baseurl}about#team`><strong>(Projektteam)</strong></a
 						> in oftmals mehreren Korrekturdurchgängen und nach <a
 							class="hover:text-cyan-500"
 							href=`${baseurl}project#transcription`><strong>Transkriptionsstandards</strong></a
@@ -100,7 +100,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					<h4 class="text-2xl">An wen kann ich mich wenden, wenn ich weitere Fragen habe?</h4>
 					<p>
 						Weitere Informationen finden Sie auf den Projektseiten – gerne können Sie sich auch
-						direkt an das <a class="hover:text-cyan-500" href=`${baseurl}team`
+						direkt an das <a class="hover:text-cyan-500" href=`${baseurl}about#team`
 							><strong>Projektteam</strong></a
 						> wenden!
 					</p>

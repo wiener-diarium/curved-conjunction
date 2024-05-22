@@ -5,7 +5,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Wiener Diarium" baseurl={baseurl}>
-	<div class="container mx-auto mt-[4%] flex h-screen max-w-[1200px] flex-col">
+	<div class="container mx-auto mt-[4%] flex max-w-[1200px] flex-col">
 		<div class="self-center py-4">
 			<div class="mt-8 grid grid-cols-4 gap-8">
 				<a
@@ -52,7 +52,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<figure>
 				<img
 					class="float-left max-w-[1200px] rounded-lg border shadow-md"
-					src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg"
+					src={`${baseurl}acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg`}
 					alt="Wiener Diarium"
 				/>
 				<figcaption class="mr-4">
