@@ -1,6 +1,6 @@
 ---
-import { faFolderOpen, faMagnifyingGlass, faTable } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faFolderOpen, faMagnifyingGlass, faTable } from "@fortawesome/free-solid-svg-icons";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
@@ -10,74 +10,132 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Wiener Diarium" baseurl={baseurl}>
-	<div class="container mx-auto mt-[2%] flex flex-row justify-center">
-		<div class="basis-5/12 content-center align-middle">
-			<img
-				class="float-left max-w-[100%] rounded-lg border-2 border-cyan-800 shadow-md"
-				src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg"
-				alt="Wiener Diarium"
-			/>
-		</div>
-		<div class="float-left flex h-80 basis-7/12 flex-col justify-center">
+	<div class="container mx-auto flex flex-col">
+		<div class="float-left mx-auto my-[5%] basis-full text-center">
 			<div class="ml-10 p-10">
-				<h1 class="text-5xl font-medium text-cyan-800">
-					<div>Das Wiener Diarium:</div>
-					<div>Digitaler Datensatz für</div>
-					<span id="intro-typed"></span>
+				<h1 class="font-medium text-cyan-800">
+					<div class="text-6xl">Das Wiener Diarium</div>
+					<div class="text-4xl">Digitaler Datensatz für</div>
+					<span class="text-4xl" id="intro-typed"></span>
 				</h1>
 			</div>
 		</div>
-	</div>
-	<div class="flex flex-col">
-		<div class="container self-center py-4">
+		<div class="mb-[10%] flex basis-full flex-col">
+			<div class="mx-auto max-w-[1200px] basis-full">
+				<div class="flex flex-row px-6">
+					<figure>
+						<img
+							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+							alt="Vorrede. Geehrte Leserin."
+							src="/acdh-digitarium-caspar_stieler-06-Claudia_Resch-e1534863442705-300x140.jpg"
+						/>
+						<figcaption class="mr-4">
+							<em>Vorrede. Geehrte Leserin.</em>
+						</figcaption>
+					</figure>
+					<p>
+						Das <strong>Wien[n]erische Diarium</strong>, bis Juni 2023 in gedruckter Form als <strong
+							>Wiener Zeitung</strong
+						> erhältlich, war im 18. Jahrhundert das bedeutendste Medium der Habsburgermonarchie. Dass
+						sich seit seiner Gründung 1703 sämtliche Ausgaben erhalten haben, macht es zu einer historischen
+						Quelle von besonderem Wert, denn es dokumentiert zahlreiche historische Ereignisse, Personen
+						und Orte. Auch Veränderungen der Sprache und die Entwicklung des Journalismus lassen sich
+						über die Jahre hinweg erforschen. Für viele geisteswissenschaftliche Disziplinen ist das
+						<strong>Wien[n]erische Diarium</strong> daher eine wichtige Quelle, etwa für die historische
+						Sprachwissenschaft, historische Medienwissenschaft, Kunstgeschichte, Musikgeschichte, Sozialgeschichte
+						u.v.m.
+					</p>
+				</div>
+				<hr class="m-4" />
+				<div class="flex flex-row px-6">
+					<figure>
+						<img
+							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+							alt="Von derer Zeitungen Würde und Wichtigkeit."
+							src="/acdh-digitarium-caspar_stieler-02-Claudia_Resch-e1534172057675-300x103.jpg"
+						/>
+						<figcaption class="mr-4">
+							<em>Von derer Zeitungen Würde und Wichtigkeit.</em>
+						</figcaption>
+					</figure>
+					<p>
+						Das Ziel des vorliegenden Vorhabens ist es daher, in enger Zusammenarbeit mit
+						Forscher*innen dieser Disziplinen zu untersuchen, welche Aspekte der Erschließung aus
+						deren Sicht von besonderer gemeinsamer Relevanz sind.
+						<br /><br />
+						Als breite Materialbasis dienen mehrere hundert Zeitungsausgaben verteilt über das 18. Jahrhundert,
+						zu denen sorgfältig korrigierte, gesicherte Volltextversionen mit strukturellen Basisannotationen
+						(TEI P5) erstellt werden. Da die weitere Erschließung – z.B. die Annotation von Personen-
+						und Ortsnamen – spezielles Fachwissen voraussetzt, sind Forschende der genannten geisteswissenschaftlichen
+						Disziplinen als Expert*innen dazu eingeladen, ihr vorhandenes Wissen über den Text bei dessen
+						Erschließung einzubringen. Die Innovation des Projekts besteht vor allem darin, dass Forscher*innen
+						von Beginn an in den interdisziplinär angelegten Erschließungsprozess involviert sind. Die
+						Zeitungsausgaben stehen der Forschungsgemeinschaft, aber auch interessierten Laien in der
+						Webapplikation <a href=`${baseurl}search` class="hover:text-cyan-500"
+							><strong>DIGITARIUM</strong></a
+						> zur Verfügung.
+						<br /><br />
+						<a href="/project" class="text-cyan-500">Mehr über das Projekt</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="mx-auto mb-[10%] basis-4/12">
+			<img
+				class="float-left max-w-[700px] shadow-md"
+				src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/10/acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg"
+				alt="Wiener Diarium"
+			/>
+		</div> -->
+		<div class="container mb-[5%] max-w-[1200px] self-center py-4">
 			<div class="mb-28 mt-6 grid grid-cols-4 gap-8">
 				<a
 					href={`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`}
 				>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
 					>
 						<div class="flex flex-col items-center self-center p-4">
 							<h2 class="py-4 text-center text-3xl">Volltextsuche</h2>
-							<div class="w-40">
+							<!-- <div class="w-40">
 								<FontAwesomeIcon icon={faMagnifyingGlass} />
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</a>
 				<a href={`${baseurl}noSearch`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
 					>
 						<div class="flex flex-col items-center self-center p-4">
-							<h2 class="py-4 text-center text-3xl">NoSketch Search</h2>
-							<div class="w-40">
+							<h2 class="py-4 text-center text-3xl">Suche (regex)</h2>
+							<!-- <div class="w-40">
 								<FontAwesomeIcon icon={faMagnifyingGlass} />
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</a>
 				<a href={`${baseurl}toc`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
 					>
 						<div class="flex flex-col items-center self-center p-4">
 							<h2 class="py-4 text-center text-3xl">Inhaltsverzeichnis</h2>
-							<div class="w-40">
+							<!-- <div class="w-40">
 								<FontAwesomeIcon icon={faTable} />
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</a>
 				<a href={`${baseurl}model`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-50 p-6 shadow-md hover:bg-cyan-100"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
 					>
 						<div class="flex flex-col items-center self-center p-4">
 							<h2 class="py-4 text-center text-3xl">Fraktur Model</h2>
-							<div class="w-44">
+							<!-- <div class="w-44">
 								<FontAwesomeIcon icon={faFolderOpen} />
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</a>
