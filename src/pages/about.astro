@@ -1,5 +1,13 @@
 ---
+import { getCollection } from "astro:content";
+
+import Presentations from "@/components/Presentations.astro";
+
+import Publications from "../components/Publications.astro";
 import Page from "../layouts/Page.astro";
+
+const publications = await getCollection("publications");
+const presentations = await getCollection("presentations");
 
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
@@ -441,7 +449,17 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<div class="mx-auto mt-8 flex flex-col">
 				<h1 class="mb-8 text-4xl font-bold">Publikationen</h1>
 			</div>
-			<div class="mx-auto flex flex-row">In Arbeit</div>
+			<div class="mx-auto flex max-w-[1200px] flex-row">
+				<ul>
+					{
+						publications.length > 0 ? (
+							publications.map((publ) => <Publications {...publ.data} />)
+						) : (
+							<li>Keine Publikationen gefunden</li>
+						)
+					}
+				</ul>
+			</div>
 		</div>
 
 		<div class="mx-auto my-[3%] flex flex-col">
@@ -461,7 +479,44 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<div class="mx-auto mt-8 flex flex-col">
 				<h1 class="mb-8 text-4xl font-bold">Präsentationen</h1>
 			</div>
-			<div class="mx-auto flex flex-row">In Arbeit</div>
+			<div class="mx-auto flex max-w-[1200px] flex-col">
+				<h5 class="p-2 text-3xl">Workshop</h5>
+				<ul>
+					{
+						presentations.length > 0 ? (
+							presentations.map((pres) =>
+								pres.data.type === "Workshop" ? <Presentations {...pres.data} /> : "",
+							)
+						) : (
+							<li>Keine Präsentationen gefunden</li>
+						)
+					}
+				</ul>
+				<h5 class="p-2 text-3xl">Vortrag</h5>
+				<ul>
+					{
+						presentations.length > 0 ? (
+							presentations.map((pres) =>
+								pres.data.type === "Vortrag" ? <Presentations {...pres.data} /> : "",
+							)
+						) : (
+							<li>Keine Präsentationen gefunden</li>
+						)
+					}
+				</ul>
+				<h5 class="p-2 text-3xl">Poster</h5>
+				<ul>
+					{
+						presentations.length > 0 ? (
+							presentations.map((pres) =>
+								pres.data.type === "Poster" ? <Presentations {...pres.data} /> : "",
+							)
+						) : (
+							<li>Keine Präsentationen gefunden</li>
+						)
+					}
+				</ul>
+			</div>
 		</div>
 	</div>
 </Page>

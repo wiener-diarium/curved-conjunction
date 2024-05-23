@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = CollectionEntry<"presentations">["data"];
+interface Author {
+	lastName: string;
+	firstName: string;
+	middleName?: string;
+}
+type Authors = Array<Author>;
+
+const { presentationUnstructured, title, authors, type, place, date, url } = Astro.props;
+
+const unstructured = presentationUnstructured ? true : false;
+
+function stringifyAuthors(authors: Authors) {
+	return authors
+		.map((author) => {
+			return `${author.lastName}, ${author.firstName}${author.middleName ? " " + author.middleName : ""}`;
+		})
+		.join("; ");
+}
+function urlToHtml(url: string) {
+	return `<a href="${url}" target="_blank">${url}</a>`;
+}
+function dateToHTml(urldate: Date) {
+	return urldate.toLocaleDateString("de-DE", {
+		year: "numeric",
+		month: "2-digit",
+		day: "2-digit",
+	});
+}
+function createTemplate(
+	unstructured: boolean,
+	unstructuredPublication: string,
+	title: string,
+	authors: Authors,
+	type: string,
+	place?: string,
+	date?: Date,
+	url?: string,
+) {
+	if (unstructured) {
+		return unstructuredPublication;
+	}
+	return type
+		? type + ": "
+		: String(stringifyAuthors(authors)) + ":" + title + "." + place
+			? place + "."
+			: String(date)
+				? dateToHTml(date)
+				: String(url)
+					? urlToHtml(url)
+					: "";
+}
+---
+
+<li class="p-2">
+	{
+		createTemplate(
+			unstructured,
+			presentationUnstructured,
+			title,
+			authors,
+			type,
+			place,
+			date ? date : new Date(),
+			url,
+		)
+	}
+</li>

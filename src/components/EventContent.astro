@@ -1,13 +1,17 @@
 ---
 import type { CollectionEntry } from "astro:content";
 
-type Props = CollectionEntry<"posts">["data"];
+type Props = CollectionEntry<"events">["data"];
 
-const { title } = Astro.props;
+const { title, pubDate, author } = Astro.props;
 ---
 
 <div class="flex flex-col">
 	<div class="container mx-auto py-6">
+		<div class="border-b-2 text-gray-400">
+			<p>{pubDate}</p>
+			<p>{author}</p>
+		</div>
 		<div class="py-6">
 			<h1 class="mb-8 text-center text-2xl">{title}</h1>
 			<slot />
@@ -17,7 +21,7 @@ const { title } = Astro.props;
 <style is:global>
 	p img {
 		align-self: center;
-		width: 200px;
+		width: 400px;
 		margin: 1em auto;
 	}
 

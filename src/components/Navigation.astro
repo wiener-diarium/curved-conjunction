@@ -1,7 +1,7 @@
 ---
-import { getCollection } from "astro:content";
+// import { getCollection } from "astro:content";
 
-const allPosts = await getCollection("pages");
+// const allPosts = await getCollection("pages");
 const { textcolor, baseurl } = Astro.props;
 ---
 
@@ -132,7 +132,7 @@ const { textcolor, baseurl } = Astro.props;
 </div>
 <div class="sm:hidden" id="mobile-menu">
 	<div class="space-y-1 px-2 pb-3 pt-2">
-		{
+		<!-- {
 			allPosts.map((post) => (
 				<a
 					href={`${baseurl}${post.slug}`}
@@ -142,7 +142,7 @@ const { textcolor, baseurl } = Astro.props;
 					{post.data.title}
 				</a>
 			))
-		}
+		} -->
 		<form class="my-3" method="get" action={`${baseurl}search.html?ltw[query]`} role="search">
 			<input
 				class="w-full rounded-md border-0 p-2 focus:outline-none focus:ring-0"
