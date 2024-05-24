@@ -3,23 +3,6 @@ import { readdir, readFile } from "node:fs/promises";
 
 import Edition from "../../layouts/Edition.astro";
 
-// export function parseXML(str: string) {
-// 	const parser = new DOMParser();
-// 	return parser.parseFromString(str, "application/xml");
-// }
-
-// export async function getMeta(name: string) {
-// 	const filename = name.startsWith("wr_")
-// 		? `data/editions/present/${name.replace("html", "xml")}`
-// 		: `data/editions/legacy/${name.replace("html", "xml")}`;
-// 	const html = await readFile(filename, "utf-8");
-// 	const doc = parseXML(html);
-// 	const issue = name.startsWith("wr_")
-// 		? doc.querySelector("title[@level='a']")?.textContent
-// 		: doc.querySelector("title[@type='num']")?.textContent;
-// 	return issue;
-// }
-
 export async function getStaticPaths() {
 	const entries = await readdir("edition", { withFileTypes: true });
 	const about = await readFile("edition/about.json", "utf-8");

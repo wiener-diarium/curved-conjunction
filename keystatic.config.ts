@@ -16,11 +16,18 @@ export default config({
 		publications: collection({
 			label: "Publikationen",
 			slugField: "title",
+			parseSlugForSort: (slug) => {
+				return slug + "-" + String(new Date().getTime());
+			},
 			path: "src/content/publications/*",
 			format: { data: "json" },
 			schema: {
 				title: fields.slug({
-					name: { label: "Titel" },
+					name: { label: "Titel", description: "Publikationstitel" },
+					slug: {
+						label: "URL und Dateiname",
+						description: "Der Name der Datei und der URL",
+					},
 				}),
 				publicationUnstructured: fields.text({
 					label: "Publikation unstrukturiert",
@@ -36,7 +43,6 @@ export default config({
 						label: "Autor(en)",
 					},
 				),
-
 				year: fields.text({
 					label: "Jahr",
 				}),
@@ -66,6 +72,9 @@ export default config({
 		presentations: collection({
 			label: "Präsentationen",
 			slugField: "title",
+			parseSlugForSort: (slug) => {
+				return slug + "-" + String(new Date().getTime());
+			},
 			path: "src/content/presentations/*",
 			format: { data: "json" },
 			schema: {
@@ -109,6 +118,9 @@ export default config({
 		events: collection({
 			label: "Events",
 			slugField: "title",
+			parseSlugForSort: (slug) => {
+				return slug + "-" + String(new Date().getTime());
+			},
 			path: "src/content/events/*",
 			entryLayout: "content",
 			format: {
@@ -158,6 +170,12 @@ export default config({
 						TextImage: wrapper({
 							label: "Text and Image",
 							description: "A container with text and an image",
+							// ContentView: (props) => {
+							// 	return `<div>
+							// 			${props.value.text}
+							// 			<img src="${props.value.image?.filename}" alt="${props.value.image_alt}" />
+							// 		</div>`;
+							// },
 							schema: {
 								text: fields.text({
 									label: "Text",
@@ -179,27 +197,36 @@ export default config({
 								}),
 							},
 						}),
-						Gallery: wrapper({
+						ImageGallery: wrapper({
 							label: "Gallerie",
 							description: "Eine Gallerie mit Bildern",
+							// ContentView: (props) => {
+							// 	const images = props.value.images;
+							// 	if (!images.image) return null;
+							// 	return `<div>
+							// 			<img src="${images.image.filename}" alt="${images.alt}" />
+							// 		</div>`;
+							// },
 							schema: {
-								images: fields.object(
-									{
-										image: fields.image({
-											label: "Bild",
-											directory: "public/images/events/component",
-											publicPath: "/images/events/component",
-										}),
-										alt: fields.text({
-											label: "Alt",
-										}),
-										caption: fields.text({
-											label: "Caption",
-										}),
-									},
-									{
-										label: "Bilder",
-									},
+								images: fields.array(
+									fields.object(
+										{
+											image: fields.image({
+												label: "Bild",
+												directory: "public/images/events/component",
+												publicPath: "/images/events/component",
+											}),
+											alt: fields.text({
+												label: "Alt",
+											}),
+											caption: fields.text({
+												label: "Caption",
+											}),
+										},
+										{
+											label: "Bilder",
+										},
+									),
 								),
 							},
 						}),
@@ -234,6 +261,9 @@ export default config({
 		news: collection({
 			label: "Neuigkeiten",
 			slugField: "title",
+			parseSlugForSort: (slug) => {
+				return slug + "-" + String(new Date().getTime());
+			},
 			path: "src/content/news/*",
 			entryLayout: "content",
 			format: {
@@ -291,17 +321,24 @@ export default config({
 								}),
 							},
 						}),
-						Gallery: wrapper({
+						ImageGallery: wrapper({
 							label: "Gallerie",
 							description: "Eine Gallerie mit Bildern",
+							// ContentView: (props) => {
+							// 	const images = props.value.images;
+							// 	if (!images.image) return null;
+							// 	return `<div>
+							// 			<img src="${images.image.filename}" alt="${images.alt}" />
+							// 		</div>`;
+							// },
 							schema: {
 								images: fields.array(
 									fields.object(
 										{
 											image: fields.image({
 												label: "Bild",
-												directory: "public/images/news/component",
-												publicPath: "/images/news/component",
+												directory: "public/images/events/component",
+												publicPath: "/images/events/component",
 											}),
 											alt: fields.text({
 												label: "Alt",

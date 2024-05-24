@@ -2,46 +2,46 @@
 import type { CollectionEntry } from "astro:content";
 
 type Props = CollectionEntry<"presentations">["data"];
-interface Author {
-	lastName: string;
-	firstName: string;
-	middleName?: string;
-}
-type Authors = Array<Author>;
 
 const { presentationUnstructured, title, authors, type, place, date, url } = Astro.props;
 
-const unstructured = presentationUnstructured ? true : false;
-
-function stringifyAuthors(authors: Authors) {
+const stringifyAuthors = (authors: Props["authors"]) => {
 	return authors
 		.map((author) => {
 			return `${author.lastName}, ${author.firstName}${author.middleName ? " " + author.middleName : ""}`;
 		})
 		.join("; ");
-}
-function urlToHtml(url: string) {
+};
+
+const urlToHtml = (url: Props["url"]) => {
+	if (!url) {
+		return "";
+	}
 	return `<a href="${url}" target="_blank">${url}</a>`;
-}
-function dateToHTml(urldate: Date) {
-	return urldate.toLocaleDateString("de-DE", {
+};
+
+const dateToHTml = (date: Props["date"]) => {
+	if (!date) {
+		return "";
+	}
+	return date.toLocaleDateString("de-DE", {
 		year: "numeric",
 		month: "2-digit",
 		day: "2-digit",
 	});
-}
-function createTemplate(
-	unstructured: boolean,
-	unstructuredPublication: string,
-	title: string,
-	authors: Authors,
-	type: string,
-	place?: string,
-	date?: Date,
-	url?: string,
-) {
-	if (unstructured) {
-		return unstructuredPublication;
+};
+
+const createTemplate = (
+	presentationUnstructured: Props["presentationUnstructured"],
+	title: Props["title"],
+	authors: Props["authors"],
+	type: Props["type"],
+	place: Props["place"],
+	date: Props["date"],
+	url: Props["url"],
+) => {
+	if (presentationUnstructured !== undefined) {
+		return presentationUnstructured;
 	}
 	return type
 		? type + ": "
@@ -52,20 +52,9 @@ function createTemplate(
 				: String(url)
 					? urlToHtml(url)
 					: "";
-}
+};
 ---
 
 <li class="p-2">
-	{
-		createTemplate(
-			unstructured,
-			presentationUnstructured,
-			title,
-			authors,
-			type,
-			place,
-			date ? date : new Date(),
-			url,
-		)
-	}
+	{createTemplate(presentationUnstructured, title, authors, type, place, date, url)}
 </li>

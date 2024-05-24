@@ -62,12 +62,10 @@ export const collections = {
 				}),
 			),
 			title: z.string(),
-			date: z
-				.string()
-				.optional()
-				.transform((str) => (str ? new Date(str) : "")),
+			date: z.date().optional(),
 			place: z.string().optional(),
 			url: z.string().optional(),
+			image: z.string().optional(),
 		}),
 	}),
 	news: defineCollection({
@@ -81,11 +79,9 @@ export const collections = {
 				}),
 			),
 			title: z.string(),
-			date: z
-				.string()
-				.optional()
-				.transform((str) => (str ? new Date(str) : "")),
+			date: z.date().optional(),
 			url: z.string().optional(),
+			image: z.string().optional(),
 		}),
 	}),
 };

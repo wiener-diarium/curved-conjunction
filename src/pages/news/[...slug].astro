@@ -1,19 +1,21 @@
 ---
 import { type CollectionEntry, getCollection } from "astro:content";
 
+import ImageGallery from "../../components/ImageGallery.astro";
 import NewsContent from "../../components/NewsContent.astro";
+import SingleImage from "../../components/SingleImage.astro";
 import TextImage from "../../components/TextImage.astro";
 import Page from "../../layouts/Page.astro";
 
 type Props = CollectionEntry<"news">;
 
-export const components = { TextImage };
+export const components = { TextImage, SingleImage, ImageGallery };
 
 export async function getStaticPaths() {
 	const news = await getCollection("news");
 	return news.map((news) => ({
 		params: { slug: news.slug },
-		props: { news },
+		props: { news: news },
 	}));
 }
 
@@ -22,7 +24,7 @@ const { Content } = await news.render();
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
-<Page {...news.data} title={news.data.title} baseurl={baseurl}>
+<Page baseurl={baseurl}>
 	<NewsContent {...news.data}>
 		<Content components={{ ...components }} />
 	</NewsContent>

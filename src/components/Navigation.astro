@@ -72,6 +72,22 @@ const { textcolor, baseurl } = Astro.props;
 						Projekt
 					</a>
 					<a
+						href={`${baseurl}news`}
+						class={`block px-4 py-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+					>
+						Neues
+					</a>
+					<a
+						href={`${baseurl}events`}
+						class={`block px-4 py-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+					>
+						Events
+					</a>
+					<a
 						href={`${baseurl}about`}
 						class={`block px-4 py-2 text-lg ${textcolor}`}
 						role="menuitem"
