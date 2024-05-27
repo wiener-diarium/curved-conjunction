@@ -1,17 +1,17 @@
-var editor = new LoadEditor({
+new LoadEditor({
 	aot: {
 		title: "Text Annotations",
 		variants: [
 			{
-				opt: "br",
-				opt_slider: "entities-features-slider",
+				opt: "lb",
+				opt_slider: "linebreak-features-slider",
 				title: "Zeilenumbrüche",
 				color: "undefined",
 				html_class: "linebreak",
 				css_class: "linebreak-on",
 				chg_citation: "citation-url",
 				hide: {
-					hidden: false,
+					hidden: true,
 					class: "linebreak",
 				},
 				features: {
@@ -99,10 +99,10 @@ var editor = new LoadEditor({
 				title: "Faksimiles",
 				urlparam: "img",
 				chg_citation: "citation-url",
-				fade: "fade",
+				fade: "hidden",
 				column_small: {
-					class: "basis-6/12",
-					percent: "50",
+					class: "basis-5/12",
+					percent: "34",
 				},
 				column_full: {
 					class: "basis-full",
@@ -121,7 +121,7 @@ var editor = new LoadEditor({
 		active_class: "active",
 		rendered_element: {
 			a_class: "nav-link btn btn-round",
-			svg: "<svg width='16' height='16' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg>",
+			svg: "<svg width='24' height='24' fill='currentColor' class='bi bi-image' viewBox='0 0 16 16'><path d='M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z'/><path d='M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z'/></svg>",
 		},
 	},
 	wr: false,

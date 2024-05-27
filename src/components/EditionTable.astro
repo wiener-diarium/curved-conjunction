@@ -1,30 +1,67 @@
 ---
-const edition_paths = import.meta.glob("../pages/edition/*.astro");
-const paths = Object.keys(edition_paths).map((path) => {
-	const name = (path.match(/\.\/pages\/edition\/(.*)\.astro$/) ?? [])[1];
-	return {
-		name,
-		path,
-	};
-});
-// const edition_content = Astro.glob("../pages/edition/*.astro");
-// const content = await edition_content;
-// [...content].forEach((page) => {
-// 	console.log(page);
-// 	console.log(page.default);
-// });
+import { readFile } from "node:fs/promises";
+
+interface Meta {
+	id: string;
+	title: string;
+	corpus: string | undefined;
+	link: string;
+	date: string;
+}
+const { baseurl } = Astro.props;
+const about = await readFile("edition/about.json", "utf-8");
+const meta: Record<
+	string,
+	{
+		title: string;
+		corpus: string;
+	}
+> = JSON.parse(about);
+const data = [] as Array<Meta>;
+for (const [id, { title, corpus }] of Object.entries(meta)) {
+	let data_normalized = new Date(id.replace("edoc_wd_", "").replace(/_/g, "-"));
+	let date = data_normalized.toISOString();
+	data.push({
+		id: id,
+		title: title,
+		corpus: (() => {
+			switch (corpus) {
+				case "1":
+					return "Alle Ausgaben 18. Jahrhundert";
+				case "2":
+					return "Ausgewählte Ausgaben Siebenjähriger Krieg";
+			}
+		})(),
+		link: `${baseurl}edition/${id.replace("edoc_wd_", "")}?img=on`,
+		date: date.replace(/T.+/g, ""),
+	});
+}
 ---
 
-<div>
-	<ul>
-		{
-			paths.map((path) => {
-				return (
-					<li>
-						<a href={`/edition/${path.name}`}>{path.name}</a>
-					</li>
-				);
-			})
-		}
-	</ul>
-</div>
+<div id="toc"></div>
+<link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet" />
+<script
+	is:inline
+	type="text/javascript"
+	src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
+<script is:inline define:vars={{ baseurl, data }}>
+	const table = new Tabulator("#toc", {
+		height: 800,
+		layout: "fitColumns",
+		columns: [
+			{ title: "Datum", field: "date" },
+			{
+				title: "Edition",
+				field: "corpus",
+			},
+			{ title: "Titel", field: "title" },
+			{
+				title: "Link",
+				field: "link",
+				formatter: "link",
+				formatterParams: { label: "Öffnen" },
+			},
+		],
+		data: data,
+	});
+</script>

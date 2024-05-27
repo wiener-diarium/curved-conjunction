@@ -4,6 +4,10 @@ import Page from "../layouts/Page.astro";
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
+<link
+	rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+/>
 <Page title="Volltextsuche" baseurl={baseurl}>
 	<div class="my-8">
 		<div class="mx-auto w-6/12 px-5 py-4 align-middle">
@@ -16,14 +20,22 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<h5 class="py-2">Jahrgänge</h5>
 				<div id="refinement-range-year"></div>
 			</div>
+			<!-- <div class="px-4">
+				<h5 class="py-2">OCR KI Sicherheit</h5>
+				<div id="refinement-range-confidence"></div>
+			</div> -->
 		</div>
 		<div class="mt-12 flex flex-row p-4">
 			<div class="w-3/12 basis-1/6 rounded border border-cyan-500 px-4">
 				<div class="py-2 text-center" id="clear-refinements"></div>
-				<h5 class="pt-2">Edition wählen</h5>
+				<h5 class="pt-2">Sammlung wählen</h5>
 				<div class="p-2" id="menu-edition"></div>
-				<h5 class="pt-2">Korrekturstatus</h5>
+				<h5 class="pt-2">Status (automatisch erstellter Text)</h5>
 				<div id="corrections"></div>
+				<h5 class="pt-2">Wochentag</h5>
+				<div id="weekday"></div>
+				<h5 class="pt-2">Jahrzehnt</h5>
+				<div id="decade"></div>
 				<h5 class="hidemobile pt-2">Orte</h5>
 				<div id="refinement-list-places" class="hidemobile"></div>
 				<h5 class="hidemobile pt-2">Schlagworte</h5>
@@ -46,10 +58,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		</div>
 	</div>
 </Page>
-<link
-	rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
-/>
 <script>
 	import instantsearch from "instantsearch.js";
 	import {
@@ -70,7 +78,27 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	var project_collection_name = "gestrich_index";
 	const annoUrl = "https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=";
 	const annoImgUrl = "https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|";
+	const digitUrl = "https://diarium-images.acdh-dev.oeaw.ac.at/";
 	const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
+
+	function weekdayToString(weekday: any) {
+		switch (parseInt(weekday.label)) {
+			case 0:
+				return "Montag";
+			case 1:
+				return "Dienstag";
+			case 2:
+				return "Mittwoch";
+			case 3:
+				return "Donnerstag";
+			case 4:
+				return "Freitag";
+			case 5:
+				return "Samstag";
+			case 6:
+				return "Sonntag";
+		}
+	}
 
 	function makeAnnoLink(hit: any) {
 		let hitDate = hit.day;
@@ -78,12 +106,13 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		let hitDigit = hit.digitarium_issue;
 		let hidId = hit.id;
 		let hitGestrich = hit.gestrich;
+		let hitString = hit._snippetResult?.full_text.matchedWords.join("+");
 		if (hitDigit) {
 			let wr_app_id = hidId.split("__")[0].replace("wr_", "");
-			return `${baseurl}edition/${wr_app_id}#wr_page_${hitPage}`;
+			return `${baseurl}edition/${wr_app_id}?img=on&mark=${hitString}`;
 		} else if (hitGestrich) {
 			let wr_app_id = hidId.split("__")[0];
-			return `${baseurl}edition/${wr_app_id}#wr_page_${hitPage}`;
+			return `${baseurl}edition/${wr_app_id}?img=on&mark=${hitString}`;
 		} else {
 			return `${annoUrl}${hitDate}&seite=${hitPage}`;
 		}
@@ -92,6 +121,26 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		let hitDate = hit.day;
 		let hitPage = hit.page;
 		return `${annoImgUrl}${hitDate}|${hitPage}|10.0|0`;
+	}
+	function makeDigitImgUrl(hit: any) {
+		let date = String(hit.day);
+		let page = String(hit.page);
+		console.log(date, page);
+		let part1 = `${date.slice(0, 3)}x`;
+		let part2 = date.slice(0, 4);
+		let part3 = date.slice(4, 6);
+		let part4 = date;
+		let part5 = `${date}-000`;
+		let part6 = "full/full/0/default.jpg";
+		return `${digitUrl}${part1}/${part2}/${part3}/${part4}/${part5}/${part6}`;
+	}
+	function whichEdition(hit: any) {
+		let hitDigit = hit.digitarium_issue;
+		if (hitDigit) {
+			return makeDigitImgUrl(hit);
+		} else {
+			return makeAnnoImgUrl(hit);
+		}
 	}
 	function makeTitle(hit: any) {
 		let hitDigit = hit.digitarium_issue;
@@ -111,13 +160,13 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			var hitCorrections = items.corrections;
 		}
 		if (hitCorrections == "0") {
-			return "unkorrigiert";
+			return "unüberprüft";
 		} else if (hitCorrections == "1") {
-			return "einmal korrigiert";
+			return "einmal überprüft";
 		} else if (hitCorrections == "2") {
-			return "zweimal korrigiert";
+			return "zweimal überprüft";
 		} else if (hitCorrections == "3") {
-			return "mehrfach korrigiert";
+			return "mehrfach überprüft";
 		} else {
 			return hitCorrections;
 		}
@@ -160,10 +209,12 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		hits({
 			container: "#hits",
 			cssClasses: {
-				item: "border-light rounded hover-shadow hover:bg-cyan-50",
+				item: "border-light rounded hover-shadow hover:bg-cyan-50 w-[32%]",
 			},
 			templates: {
-				empty: "Keine Resultate für <q>{{ query }}</q>",
+				empty(results, { html }) {
+					return html`No results for <q>${results.query}</q>`;
+				},
 				item(hit, { html, components }) {
 					return html`
 						<a
@@ -197,12 +248,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 										${
 											// @ts-expect-error
 											hit._snippetResult?.full_text.matchedWords.length > 0
-												? "Schlagworte im Kontext:"
-												: ""
-										}
-										${
-											// @ts-expect-error
-											hit._snippetResult?.full_text.matchedWords.length > 0
 												? components.Snippet({ hit, attribute: "full_text" })
 												: ""
 										}
@@ -212,17 +257,17 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 							<div class="flex flex-row">
 								<div
 									class="basis-4/12 self-center mx-2 p-1 border-2 rounded ${makeCorrections(hit) ==
-									"unkorrigiert"
+									"unüberprüft"
 										? "border-black-200"
-										: makeCorrections(hit) == "einmal korrigiert"
+										: makeCorrections(hit) == "einmal überprüft"
 											? "border-cyan-100"
-											: makeCorrections(hit) == "zweimal korrigiert"
+											: makeCorrections(hit) == "zweimal überprüft"
 												? "border-cyan-500"
-												: makeCorrections(hit) == "mehrfach korrigiert"
+												: makeCorrections(hit) == "mehrfach überprüft"
 													? "border-cyan-700"
 													: ""}"
 								>
-									<img src="${makeAnnoImgUrl(hit)}" class="img-thumbnail" alt="Bild" />
+									<img src="${whichEdition(hit)}" class="img-thumbnail" alt="Bild" />
 								</div>
 								<div class="basis-8/12">
 									<table>
@@ -235,17 +280,34 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 											<td class="px-2">${hit.page}</td>
 										</tr>
 										<tr>
-											<td><em>Jahr:</em></td>
-											<td class="px-2">${hit.year}</td>
+											<td><em>Datum:</em></td>
+											<td class="px-2">
+												${new Date(hit.id.replace("wr_", "").split("__")[0]).toLocaleDateString(
+													"de-De",
+													{
+														year: "numeric",
+														month: "long",
+														day: "numeric",
+													},
+												)}
+											</td>
 										</tr>
 										<tr>
 											<td><em>Edition:</em></td>
 											<td class="px-2">${hit.edition[0]}</td>
 										</tr>
 										<tr>
-											<td><em>Korrekturstatus:</em></td>
+											<td><em>Status:</em></td>
 											<td class="px-2">${makeCorrections(hit)}</td>
 										</tr>
+										${hit.confidence
+											? html`
+													<tr>
+														<td><em>OCR KI Sicherheit:</em></td>
+														<td class="px-2">${hit.confidence.toFixed(3)}</td>
+													</tr>
+												`
+											: ""}
 									</table>
 								</div>
 							</div>
@@ -267,20 +329,9 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		stats({
 			container: "#stats-container",
 			templates: {
-				text: `
-            {{#areHitsSorted}}
-              {{#hasNoSortedResults}}keine Treffer{{/hasNoSortedResults}}
-              {{#hasOneSortedResults}}1 Treffer{{/hasOneSortedResults}}
-              {{#hasManySortedResults}}{{#helpers.formatNumber}}{{nbSortedHits}}{{/helpers.formatNumber}} Treffer {{/hasManySortedResults}}
-              aus {{#helpers.formatNumber}}{{nbHits}}{{/helpers.formatNumber}}
-            {{/areHitsSorted}}
-            {{^areHitsSorted}}
-              {{#hasNoResults}}keine Treffer{{/hasNoResults}}
-              {{#hasOneResult}}1 Treffer{{/hasOneResult}}
-              {{#hasManyResults}}{{#helpers.formatNumber}}{{nbHits}}{{/helpers.formatNumber}} Treffer{{/hasManyResults}}
-            {{/areHitsSorted}}
-            gefunden in {{processingTimeMS}}ms
-          `,
+				text(data, { html }) {
+					return html` <div>${data.nbHits} Treffer gefunden in ${data.processingTimeMS}ms</div> `;
+				},
 			},
 		}),
 
@@ -305,6 +356,54 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				checkbox: "m-2",
 			},
 		}),
+
+		refinementList({
+			container: "#weekday",
+			attribute: "weekday",
+			searchable: false,
+			sortBy: ["isRefined", "name:asc"],
+			transformItems(items) {
+				return items.map((item) => ({
+					...item,
+					highlighted: (item.highlighted = weekdayToString(item)),
+				}));
+			},
+			cssClasses: {
+				searchableInput: "form-control form-control-sm m-2 border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+
+		refinementList({
+			container: "#decade",
+			attribute: "decade",
+			searchable: false,
+			sortBy: ["isRefined", "name:asc"],
+			limit: 10,
+			// transformItems(items) {
+			// 	return items.map((item) => ({
+			// 		...item,
+			// 		highlighted: (item.highlighted = yearToDecade(item)),
+			// 	}));
+			// },
+			cssClasses: {
+				searchableInput: "form-control form-control-sm m-2 border-light-2",
+				searchableSubmit: "d-none",
+				searchableReset: "d-none",
+				showMore: "btn btn-secondary btn-sm align-content-center",
+				list: "list-unstyled",
+				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
+				label: "d-flex align-items-start text-left",
+				checkbox: "m-2",
+			},
+		}),
+
 		// refinementList({
 		// 	container: "#has-fulltext",
 		// 	attribute: "has_fulltext",
@@ -363,6 +462,18 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			attribute: "keywords",
 			searchable: true,
 			searchablePlaceholder: "Suchen",
+			showMore: true,
+			searchableIsAlwaysActive: false,
+			sortBy: ["isRefined", "name:asc"],
+			showMoreLimit: 9999,
+			templates: {
+				showMoreText({ isShowingMore }) {
+					return isShowingMore ? "Weniger anzeigen" : "Mehr anzeigen";
+				},
+				searchableNoResults() {
+					return "Keine Ergebnisse gefunden ";
+				},
+			},
 			cssClasses: {
 				searchableInput: "form-control form-control-sm border-light-2",
 				searchableSubmit: "d-none",
@@ -392,6 +503,18 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			container: "#refinement-list-places",
 			attribute: "places",
 			searchable: true,
+			showMore: true,
+			sortBy: ["isRefined", "name:asc"],
+			showMoreLimit: 9999,
+			searchableIsAlwaysActive: false,
+			templates: {
+				showMoreText({ isShowingMore }) {
+					return isShowingMore ? "Weniger anzeigen" : "Mehr anzeigen";
+				},
+				searchableNoResults() {
+					return "Keine Ergebnisse gefunden ";
+				},
+			},
 			cssClasses: {
 				searchableInput: "form-control form-control-sm border-light-2",
 				searchableSubmit: "d-none",
@@ -437,6 +560,12 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			templates: {
 				separatorText: "bis",
 				submitText: "Suchen",
+				// separatorText({ cssClasses }, { html }) {
+				// 	return html`<span class="${cssClasses.separator}">bis</span>`;
+				// },
+				// submitText({ cssClasses }, { html }) {
+				// 	return html`<span class="${cssClasses.submit}">Suchen</span>`;
+				// },
 			},
 			cssClasses: {
 				form: "form-inline",
@@ -444,6 +573,20 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				submit: "btn",
 			},
 		}),
+
+		// rangeInput({
+		// 	container: "#refinement-range-confidence",
+		// 	attribute: "confidence",
+		// 	templates: {
+		// 		separatorText: "bis",
+		// 		submitText: "Suchen",
+		// 	},
+		// 	cssClasses: {
+		// 		form: "form-inline",
+		// 		input: "form-control",
+		// 		submit: "btn",
+		// 	},
+		// }),
 
 		// rangeInput({
 		// 	container: "#refinement-article_count",
@@ -482,7 +625,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		clearRefinements({
 			container: "#clear-refinements",
 			templates: {
-				resetLabel: "Filter zurücksetzen",
+				resetLabel({ hasRefinements }, { html }) {
+					return html`<span
+						>${hasRefinements ? "Filter zurücksetzen" : "Keine Filter ausgewählt"}</span
+					>`;
+				},
 			},
 			cssClasses: {
 				button: "btn",
@@ -500,8 +647,18 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		sortBy({
 			container: "#sort-by",
 			items: [
-				{ label: "Jahr (aufsteigend)", value: "gestrich_index/sort/year:asc" },
-				{ label: "Jahr (absteigend)", value: "gestrich_index/sort/year:desc" },
+				{
+					label: "---",
+					value: "gestrich_index",
+				},
+				{
+					label: "Jahr (aufsteigend)",
+					value: "gestrich_index/sort/day:asc,page:asc",
+				},
+				{
+					label: "Jahr (absteigend)",
+					value: "gestrich_index/sort/day:desc,page:asc",
+				},
 			],
 		}),
 

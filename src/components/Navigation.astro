@@ -1,13 +1,10 @@
 ---
-import { getCollection } from "astro:content";
-
-const allPosts = await getCollection("pages");
 const { textcolor, baseurl } = Astro.props;
 ---
 
-<div class="mx-auto h-16 max-w-7xl px-2 sm:px-6 lg:px-8">
+<div class="mx-auto max-w-7xl p-4 sm:px-6 lg:px-8">
 	<div class="relative flex items-center justify-between">
-		<div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+		<div class="absolute inset-y-0 left-0 hidden items-center sm:flex">
 			<button
 				type="button"
 				class="relative inline-flex rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -41,55 +38,70 @@ const { textcolor, baseurl } = Astro.props;
 				</svg>
 			</button>
 		</div>
-		<div
-			class="flex flex-1 items-center justify-center align-middle sm:items-stretch sm:justify-start"
-		>
-			<div class="flex shrink-0 items-center">
+		<div class="flex flex-1 items-center sm:justify-center">
+			<div class="float-left flex shrink-0 content-start">
 				<a href=`${baseurl}` aria-label="Index">
 					<img
-						class="h-12 w-auto"
-						src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/08/Digitarium-Logo-Vector-final.png"
+						class="h-14 w-auto"
+						src={`${baseurl}Digitarium-Logo-Vector-final.png`}
 						alt="Wiener Diarium Logo"
 					/>
 				</a>
 			</div>
-			<div class="hidden sm:ml-6 sm:block">
+			<div class="absolute right-2 ml-6 block sm:hidden">
 				<div class="flex space-x-4">
 					<a
-						href={`${baseurl}toc`}
-						class={`block px-4 py-2 text-lg ${textcolor}`}
+						href={`${baseurl}digitarium`}
+						class={`block px-2 text-lg ${textcolor}`}
 						role="menuitem"
 						tabindex="-1"
-						id="search"
 					>
-						Inhaltsverzeichnis
+						DIGITARIUM
 					</a>
 					<a
-						href={`${baseurl}model`}
-						class={`block px-4 py-2 text-lg ${textcolor}`}
+						href={`${baseurl}project`}
+						class={`block px-2 text-lg ${textcolor}`}
 						role="menuitem"
 						tabindex="-1"
-						id="search"
 					>
-						Model
+						Projekt
 					</a>
-					{
-						allPosts.map((post) => (
-							<a
-								href={`${baseurl}static/${post.slug}`}
-								class={`block px-4 py-2 text-lg ${textcolor}`}
-								role="menuitem"
-								tabindex="-1"
-								id={post.slug}
-							>
-								{post.data.title}
-							</a>
-						))
-					}
+					<a
+						href={`${baseurl}news`}
+						class={`block px-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+					>
+						Neues
+					</a>
+					<a
+						href={`${baseurl}events`}
+						class={`block px-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+					>
+						Events
+					</a>
+					<a
+						href={`${baseurl}about`}
+						class={`block px-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+					>
+						Über Uns
+					</a>
+					<a
+						href={`${baseurl}help`}
+						class={`block px-2 text-lg ${textcolor}`}
+						role="menuitem"
+						tabindex="-1"
+					>
+						Hilfe
+					</a>
 				</div>
 			</div>
 		</div>
-		<div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
+		<!-- <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
 			<form
 				class="my-3 hidden sm:ml-6 sm:block"
 				method="get"
@@ -113,23 +125,60 @@ const { textcolor, baseurl } = Astro.props;
 					</svg>
 				</button>
 			</form>
-		</div>
+		</div> -->
 	</div>
 </div>
-<div class="sm:hidden" id="mobile-menu">
-	<div class="space-y-1 px-2 pb-3 pt-2">
-		{
-			allPosts.map((post) => (
-				<a
-					href={`${baseurl}${post.slug}`}
-					class="block rounded-md px-3 py-2 text-base font-light text-white hover:bg-gray-700"
-					aria-current="page"
-				>
-					{post.data.title}
-				</a>
-			))
-		}
-		<form class="my-3" method="get" action={`${baseurl}search.html?ltw[query]`} role="search">
+<div class="hidden" id="mobile-menu">
+	<div class="space-y-1 px-2 pb-3 pt-2 text-center">
+		<a
+			href={`${baseurl}digitarium`}
+			class={`block px-4 py-2 text-lg ${textcolor}`}
+			role="menuitem"
+			tabindex="-1"
+		>
+			DIGITARIUM
+		</a>
+		<a
+			href={`${baseurl}project`}
+			class={`block px-4 py-2 text-lg ${textcolor}`}
+			role="menuitem"
+			tabindex="-1"
+		>
+			Projekt
+		</a>
+		<a
+			href={`${baseurl}news`}
+			class={`block px-4 py-2 text-lg ${textcolor}`}
+			role="menuitem"
+			tabindex="-1"
+		>
+			Neues
+		</a>
+		<a
+			href={`${baseurl}events`}
+			class={`block px-4 py-2 text-lg ${textcolor}`}
+			role="menuitem"
+			tabindex="-1"
+		>
+			Events
+		</a>
+		<a
+			href={`${baseurl}about`}
+			class={`block px-4 py-2 text-lg ${textcolor}`}
+			role="menuitem"
+			tabindex="-1"
+		>
+			Über Uns
+		</a>
+		<a
+			href={`${baseurl}help`}
+			class={`block px-4 py-2 text-lg ${textcolor}`}
+			role="menuitem"
+			tabindex="-1"
+		>
+			Hilfe
+		</a>
+		<!-- <form class="my-3" method="get" action={`${baseurl}search.html?ltw[query]`} role="search">
 			<input
 				class="w-full rounded-md border-0 p-2 focus:outline-none focus:ring-0"
 				id="s"
@@ -146,7 +195,7 @@ const { textcolor, baseurl } = Astro.props;
 					></path>
 				</svg>
 			</button>
-		</form>
+		</form> -->
 	</div>
 </div>
 <script>

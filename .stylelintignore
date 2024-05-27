@@ -3,3 +3,4 @@
 /edition/*.astro
 /tailwind.config.ts
 /src/pages/model.astro
+/src/client

@@ -1,0 +1,10 @@
+---
+import Noske from "../components/Noske.astro";
+import Page from "../layouts/Page.astro";
+
+const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
+---
+
+<Page title="Volltextsuche" baseurl={baseurl}>
+	<Noske id="hits" />
+</Page>

@@ -1,0 +1,50 @@
+---
+import EditionEditor from "./EditionEditor.astro";
+
+const { textcolor, baseurl, backgroundcolor, width, issue, corpus } = Astro.props;
+---
+
+<aside class=`${width} ${backgroundcolor} ${textcolor}`>
+	<div class="sticky top-1">
+		<div class="my-6 flex shrink-0 text-center text-white">
+			<a href=`${baseurl}digitarium` aria-label="Zurück zur Hauptseite">
+				<img
+					class="w-auto p-6"
+					src={`${baseurl}Digitarium-Logo-Vector-final.png`}
+					alt="Wiener Diarium Logo"
+				/>
+				Zurück zur Hauptseite
+			</a>
+		</div>
+
+		<div class="flex items-center justify-center text-center text-white">
+			<div class="p-6">
+				<p>
+					{
+						(() => {
+							if (corpus === "1") {
+								return "Ausgewählte Ausgaben 18. Jahrhundert";
+							} else {
+								return "Alle Ausgaben Siebenjähriger Krieg";
+							}
+						})()
+					}
+				</p>
+				<h1 class="text-xl font-bold sm:text-lg md:text-lg">{issue}</h1>
+				<!-- <p class="text-sm">
+					{
+						date.toLocaleDateString("de-De", {
+							weekday: "long",
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})
+					}
+				</p> -->
+				<!-- <p class="text-xl">{title}</p> -->
+				<p>Wienerisches Diarium</p>
+			</div>
+		</div>
+		<EditionEditor />
+	</div>
+</aside>
