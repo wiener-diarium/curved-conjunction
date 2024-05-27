@@ -4,7 +4,7 @@
 
 <div class="flex flex-col py-4">
 	<ul>
-		<li class="my-6 px-2 text-white">
+		<li class="my-6 h-2 px-2 text-white sm:my-2 md:my-2">
 			<a
 				id="show-on-scroll"
 				href="#top_page"
@@ -25,8 +25,10 @@
 				</svg>
 			</a>
 		</li>
-		<li class="my-6 px-2 text-white">Suche im Text (regex erlaubt):</li>
-		<li class="my-6 px-2 text-white">
+		<li class="my-6 px-2 text-white sm:my-2 sm:hidden md:my-2 md:hidden">
+			Suche im Text (regex erlaubt):
+		</li>
+		<li class="my-6 px-2 sm:my-2 sm:hidden md:my-2 md:hidden">
 			<!-- <input type="checkbox" name="opt[]" value="separateWordSearch" checked="checked" />Wörter
 		einzeln suchen -->
 			<input
@@ -36,7 +38,7 @@
 				placeholder="Schlagwort eingeben..."
 			/>
 		</li>
-		<li class="my-6 px-2">
+		<li class="my-6 px-2 sm:my-2 sm:hidden md:my-2 md:hidden">
 			<div id="mark-scroll" class="fade-lang rounded border border-gray-100 bg-white text-center">
 				<button class="text-xl" data-search="next" disabled="disabled">&#x2193;</button>
 				<button class="text-xl" data-search="prev" disabled="disabled">&#x2191;</button>
@@ -44,16 +46,16 @@
 				<div id="results-div"></div>
 			</div>
 		</li>
-		<li class="my-6 px-2">
+		<li class="my-6 px-2 sm:my-2 sm:hidden md:my-2 md:hidden">
 			<image-switch opt="es" class="text-lg text-white"></image-switch>
 		</li>
-		<li class="my-6 px-2">
+		<li class="my-6 px-2 sm:my-2 sm:hidden md:my-2">
 			<font-size opt="fs" class="text-lg text-white"></font-size>
 		</li>
-		<li class="my-6 px-2">
+		<li class="my-6 px-2 sm:my-2 sm:hidden md:my-2">
 			<font-family opt="ff" class="text-lg text-white"></font-family>
 		</li>
-		<li class="my-6 px-2">
+		<li class="my-6 px-2 sm:my-2 md:my-2">
 			<annotation-slider opt="lb" class="text-lg text-white"></annotation-slider>
 		</li>
 	</ul>

@@ -44,5 +44,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	}
 </style>
 <Edition title={slug} baseurl={baseurl} date={date} issue={issue} corpus={corpus}>
-	<div set:html={html} />
+	<div class="flex flex-col">
+		<div set:html={html} />
+	</div>
 </Edition>

@@ -5,34 +5,18 @@ const { textcolor, baseurl, backgroundcolor, width, issue, corpus } = Astro.prop
 ---
 
 <aside class=`${width} ${backgroundcolor} ${textcolor}`>
-	<div class="sticky top-4">
+	<div class="sticky top-1">
 		<div class="my-6 flex shrink-0 text-center text-white">
-			<ul class="mx-auto p-2">
-				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
-					<a href=`${baseurl}` aria-label="Zurück zur Hauptseite">
-						<img
-							class="w-auto p-6"
-							src="https://digitarium.acdh.oeaw.ac.at/wp-content/uploads/2018/08/Digitarium-Logo-Vector-final.png"
-							alt="Wiener Diarium Logo"
-						/>
-						Zurück zur Hauptseite
-					</a>
-				</li>
-				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
-					<a
-						href=`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`
-						aria-label="Zurück zur Volltextsuche"
-					>
-						Zurück zur Volltextsuche
-					</a>
-				</li>
-				<li class="mb-2 rounded-lg border py-4 hover:border-cyan-500">
-					<a href=`${baseurl}noSearch` aria-label="Zurück zur NoSketch Suche">
-						Zurück zur NoSketch Suche
-					</a>
-				</li>
-			</ul>
+			<a href=`${baseurl}digitarium` aria-label="Zurück zur Hauptseite">
+				<img
+					class="w-auto p-6"
+					src={`${baseurl}Digitarium-Logo-Vector-final.png`}
+					alt="Wiener Diarium Logo"
+				/>
+				Zurück zur Hauptseite
+			</a>
 		</div>
+
 		<div class="flex items-center justify-center text-center text-white">
 			<div class="p-6">
 				<p>
@@ -46,7 +30,7 @@ const { textcolor, baseurl, backgroundcolor, width, issue, corpus } = Astro.prop
 						})()
 					}
 				</p>
-				<h1 class="text-xl font-bold">{issue}</h1>
+				<h1 class="text-xl font-bold sm:text-lg md:text-lg">{issue}</h1>
 				<!-- <p class="text-sm">
 					{
 						date.toLocaleDateString("de-De", {

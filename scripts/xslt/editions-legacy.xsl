@@ -29,45 +29,21 @@
 </xsl:variable>
 
 <xsl:template match="/">
-<div class="flex flex-col">
-	<div class="flex flex-row my-4 transcript active p-6">
-		<div class="basis-7/12 text px-4 .yes-index">
-			<div class="section">
-				<div class="flex flex-col items-center">
-					<xsl:for-each select=".//tei:front/tei:titlePage|.//tei:body">
-							<xsl:apply-templates/>
-					</xsl:for-each>
-				</div>
-			</div>
-		</div>
-		<div class="basis-5/12 facsimiles">
-			<div id="viewer-1" class="sticky top-4">
-				<div id="container_facs_1">
-				</div>
+<div class="flex flex-row transcript active p-4 sm:p-2">
+	<div class="basis-7/12 text px-4 yes-index sm:px-2 sm:basis-full md:basis-full">
+		<div class="section">
+			<div class="flex flex-col items-center">
+				<xsl:for-each select=".//tei:front/tei:titlePage|.//tei:body">
+						<xsl:apply-templates/>
+				</xsl:for-each>
 			</div>
 		</div>
 	</div>
-	<div>
-		<p id="{local:makeId(.)}" style="text-align:center;">
-			<xsl:for-each select=".//tei:note[not(./tei:p)]">
-			<div class="footnotes" id="{local:makeId(.)}">
-				<a>
-						<xsl:attribute name="id">
-								<xsl:text>fn</xsl:text>
-								<xsl:number level="any" format="1" count="tei:note"/>
-						</xsl:attribute>
-						<xsl:attribute name="href">
-								<xsl:text>#fna_</xsl:text>
-								<xsl:number level="any" format="1" count="tei:note"/>
-						</xsl:attribute>
-						<span style="font-size:7pt;vertical-align:super; margin-right: 0.4em">
-								<xsl:number level="any" format="1" count="tei:note"/>
-						</span>
-				</a>
-				<xsl:apply-templates/>
+	<div class="basis-5/12 facsimiles sm:hidden md:hidden">
+		<div id="viewer-1" class="sticky top-4">
+			<div id="container_facs_1">
 			</div>
-			</xsl:for-each>
-		</p>
+		</div>
 	</div>
 </div>
 <xsl:for-each select="//tei:back">
@@ -103,13 +79,13 @@
 <xsl:template match="tei:titlePart">
 	<xsl:choose>
 		<xsl:when test="@type='num'">
-			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-xl"><xsl:apply-templates/></h5>
+			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-lg"><xsl:apply-templates/></h5>
 		</xsl:when>
 		<xsl:when test="@type='main'">
-			<h4	id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-3xl"><xsl:apply-templates/></h4>
+			<h4	id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-2xl"><xsl:apply-templates/></h4>
 		</xsl:when>
 		<xsl:otherwise>
-			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-justify') else('text-right')} py-4 text-xl"><xsl:apply-templates/></h5>
+			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-justify') else('text-right')} py-4 text-lg"><xsl:apply-templates/></h5>
 		</xsl:otherwise>
 	</xsl:choose>
 </xsl:template>
@@ -119,8 +95,8 @@
 </xsl:template>
 
 <xsl:template match="tei:imprimatur">
-	<div id="{local:makeId(.)}">
-		<p id="{local:makeId(.)}" class="yes-index italic text-center py-4 text-lg"><xsl:apply-templates/></p>
+	<div id="{@xml:id}">
+		<p class="yes-index italic text-center py-4"><xsl:apply-templates/></p>
 	</div>
 </xsl:template>
 
@@ -143,22 +119,22 @@
 </xsl:template>
 
 <xsl:template match="tei:fw[@type='catch' or not(@type)]">
-	<div id="{local:makeId(.)}" class="basis-full float-right text-right px-4">
-		<span id="{local:makeId(.)}" class="yes-index text-lg">
+	<div id="{@xml:id}" class="basis-full float-right text-right px-4">
+		<span class="yes-index">
 			<xsl:apply-templates/>
 		</span>
 	</div>
 </xsl:template>
 <xsl:template match="tei:fw[@type='sig']">
-	<div id="{local:makeId(.)}" class="basis-full text-center">
-		<span id="{local:makeId(.)}" class="yes-index catch-word">
+	<div id="{@xml:id}" class="basis-full text-center">
+		<span class="yes-index catch-word">
 			<xsl:apply-templates/>
 		</span>
 	</div>
 </xsl:template>
 <xsl:template match="tei:fw[@type='pageNum']">
-	<div id="{local:makeId(.)}" class="basis-full text-center">
-		<span id="{local:makeId(.)}" class="yes-index catch-word">
+	<div id="{@xml:id}" class="basis-full text-center">
+		<span class="yes-index catch-word">
 			<xsl:apply-templates/>
 		</span>
 	</div>
@@ -176,10 +152,10 @@
 			</xsl:if>
 			<xsl:if test="./tei:div[./*[contains(@rendition, 'r')]] or ./tei:div[./*[contains(@rendition, 'l')]]">
 				<div class="flex flex-row">
-					<div class="basis-6/12">
+					<div class="basis-6/12 sm:basis-full">
 						<xsl:apply-templates select="./tei:div/*[contains(@rendition, 'l')]"/>
 					</div>
-					<div class="basis-6/12">
+					<div class="basis-6/12 sm:basis-full">
 						<xsl:apply-templates select="./tei:div/*[contains(@rendition, 'r')]"/>
 					</div>
 				</div>
@@ -189,13 +165,13 @@
 </xsl:template>
 
 <xsl:template match="tei:head">
-	<h5 id="{@xml:id}" class="yes-index text-center font-semibold text-lg px-4 pt-2">
+	<h5 id="{@xml:id}" class="yes-index text-center font-semibold px-4 pt-2">
 		<xsl:apply-templates/>
 	</h5>
 </xsl:template>
 
 <xsl:template match="tei:p">
-	<p id="{@xml:id}" class="yes-index text-justify text-lg px-4 py-2">
+	<p id="{@xml:id}" class="yes-index text-justify px-4 py-2">
 		<xsl:apply-templates/>
 		<!--<xsl:if test="following-sibling::tei:p[@prev]">
 				<xsl:if test="following-sibling::*[1]/name() = 'pb'">
@@ -212,13 +188,13 @@
 </xsl:template>
 
 <xsl:template match="tei:list">
-	<ul class="px-4 py-2">
+	<ul id="{@xml:id}" class="px-4 py-2">
 		<xsl:apply-templates/>
 	</ul>
 </xsl:template>
 
 <xsl:template match="tei:item">
-	<li class="yes-index text-lg {if(preceding-sibling::*[1]/@break = 'no') then 'ml-4' else ''}"
+	<li class="yes-index {if(preceding-sibling::*[1]/@break = 'no') then 'ml-4' else ''}"
 			data-zone="{@facs}"
 			data-num="{@n}">
 		<xsl:apply-templates/>
