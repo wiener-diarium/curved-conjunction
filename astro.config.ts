@@ -1,4 +1,4 @@
-import markdoc from "@astrojs/markdoc";
+// import markdoc from "@astrojs/markdoc";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
@@ -33,7 +33,6 @@ export default defineConfig({
 				],
 			},
 		}),
-		markdoc(),
 		react(),
 		...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()]),
 		tailwind(),

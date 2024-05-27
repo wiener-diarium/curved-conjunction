@@ -5,11 +5,11 @@ const { backgroundcolor, github_url, textcolor, baseurl } = Astro.props;
 <footer class="mt-auto min-w-full pt-2">
 	<div class={`${backgroundcolor} ${textcolor} flex flex-col`} tabindex="-1">
 		<div
-			class="container mx-auto grid grid-cols-1 justify-items-center self-center border-t-2 border-gray-200 p-10 sm:grid-cols-1 lg:grid-cols-3 lg:p-40"
+			class="sm:grid-col-1 grid grid-cols-3 justify-items-center self-center border-t-2 border-gray-200 p-10 sm:grid-cols-1"
 		>
-			<div class="flex flex-col py-4 text-center lg:py-0 lg:text-left">
+			<div class="flex flex-col py-4 text-left sm:text-center lg:py-0">
 				<div>KONTAKT</div>
-				<div class="self-start py-6">
+				<div class="self-start py-6 sm:self-center">
 					<a href="https://www.oeaw.ac.at/acdh"
 						><img
 							src="https://fundament.acdh.oeaw.ac.at/common-assets/images/acdh_logo.svg"
@@ -44,7 +44,7 @@ const { backgroundcolor, github_url, textcolor, baseurl } = Astro.props;
 				</div>
 			</div>
 
-			<div class="flex flex-col justify-between pt-4 text-center lg:pt-0 lg:text-left">
+			<div class="flex flex-col justify-between pt-4 text-left sm:text-center lg:pt-0">
 				<div class="mb-4">
 					<h6 class="font-semibold">PROJEKT PARTNER</h6>
 				</div>
@@ -95,7 +95,7 @@ const { backgroundcolor, github_url, textcolor, baseurl } = Astro.props;
 				</div>
 			</div>
 			<!-- .footer-widget -->
-			<div class="flex flex-col pt-4 text-center lg:pt-0 lg:text-left">
+			<div class="flex flex-col pt-0 text-left sm:pt-4 sm:text-center">
 				<div>
 					<h6 class="font-semibold">HELPDESK</h6>
 					<p class="py-4">

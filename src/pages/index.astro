@@ -10,22 +10,22 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Wiener Diarium" baseurl={baseurl}>
-	<div class="container mx-auto flex flex-col p-2">
-		<div class="float-left mx-auto my-[5%] text-center">
-			<div class="ml-10 p-10">
+	<div class="container mx-auto flex flex-col">
+		<div class="my-[5%] text-center">
+			<div class="p-10 sm:p-6">
 				<h1 class="font-medium text-cyan-800">
-					<div class="text-6xl">Das Wiener Diarium</div>
-					<div class="text-4xl">Digitaler Datensatz für</div>
-					<span class="text-4xl" id="intro-typed"></span>
+					<div class="text-4xl sm:text-2xl">Das Wiener Diarium</div>
+					<div class="text-4xl sm:text-xl">Digitaler Datensatz für</div>
+					<span class="text-4xl sm:text-xl" id="intro-typed"></span>
 				</h1>
 			</div>
 		</div>
 		<div class="mb-[3%] flex flex-col">
-			<div class="mx-auto max-w-[1200px] basis-full">
-				<div class="flex flex-row">
-					<figure>
+			<div class="basis-full">
+				<div class="flex flex-row sm:mx-auto sm:flex-col sm:items-center sm:p-2">
+					<figure class="sm:mb-4 sm:flex sm:flex-col">
 						<img
-							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+							class="mr-4 max-w-[300px] rounded-lg border shadow-md sm:mr-0 sm:max-w-[200px]"
 							alt="Vorrede. Geehrte Leserin."
 							src={`${baseurl}acdh-digitarium-caspar_stieler-06-Claudia_Resch-e1534863442705-300x140.jpg`}
 						/>
@@ -46,8 +46,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						u.v.m.
 					</p>
 				</div>
-				<div class="mt-10 flex flex-row">
-					<figure>
+				<div class="mt-10 flex flex-row sm:mx-auto sm:flex-col sm:items-center sm:p-2">
+					<figure class="sm:mb-4 sm:mr-0 sm:flex sm:max-w-[200px] sm:flex-col">
 						<img
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
 							alt="Von derer Zeitungen Würde und Wichtigkeit."
@@ -79,81 +79,41 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				</div>
 			</div>
 		</div>
-		<div class="mb-[3%] max-w-[1200px] self-center py-4">
-			<div class="mb-28 mt-6 grid grid-cols-4 gap-8">
+		<div class="mb-[3%] self-center py-4">
+			<div
+				class="mt-6 grid grid-cols-4 gap-8 sm:m-0 sm:mb-4 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
+			>
 				<a
 					href={`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`}
 				>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500 sm:mx-2"
 					>
-						<div class="flex flex-col items-center self-center p-4">
-							<h2 class="py-4 text-center text-3xl">Volltextsuche</h2>
-							<!-- <div class="w-40">
-								<FontAwesomeIcon icon={faMagnifyingGlass} />
-							</div> -->
-						</div>
+						<h2 class="py-4 text-center text-3xl">Volltextsuche</h2>
 					</div>
 				</a>
 				<a href={`${baseurl}noSearch`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500 sm:mx-2"
 					>
-						<div class="flex flex-col items-center self-center p-4">
-							<h2 class="py-4 text-center text-3xl">Suche (regex)</h2>
-							<!-- <div class="w-40">
-								<FontAwesomeIcon icon={faMagnifyingGlass} />
-							</div> -->
-						</div>
+						<h2 class="py-4 text-center text-3xl">Suche (regex)</h2>
 					</div>
 				</a>
 				<a href={`${baseurl}toc`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500 sm:mx-2"
 					>
-						<div class="flex flex-col items-center self-center p-4">
-							<h2 class="py-4 text-center text-3xl">Inhaltsverzeichnis</h2>
-							<!-- <div class="w-40">
-								<FontAwesomeIcon icon={faTable} />
-							</div> -->
-						</div>
+						<h2 class="py-4 text-center text-3xl">Inhaltsverzeichnis</h2>
 					</div>
 				</a>
 				<a href={`${baseurl}model`}>
 					<div
-						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500"
+						class="flex flex-col rounded-lg border border-gray-100 bg-cyan-800 p-6 text-white shadow-md hover:bg-cyan-500 sm:mx-2"
 					>
-						<div class="flex flex-col items-center self-center p-4">
-							<h2 class="py-4 text-center text-3xl">Fraktur Model</h2>
-							<!-- <div class="w-44">
-								<FontAwesomeIcon icon={faFolderOpen} />
-							</div> -->
-						</div>
+						<h2 class="py-4 text-center text-3xl">Fraktur Model</h2>
 					</div>
 				</a>
 			</div>
-			<!-- <div class="container self-center py-10">
-				<h1 class="mt-6 border-b-2 text-2xl font-bold">
-					<a href="/post-overview">Aktuelles</a>
-				</h1>
-				<div class="grid grid-cols-3 gap-4 py-4">
-					{
-						allPosts.slice(0, 2).map((post) => {
-							return (
-								<div class="rounded-lg border border-cyan-500 bg-white p-4 shadow-md hover:bg-cyan-100">
-									<h2 class="text-xl font-bold">{post.data.title}</h2>
-									<p class="text-gray-500">Erstellt am: {post.data.pubDate}</p>
-									<p class="text-gray-500">Autor: {post.data.author}</p>
-									<p class="py-4">{post.data.description}</p>
-									<a href={`${baseurl}posts/${post.slug}`} class="text-cyan-500">
-										Weiterlesen
-									</a>
-								</div>
-							);
-						})
-					}
-				</div>
-			</div> -->
 		</div>
 	</div>
 </Page>
