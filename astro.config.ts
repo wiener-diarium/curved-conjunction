@@ -9,8 +9,8 @@ import icon from "astro-icon";
 
 const prodUrl = "https://digitarium.acdh-dev.oeaw.ac.at";
 const devUrl = "https://curved-conjunction.vercel.app";
-const prodBase = "/";
-const devBase = "/";
+const prodBase = undefined;
+const devBase = undefined;
 
 // https://astro.build/config
 export default defineConfig({

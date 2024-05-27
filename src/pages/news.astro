@@ -4,7 +4,8 @@ import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
 
 const news = await getCollection("news");
-const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
+// const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
+const baseurl = "";
 ---
 
 <Page title="Wiener Diarium" baseurl={baseurl}>
