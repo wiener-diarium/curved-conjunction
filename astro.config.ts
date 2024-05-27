@@ -7,9 +7,9 @@ import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
-const prodUrl = "https://wiener-diarium.github.io";
+const prodUrl = "https://digitarium.acdh-dev.oeaw.ac.at";
 const devUrl = "https://curved-conjunction.vercel.app";
-const prodBase = "/curved-conjunction/";
+const prodBase = "/";
 const devBase = "/";
 
 // https://astro.build/config
