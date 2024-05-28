@@ -9,15 +9,15 @@ module.exports = {
 		extend: {
 			container: {
 				screens: {
-					xs: "320px",
-					sm: "540px",
-					md: "768px",
-					lg: "1024px",
-					xl: "1280px",
-					"2xl": "1536px",
+					xs: "310px",
+					sm: "530px",
+					md: "758px",
+					lg: "1014px",
+					xl: "1270px",
+					"2xl": "1526px",
 					"3xl": "1920px",
-					"4xl": "2048px",
-					"5xl": "2560px",
+					"4xl": "2038px",
+					"5xl": "2550px",
 				},
 			},
 		},
