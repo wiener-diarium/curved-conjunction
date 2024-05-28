@@ -9,7 +9,9 @@ import icon from "astro-icon";
 
 const prodUrl = "https://digitarium.acdh-dev.oeaw.ac.at";
 const devUrl = "https://curved-conjunction.vercel.app";
-const prodBase = "/";
+const prodBase = prodUrl.includes("https://digitarium.acdh-dev.oeaw.ac.at")
+	? "/"
+	: "/curved-conjunction";
 const devBase = "/";
 
 // https://astro.build/config

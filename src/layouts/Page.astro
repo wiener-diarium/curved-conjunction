@@ -24,9 +24,9 @@ const siteId = 94;
 			}
 		</style>
 	</head>
-	<body class="flex flex-col justify-between">
+	<body class="flex min-h-screen flex-col justify-between">
 		<header>
-			<Header backgroundcolor={backgroundcolor} />
+			<Header backgroundcolor={backgroundcolor} baseurl={baseurl} />
 		</header>
 		<main class="mb-auto">
 			<slot />

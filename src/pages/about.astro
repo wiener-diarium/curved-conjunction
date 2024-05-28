@@ -8,8 +8,7 @@ import Page from "../layouts/Page.astro";
 const publications = await getCollection("publications");
 const presentations = await getCollection("presentations");
 
-// const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
-const baseurl = "";
+const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
 <Page title="Projekt" baseurl={baseurl}>
