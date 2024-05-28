@@ -7,10 +7,10 @@ import keystatic from "@keystatic/astro";
 import { defineConfig } from "astro/config";
 import icon from "astro-icon";
 
-const prodUrl = "https://digitarium.acdh-dev.oeaw.ac.at";
+const prodUrl = "https://wiener-diarium/curved-conjunction";
 const devUrl = "https://curved-conjunction.vercel.app";
-const prodBase = undefined;
-const devBase = undefined;
+const prodBase = "/";
+const devBase = "/";
 
 // https://astro.build/config
 export default defineConfig({
@@ -38,6 +38,9 @@ export default defineConfig({
 		tailwind(),
 		mdx(),
 	],
+	build: {
+		format: "file",
+	},
 	output: process.env.SKIP_KEYSTATIC ? "static" : "hybrid",
 	// output: "static",
 	server: {
