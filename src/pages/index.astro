@@ -1,11 +1,10 @@
 ---
-// import { faFolderOpen, faMagnifyingGlass, faTable } from "@fortawesome/free-solid-svg-icons";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getCollection } from "astro:content";
 
-// import { getCollection } from "astro:content";
 import Page from "../layouts/Page.astro";
 
-// const allPosts = await getCollection("posts");
+const events = await getCollection("events");
+const news = await getCollection("news");
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
 
@@ -22,7 +21,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		</div>
 		<div class="mb-[3%] flex flex-col">
 			<div class="basis-full">
-				<div class="flex flex-row sm:mx-auto sm:flex-col sm:items-center sm:p-2">
+				<div class="flex flex-row p-4 sm:mx-auto sm:flex-col sm:items-center sm:p-2">
 					<figure class="sm:mb-4 sm:flex sm:flex-col">
 						<img
 							class="mr-4 max-w-[300px] rounded-lg border shadow-md sm:mr-0 sm:max-w-[200px]"
@@ -46,7 +45,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						u.v.m.
 					</p>
 				</div>
-				<div class="mt-10 flex flex-row sm:mx-auto sm:flex-col sm:items-center sm:p-2">
+				<div class="mt-10 flex flex-row p-4 sm:mx-auto sm:flex-col sm:items-center sm:p-2">
 					<figure class="sm:mb-4 sm:mr-0 sm:flex sm:max-w-[200px] sm:flex-col">
 						<img
 							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
@@ -79,7 +78,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				</div>
 			</div>
 		</div>
-		<div class="mb-[3%] self-center py-4">
+		<div class="my-10 self-center p-4">
+			<h2 class="pb-4 text-center text-3xl text-cyan-800">Zu den Dokumenten</h2>
 			<div
 				class="mt-6 grid grid-cols-4 gap-8 sm:m-0 sm:mb-4 sm:grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2"
 			>
@@ -115,28 +115,79 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				</a>
 			</div>
 		</div>
+		<div class="my-10 py-4">
+			<h2 class="pb-4 text-center text-3xl text-cyan-800">
+				<a href={`${baseurl}news`}>Neues</a>
+			</h2>
+			<div
+				class="mt-6 grid grid-cols-3 gap-8 sm:m-0 sm:mb-4 sm:grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3"
+			>
+				{
+					news
+						.sort((a, b) => (a.data.date && b.data.date && a.data.date > b.data.date ? -1 : 1))
+						.slice(0, 3)
+						.map((n) => (
+							<a href={`${baseurl}news/${n.slug}`}>
+								<div class="p-4">
+									<img class="rounded-lg" src={n.data.image} alt={n.data.title} />
+									<h3 class="pt-4 text-xl text-cyan-800">{n.data.title}</h3>
+									<p>{n.data.date?.toLocaleDateString("de-De")}</p>
+									<p>{n.data.authors.map((author) => author.lastName + ", " + author.firstName)}</p>
+								</div>
+							</a>
+						))
+				}
+			</div>
+		</div>
+		<div class="my-10 py-4">
+			<h2 class="pb-4 text-center text-3xl text-cyan-800">
+				<a href={`${baseurl}events`}>Events</a>
+			</h2>
+			<div
+				class="mt-6 grid grid-cols-3 gap-8 sm:m-0 sm:mb-4 sm:grid sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3"
+			>
+				{
+					events
+						.sort((a, b) => (a.data.date && b.data.date && a.data.date > b.data.date ? -1 : 1))
+						.slice(0, 3)
+						.map((event) => (
+							<a href={`${baseurl}events/${event.slug}`}>
+								<div class="p-4">
+									<img class="rounded-lg" src={event.data.image} alt={event.data.title} />
+									<h3 class="pt-4 text-xl text-cyan-800">{event.data.title}</h3>
+									<p>{event.data.date?.toLocaleDateString("de-De")}</p>
+									<p>
+										{event.data.authors.map((author) => author.lastName + ", " + author.firstName)}
+									</p>
+								</div>
+							</a>
+						))
+				}
+			</div>
+		</div>
 	</div>
+
+	<script>
+		import Typed from "typed.js";
+
+		const options = {
+			strings: [
+				"Schüler*innen",
+				"Musikwissenschafter*innen",
+				"Journalist*innen",
+				"Genealog*innen",
+				"Numismatiker*innen",
+				"Zeitreisende",
+				"Medienhistoriker*innen",
+				"Medizinhistoriker*innen",
+				"Wissbegierige",
+				"Namensforscher*innen",
+			],
+			typeSpeed: 80,
+			backSpeed: 60,
+			loop: true,
+		};
+
+		const typed = new Typed("#intro-typed", options);
+	</script>
 </Page>
-<script>
-	import Typed from "typed.js";
-
-	const options = {
-		strings: [
-			"Schüler*innen",
-			"Musikwissenschafter*innen",
-			"Journalist*innen",
-			"Genealog*innen",
-			"Numismatiker*innen",
-			"Zeitreisende",
-			"Medienhistoriker*innen",
-			"Medizinhistoriker*innen",
-			"Wissbegierige",
-			"Namensforscher*innen",
-		],
-		typeSpeed: 80,
-		backSpeed: 60,
-		loop: true,
-	};
-
-	const typed = new Typed("#intro-typed", options);
-</script>

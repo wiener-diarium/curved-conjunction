@@ -6,12 +6,22 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 
 <Page title="Projekt" baseurl={baseurl}>
 	<div class="container mx-auto flex flex-col">
-		<div class="sticky top-0 bg-white p-6 text-center" style="top: 0;">
-			<ul class="inline-flex text-gray-500">
-				<li class="px-4"><a href="#call">Call for Nominations</a></li>
-				<li class="px-4"><a href="#digit">Volltextdigitalisierung</a></li>
-				<li class="px-4"><a href="#transcription">Transkription</a></li>
-				<li class="px-4"><a href="#annotation">Annotation</a></li>
+		<div class="sticky top-0 bg-white p-6 text-center sm:p-1">
+			<ul class="inline-flex text-gray-500 sm:text-sm">
+				<li class="px-4 sm:p-1">
+					<a id="show-on-scroll" href="#header"
+						><svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+							<path
+								fill-rule="evenodd"
+								d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"
+							></path>
+						</svg></a
+					>
+				</li>
+				<li class="px-4 sm:p-1"><a href="#call">Call for Nominations</a></li>
+				<li class="px-4 sm:p-1"><a href="#digit">Volltextdigitalisierung</a></li>
+				<li class="px-4 sm:p-1"><a href="#transcription">Transkription</a></li>
+				<li class="px-4 sm:p-1"><a href="#annotation">Annotation</a></li>
 			</ul>
 		</div>
 		<div class="mx-auto my-[3%] flex flex-col">
@@ -32,11 +42,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<h1 class="text-4xl font-bold">Call for Nominations</h1>
 				<p class="py-4 text-xl">Sie haben gewählt …?</p>
 			</div>
-			<div class="mx-auto flex flex-row">
+			<div class="mx-auto grid grid-cols-2 sm:grid-cols-1">
 				<div class="mx-auto flex max-w-[1200px] basis-full flex-row p-4">
 					<figure>
 						<img
-							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 							alt="Zeitungen haben mancherley Sachen im Blick."
 							src={`${baseurl}acdh-digitarium-caspar_stieler-15-Claudia_Resch-e1534861817939-185x300.jpg`}
 						/>
@@ -68,7 +78,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					</p>
 					<figure>
 						<img
-							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md"
+							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 							alt="Zeitungen liest imer einer anders als der andere."
 							src={`${baseurl}acdh-digitarium-caspar_stieler-17-Claudia_Resch-e1534865099692-232x300.jpg`}
 						/>
@@ -97,11 +107,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<div class="mx-auto flex flex-col">
 				<h1 class="mb-8 text-4xl font-bold">Volltextdigitalisierung</h1>
 			</div>
-			<div class="mx-auto flex flex-row">
+			<div class="mx-auto grid grid-cols-2 sm:grid-cols-1">
 				<div class="mx-auto flex flex-row p-4">
 					<figure>
 						<img
-							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+							class="mr-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 							alt="Transkribus Screenshot"
 							src={`${baseurl}acdh-digitarium-transkribus-screenshot-02-300x175.png`}
 						/>
@@ -141,7 +151,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					</p>
 					<figure>
 						<img
-							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md"
+							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 							alt="Transkribus Screenshot"
 							src={`${baseurl}acdh-digitarium-transkribus-screenshot-01-768x466.jpg`}
 						/>
@@ -151,7 +161,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<div class="flex max-w-[700px] flex-row p-4">
 				<figure>
 					<img
-						class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+						class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 						alt="Zeitungen erfordern gute Vorrectores."
 						src={`${baseurl}acdh-digitarium-caspar_stieler-20-Claudia_Resch-e1534862625266-276x300.jpg`}
 					/>
@@ -190,7 +200,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<div class="mx-auto mt-8 flex flex-col">
 				<h1 class="mb-8 text-4xl font-bold">Transkription</h1>
 			</div>
-			<div class="mx-auto flex flex-row">
+			<div class="mx-auto grid grid-cols-2 sm:grid-cols-1">
 				<div class="mx-auto basis-5/12 p-4">
 					<p>
 						Um eine wissenschaftlich fundierte Grundlage für die philologische Deutung und möglichst
@@ -212,7 +222,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<div class="flex basis-7/12 flex-row p-4">
 					<figure>
 						<img
-							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md"
+							class="float-left mr-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 							alt="Unleserliche Textstelle (Ausgabe vom 5. November 1712, S. 7)
 							© Claudia Resch"
 							src={`${baseurl}acdh-digitarium-Ausgabe_0511171_S.7-768x238.png`}
@@ -234,7 +244,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 
 		<div class="mx-auto my-[3%] flex flex-col">
 			<span id="annotation" class="mb-16"></span>
-			<div class="mx-auto flex flex-row">
+			<div class="mx-auto grid grid-cols-3 sm:grid-cols-1">
 				<figure class="p-2">
 					<img
 						class="w-[500px] rounded-lg border shadow-md"
@@ -269,7 +279,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			<div class="mx-auto mt-8">
 				<h1 class="mb-8 text-4xl font-bold">Annotation</h1>
 			</div>
-			<div class="mx-auto flex basis-full flex-row">
+			<div class="mx-auto grid grid-cols-2 sm:grid-cols-1">
 				<div class="mx-auto basis-6/12 p-4">
 					<p>
 						Die Annotation der Quelle <strong>Wien[n]erisches Diarium</strong> bzw. der <strong
@@ -319,7 +329,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					</p>
 					<figure>
 						<img
-							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md"
+							class="float-left ml-4 max-w-[300px] rounded-lg border shadow-md sm:max-w-[150px]"
 							alt="Was die Zeitungsleser vor Geräte haben müssen?"
 							src={`${baseurl}acdh-digitarium-caspar_stieler-18-Claudia_Resch-e1534865307383-189x300.jpg`}
 						/>
