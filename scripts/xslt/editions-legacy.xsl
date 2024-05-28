@@ -82,7 +82,7 @@
 			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-lg"><xsl:apply-templates/></h5>
 		</xsl:when>
 		<xsl:when test="@type='main'">
-			<h4	id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-2xl"><xsl:apply-templates/></h4>
+			<h4	id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-center') else('text-right')} py-4 text-lg"><xsl:apply-templates/></h4>
 		</xsl:when>
 		<xsl:otherwise>
 			<h5 id="{@xml:id}" class="yes-index {if(contains(@rendition, 'f')) then('text-justify') else('text-right')} py-4 text-lg"><xsl:apply-templates/></h5>
