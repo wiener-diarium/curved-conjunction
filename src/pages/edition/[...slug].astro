@@ -32,7 +32,6 @@ export async function getStaticPaths() {
 		}));
 }
 
-const { slug } = Astro.params;
 const { html, date, issue, corpus } = Astro.props;
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
@@ -43,7 +42,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		margin: 0 auto !important;
 	}
 </style>
-<Edition title={slug} baseurl={baseurl} date={date} issue={issue} corpus={corpus}>
+<Edition title={issue} baseurl={baseurl} date={date} issue={issue} corpus={corpus}>
 	<div class="flex flex-col">
 		<div set:html={html} />
 	</div>

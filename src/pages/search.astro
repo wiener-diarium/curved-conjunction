@@ -1,5 +1,5 @@
 ---
-import Page from "../layouts/Page.astro";
+import PageFullWidth from "../layouts/PageFullWidth.astro";
 
 const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 ---
@@ -8,7 +8,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
 />
-<Page title="Volltextsuche" baseurl={baseurl}>
+<PageFullWidth title="Volltextsuche" baseurl={baseurl}>
 	<div class="my-8">
 		<div class="mx-auto w-6/12 px-5 py-4 align-middle">
 			<div class="px-4 text-center">
@@ -57,7 +57,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			</div>
 		</div>
 	</div>
-</Page>
+</PageFullWidth>
 <script>
 	import instantsearch from "instantsearch.js";
 	import {
