@@ -117,11 +117,8 @@ const { textcolor, baseurl, backgroundcolor, width, issue, corpus, date } = Astr
 		const aside = document.getElementById("edition-aside");
 		const asideButton = document.getElementById("aside-button");
 		if (asideParam == null) {
-			asideButton!.classList.toggle("open")
-				? (urlparam.set("aside", "closed"),
-					window.history.pushState({}, "", "?" + urlparam.toString()))
-				: (urlparam.set("aside", "open"),
-					window.history.pushState({}, "", "?" + urlparam.toString()));
+			urlparam.set("aside", "open");
+			window.history.pushState({}, "", "?" + urlparam.toString());
 		} else if (asideParam !== "open") {
 			aside!.classList.toggle("active");
 			aside!.classList.toggle("hidden");
