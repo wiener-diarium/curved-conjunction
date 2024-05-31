@@ -10,7 +10,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 />
 <PageFullWidth title="Volltextsuche" baseurl={baseurl}>
 	<div class="my-8">
-		<div class="mx-auto w-6/12 px-5 py-4 align-middle">
+		<div class="container mx-auto max-w-[800px] px-5 py-4 align-middle">
 			<div class="px-4 text-center">
 				<h4 class="pt-2">Volltextsuche</h4>
 				<div id="searchbox" class="w-full" style="margin: 0 auto;"></div>
@@ -25,20 +25,14 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				<div id="refinement-range-confidence"></div>
 			</div> -->
 		</div>
-		<div class="mt-12 flex flex-row p-4">
-			<div class="w-3/12 basis-1/6 rounded border border-cyan-500 px-4">
+		<div class="mt-12 flex flex-row p-4 sm:flex-col md:flex-col">
+			<div class="basis-1/6 rounded border border-cyan-500 px-4">
 				<div class="py-2 text-center" id="clear-refinements"></div>
-				<h5 class="pt-2">Sammlung wählen</h5>
-				<div class="p-2" id="menu-edition"></div>
-				<h5 class="pt-2">Status (automatisch erstellter Text)</h5>
+				<div id="menu-edition"></div>
 				<div id="corrections"></div>
-				<h5 class="pt-2">Wochentag</h5>
 				<div id="weekday"></div>
-				<h5 class="pt-2">Jahrzehnt</h5>
 				<div id="decade"></div>
-				<h5 class="hidemobile pt-2">Orte</h5>
 				<div id="refinement-list-places" class="hidemobile"></div>
-				<h5 class="hidemobile pt-2">Schlagworte</h5>
 				<div id="refinement-list-keywords" class="hidemobile pb-4"></div>
 			</div>
 			<div class="basis-5/6 px-4">
@@ -72,6 +66,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		rangeInput,
 		clearRefinements,
 		currentRefinements,
+		panel,
 	} from "instantsearch.js/es/widgets";
 	import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
 
@@ -209,7 +204,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		hits({
 			container: "#hits",
 			cssClasses: {
-				item: "border-light rounded hover-shadow hover:bg-cyan-50 w-[32%]",
+				item: "border-light rounded hover-shadow hover:bg-cyan-50 w-[32%] xl:w-[48%] md:w-[47%] sm:w-[98%] lg:w-[46%] m-2 p-2",
 			},
 			templates: {
 				empty(results, { html }) {
@@ -321,9 +316,21 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			container: "#pagination",
 		}),
 
-		menu({
+		panel({
+			collapsed: ({ state }) => {
+				return state.query.length === 0;
+			},
+			templates: {
+				header: "Sammlung wählen",
+			},
+		})(menu)({
 			container: "#menu-edition",
 			attribute: "edition",
+			cssClasses: {
+				list: "list-unstyled",
+				item: "flex align-items-start text-left",
+				label: "flex align-items-start text-left",
+			},
 		}),
 
 		stats({
@@ -335,7 +342,14 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			},
 		}),
 
-		refinementList({
+		panel({
+			collapsed: ({ state }) => {
+				return state.query.length === 0;
+			},
+			templates: {
+				header: "Status <br/> (automatisch erstellter Text)",
+			},
+		})(refinementList)({
 			container: "#corrections",
 			attribute: "corrections",
 			searchable: false,
@@ -347,17 +361,24 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			},
 			cssClasses: {
 				searchableInput: "form-control form-control-sm m-2 border-light-2",
-				searchableSubmit: "d-none",
-				searchableReset: "d-none",
-				showMore: "btn btn-secondary btn-sm align-content-center",
+				searchableSubmit: "none",
+				searchableReset: "none",
+				showMore: "btn btn-sm align-content-center",
 				list: "list-unstyled",
-				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
-				label: "d-flex align-items-start text-left",
+				count: "badge flex m-2y hideme",
+				label: "flex text-left p-2",
 				checkbox: "m-2",
 			},
 		}),
 
-		refinementList({
+		panel({
+			collapsed: ({ state }) => {
+				return state.query.length === 0;
+			},
+			templates: {
+				header: "Wochentag",
+			},
+		})(refinementList)({
 			container: "#weekday",
 			attribute: "weekday",
 			searchable: false,
@@ -374,13 +395,20 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				searchableReset: "d-none",
 				showMore: "btn btn-secondary btn-sm align-content-center",
 				list: "list-unstyled",
-				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
-				label: "d-flex align-items-start text-left",
+				count: "badge flex align-self-end m-2 badge-secondary hideme ",
+				label: "flex align-items-start text-left",
 				checkbox: "m-2",
 			},
 		}),
 
-		refinementList({
+		panel({
+			collapsed: ({ state }) => {
+				return state.query.length === 0;
+			},
+			templates: {
+				header: "Jahrzehnt",
+			},
+		})(refinementList)({
 			container: "#decade",
 			attribute: "decade",
 			searchable: false,
@@ -398,8 +426,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				searchableReset: "d-none",
 				showMore: "btn btn-secondary btn-sm align-content-center",
 				list: "list-unstyled",
-				count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
-				label: "d-flex align-items-start text-left",
+				count: "badge flex align-self-end m-2 badge-secondary hideme ",
+				label: "flex align-items-start text-left",
 				checkbox: "m-2",
 			},
 		}),
@@ -421,8 +449,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		// 		searchableReset: "d-none",
 		// 		showMore: "btn btn-secondary btn-sm align-content-center",
 		// 		list: "list-unstyled",
-		// 		count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
-		// 		label: "d-flex align-items-start text-left",
+		// 		count: "badge flex align-self-end m-2 badge-secondary hideme ",
+		// 		label: "flex align-items-start text-left",
 		// 		checkbox: "m-2",
 		// 	},
 		// }),
@@ -436,8 +464,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		//         searchableReset: "d-none",
 		//         showMore: "btn btn-secondary btn-sm align-content-center",
 		//         list: "list-unstyled",
-		//         count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
-		//         label: "d-flex align-items-start text-left text-capitalize",
+		//         count: "badge flex align-self-end m-2 badge-secondary hideme ",
+		//         label: "flex align-items-start text-left text-capitalize",
 		//         checkbox: "m-2",
 		//     },
 		// }),
@@ -451,13 +479,20 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		//         searchableReset: "d-none",
 		//         showMore: "btn btn-secondary btn-sm align-content-center",
 		//         list: "list-unstyled",
-		//         count: "badge d-flex align-self-end m-2 badge-secondary hideme ",
-		//         label: "d-flex align-items-start text-left text-capitalize",
+		//         count: "badge flex align-self-end m-2 badge-secondary hideme ",
+		//         label: "flex align-items-start text-left text-capitalize",
 		//         checkbox: "m-2",
 		//     },
 		// }),
 
-		refinementList({
+		panel({
+			collapsed: ({ state }) => {
+				return state.query.length === 0;
+			},
+			templates: {
+				header: "Schlagworte",
+			},
+		})(refinementList)({
 			container: "#refinement-list-keywords",
 			attribute: "keywords",
 			searchable: true,
@@ -480,8 +515,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				searchableReset: "d-none",
 				showMore: "btn btn-secondary btn-sm align-content-center",
 				list: "list-unstyled",
-				count: "badge d-flex align-self-end m-2 badge-secondary hideme",
-				label: "d-flex align-items-start text-left",
+				count: "badge flex align-self-end m-2 badge-secondary hideme",
+				label: "flex align-items-start text-left",
 				checkbox: "m-2",
 			},
 		}),
@@ -494,12 +529,19 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		//         showMore: "btn btn-secondary btn-sm align-content-center",
 		//         list: "list-unstyled",
 		//         count: "badge m-2 badge-secondary hideme",
-		//         label: "d-flex align-items-center",
+		//         label: "flex align-items-center",
 		//         checkbox: "m-2",
 		//     },
 		// }),
 
-		refinementList({
+		panel({
+			collapsed: ({ state }) => {
+				return state.query.length === 0;
+			},
+			templates: {
+				header: "Orte",
+			},
+		})(refinementList)({
 			container: "#refinement-list-places",
 			attribute: "places",
 			searchable: true,
@@ -521,8 +563,8 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				searchableReset: "d-none",
 				showMore: "btn btn-secondary btn-sm align-content-center",
 				list: "list-unstyled",
-				count: "badge d-flex align-self-end m-2 badge-secondary hideme",
-				label: "d-flex align-items-start text-left",
+				count: "badge flex align-self-end m-2 badge-secondary hideme",
+				label: "flex align-items-start text-left",
 				checkbox: "m-2",
 			},
 		}),
@@ -536,7 +578,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		//         showMore: "btn btn-secondary btn-sm align-content-center",
 		//         list: "list-unstyled",
 		//         count: "badge m-2 badge-secondary hideme",
-		//         label: "d-flex align-items-center text-capitalize",
+		//         label: "flex align-items-center text-capitalize",
 		//         checkbox: "m-2",
 		//     },
 		// }),
@@ -549,7 +591,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		//         showMore: "btn btn-secondary btn-sm align-content-center",
 		//         list: "list-unstyled",
 		//         count: "badge m-2 badge-secondary hideme",
-		//         label: "d-flex align-items-center text-capitalize",
+		//         label: "flex align-items-center text-capitalize",
 		//         checkbox: "m-2",
 		//     },
 		// }),

@@ -6,9 +6,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 
 <Page title="Projekt" baseurl={baseurl}>
 	<div class="flex flex-col">
-		<div class="sticky top-0 bg-white p-6 text-center sm:p-1">
-			<ul class="inline-flex text-gray-500 sm:text-sm">
-				<li class="px-4 sm:p-1">
+		<div
+			class="sticky top-2 mx-auto max-w-4xl rounded-md bg-white p-6 text-center shadow-md sm:p-1"
+		>
+			<ul class="grid grid-cols-5 text-gray-500 sm:grid-cols-3 sm:text-sm md:grid-cols-3">
+				<li class="flex justify-center px-2 sm:p-1 md:p-2">
 					<a id="show-on-scroll" href="#header"
 						><svg width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
 							<path
@@ -18,10 +20,10 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 						</svg></a
 					>
 				</li>
-				<li class="px-4 sm:p-1"><a href="#call">Call for Nominations</a></li>
-				<li class="px-4 sm:p-1"><a href="#digit">Volltextdigitalisierung</a></li>
-				<li class="px-4 sm:p-1"><a href="#transcription">Transkription</a></li>
-				<li class="px-4 sm:p-1"><a href="#annotation">Annotation</a></li>
+				<li class="px-2 sm:p-1 md:p-2"><a href="#call">Call for Nominations</a></li>
+				<li class="px-2 sm:p-1 md:p-2"><a href="#digit">Volltextdigitalisierung</a></li>
+				<li class="px-2 sm:p-1 md:p-2"><a href="#transcription">Transkription</a></li>
+				<li class="px-2 sm:p-1 md:p-2"><a href="#annotation">Annotation</a></li>
 			</ul>
 		</div>
 		<div class="mx-auto my-[3%] flex flex-col">

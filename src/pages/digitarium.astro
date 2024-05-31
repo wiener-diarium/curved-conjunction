@@ -7,7 +7,9 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 <Page title="Digitarium" baseurl={baseurl}>
 	<div class="my-[4%] flex flex-col">
 		<div class="self-center py-4">
-			<div class="mt-8 grid grid-cols-4 gap-8">
+			<div
+				class="mt-8 grid grid-cols-4 gap-8 sm:grid-cols-1 sm:gap-1 md:grid-cols-2 lg:grid-cols-2"
+			>
 				<a
 					href={`${baseurl}search?gestrich_index%5BsortBy%5D=gestrich_index%2Fsort%2Fday%3Aasc%2Cpage%3Aasc`}
 				>
@@ -48,10 +50,10 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				</a>
 			</div>
 		</div>
-		<div class="mx-auto mt-8">
+		<div class="mx-auto mt-8 p-2">
 			<figure>
 				<img
-					class="float-left max-w-[1200px] rounded-lg border shadow-md"
+					class="float-left rounded-lg border shadow-md"
 					src={`${baseurl}acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg`}
 					alt="Wiener Diarium"
 				/>
