@@ -120,7 +120,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	function makeDigitImgUrl(hit: any) {
 		let date = String(hit.day);
 		let page = String(hit.page);
-		console.log(date, page);
 		let part1 = `${date.slice(0, 3)}x`;
 		let part2 = date.slice(0, 4);
 		let part3 = date.slice(4, 6);
@@ -432,59 +431,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			},
 		}),
 
-		// refinementList({
-		// 	container: "#has-fulltext",
-		// 	attribute: "has_fulltext",
-		// 	searchable: false,
-		// 	transformItems(items) {
-		// 		return items.map((item) => ({
-		// 			...item,
-		// 			highlighted: (item.highlighted =
-		// 				item.label === "true" ? "mit Volltext" : "ohne Volltext"),
-		// 		}));
-		// 	},
-		// 	cssClasses: {
-		// 		searchableInput: "form-control form-control-sm m-2 border-light-2",
-		// 		searchableSubmit: "d-none",
-		// 		searchableReset: "d-none",
-		// 		showMore: "btn btn-secondary btn-sm align-content-center",
-		// 		list: "list-unstyled",
-		// 		count: "badge flex align-self-end m-2 badge-secondary hideme ",
-		// 		label: "flex align-items-start text-left",
-		// 		checkbox: "m-2",
-		// 	},
-		// }),
-		// instantsearch.widgets.refinementList({
-		//     container: "#digitarium-issue",
-		//     attribute: "digitarium_issue",
-		//     searchable: false,
-		//     cssClasses: {
-		//         searchableInput: "form-control form-control-sm m-2 border-light-2",
-		//         searchableSubmit: "d-none",
-		//         searchableReset: "d-none",
-		//         showMore: "btn btn-secondary btn-sm align-content-center",
-		//         list: "list-unstyled",
-		//         count: "badge flex align-self-end m-2 badge-secondary hideme ",
-		//         label: "flex align-items-start text-left text-capitalize",
-		//         checkbox: "m-2",
-		//     },
-		// }),
-		// instantsearch.widgets.refinementList({
-		//     container: "#gestrich",
-		//     attribute: "gestrich",
-		//     searchable: false,
-		//     cssClasses: {
-		//         searchableInput: "form-control form-control-sm m-2 border-light-2",
-		//         searchableSubmit: "d-none",
-		//         searchableReset: "d-none",
-		//         showMore: "btn btn-secondary btn-sm align-content-center",
-		//         list: "list-unstyled",
-		//         count: "badge flex align-self-end m-2 badge-secondary hideme ",
-		//         label: "flex align-items-start text-left text-capitalize",
-		//         checkbox: "m-2",
-		//     },
-		// }),
-
 		panel({
 			collapsed: ({ state }) => {
 				return state.query.length === 0;
@@ -492,6 +438,9 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			templates: {
 				header: "Schlagworte",
 			},
+			// hidden(options) {
+			// 	return options.results.nbHits === 0;
+			// },
 		})(refinementList)({
 			container: "#refinement-list-keywords",
 			attribute: "keywords",
@@ -521,19 +470,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			},
 		}),
 
-		// instantsearch.widgets.refinementList({
-		//     container: "#refinement-list-persons",
-		//     attribute: "persons.title",
-		//     searchable: true,
-		//     cssClasses: {
-		//         showMore: "btn btn-secondary btn-sm align-content-center",
-		//         list: "list-unstyled",
-		//         count: "badge m-2 badge-secondary hideme",
-		//         label: "flex align-items-center",
-		//         checkbox: "m-2",
-		//     },
-		// }),
-
 		panel({
 			collapsed: ({ state }) => {
 				return state.query.length === 0;
@@ -541,6 +477,9 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			templates: {
 				header: "Orte",
 			},
+			// hidden(options) {
+			// 	return options.results.nbHits === 0;
+			// },
 		})(refinementList)({
 			container: "#refinement-list-places",
 			attribute: "places",
@@ -569,33 +508,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			},
 		}),
 
-		// instantsearch.widgets.refinementList({
-		//     container: "#refinement-list-case",
-		//     attribute: "case.title",
-		//     searchable: true,
-		//     searchablePlaceholder: "Suchen",
-		//     cssClasses: {
-		//         showMore: "btn btn-secondary btn-sm align-content-center",
-		//         list: "list-unstyled",
-		//         count: "badge m-2 badge-secondary hideme",
-		//         label: "flex align-items-center text-capitalize",
-		//         checkbox: "m-2",
-		//     },
-		// }),
-
-		// instantsearch.widgets.refinementList({
-		//     container: "#refinement-list-materials",
-		//     attribute: "materials",
-		//     searchable: true,
-		//     cssClasses: {
-		//         showMore: "btn btn-secondary btn-sm align-content-center",
-		//         list: "list-unstyled",
-		//         count: "badge m-2 badge-secondary hideme",
-		//         label: "flex align-items-center text-capitalize",
-		//         checkbox: "m-2",
-		//     },
-		// }),
-
 		rangeInput({
 			container: "#refinement-range-year",
 			attribute: "year",
@@ -615,34 +527,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				submit: "btn",
 			},
 		}),
-
-		// rangeInput({
-		// 	container: "#refinement-range-confidence",
-		// 	attribute: "confidence",
-		// 	templates: {
-		// 		separatorText: "bis",
-		// 		submitText: "Suchen",
-		// 	},
-		// 	cssClasses: {
-		// 		form: "form-inline",
-		// 		input: "form-control",
-		// 		submit: "btn",
-		// 	},
-		// }),
-
-		// rangeInput({
-		// 	container: "#refinement-article_count",
-		// 	attribute: "article_count",
-		// 	templates: {
-		// 		separatorText: "bis",
-		// 		submitText: "Suchen",
-		// 	},
-		// 	cssClasses: {
-		// 		form: "form-inline",
-		// 		input: "form-control",
-		// 		submit: "btn",
-		// 	},
-		// }),
 
 		pagination({
 			container: "#pagination",

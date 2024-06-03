@@ -166,6 +166,12 @@ export default config({
 				}),
 				content: fields.mdx({
 					label: "Content",
+					options: {
+						image: {
+							directory: "public/images/news/content",
+							publicPath: "/images/news/content",
+						},
+					},
 					components: {
 						TextImage: wrapper({
 							label: "Text and Image",
@@ -296,6 +302,12 @@ export default config({
 				}),
 				content: fields.mdx({
 					label: "Content",
+					options: {
+						image: {
+							directory: "public/images/news/content",
+							publicPath: "/images/news/content",
+						},
+					},
 					components: {
 						TextImage: wrapper({
 							label: "Text and Image",
