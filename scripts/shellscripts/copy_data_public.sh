@@ -1,9 +1,9 @@
 #bin/bash
 
 # remove public/editions
-rm -r ./public/editions
+rm -r ./public/edition
 # create public/editions
-mkdir ./public/editions
+mkdir ./public/edition
 # Copy data to public folder
-cp -r ./editions/raw/*.xml ./public/editions/
-cp -r ./editions/raw/*.xml ./public/editions/
+cp -r ./edition/raw/*.xml ./public/edition/
+cp -r ./edition/raw/*.xml ./public/edition/
