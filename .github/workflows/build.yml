@@ -25,10 +25,12 @@ jobs:
       - name: Fetch Edition Data
         run: |
           ./scripts/shellscripts/fetch_data.sh
-          ./scripts/shellscripts/copy_data_raw.sh
       - name: Build the site
         run: |
           ant -f ./scripts/ant/build.xml
+      - name: Copy Raw files to public directory
+        run: |
+          ./scripts/shellscripts/copy_data_raw.sh
       - name: Cache the site
         uses: actions/cache@v3
         env:
