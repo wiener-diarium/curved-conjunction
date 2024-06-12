@@ -25,6 +25,7 @@ jobs:
       - name: Fetch Edition Data
         run: |
           ./scripts/shellscripts/fetch_data.sh
+          ./scripts/shellscripts/copy_data_raw.sh
       - name: Build the site
         run: |
           ant -f ./scripts/ant/build.xml
@@ -65,6 +66,9 @@ jobs:
           restore-keys: |
             build-${{ env.cache-name }}-
             build-
+      - name: Copy Raw files to public directory
+        run: |
+          ./scripts/shellscripts/copy_data_public.sh
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:

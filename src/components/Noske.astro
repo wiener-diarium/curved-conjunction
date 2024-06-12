@@ -28,18 +28,15 @@
 		container: "noske-search",
 	});
 
+	search.minQueryLength = 1;
+
 	search.search({
 		client: {
 			base: "https://diarium-noske.acdh-dev.oeaw.ac.at",
 			corpname: "diarium",
-			viewmode: "kwic",
 			attrs: "word,id",
 			structs: "doc,p,head,list,docTitle,imprimatur,g",
-			kwicrightctx: "100#",
-			kwicleftctx: "100#",
 			refs: "doc.id,doc.corpus,p.id,head.id,list.id,docTitle.id,imprimatur.id",
-			pagesize: 20,
-			fromp: 1,
 		},
 		hits: {
 			id: "hitsbox",
@@ -51,6 +48,7 @@
 		},
 		searchInput: {
 			id: "noske-input",
+			placeholder: "Suche nach Wörter, Phrase (inkl. Regular Expressions) oder mit CQL",
 		},
 		pagination: {
 			id: "noske-pagination",
