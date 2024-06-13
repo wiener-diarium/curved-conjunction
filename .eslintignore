@@ -3,3 +3,4 @@ node_modules/*
 public/*
 /tailwind.config.ts
 /src/pages/model.astro
+/src/pages/calendar.astro
