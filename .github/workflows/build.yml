@@ -28,9 +28,9 @@ jobs:
       - name: Build the site
         run: |
           ant -f ./scripts/ant/build.xml
-      - name: Copy Raw files to public directory
-        run: |
-          ./scripts/shellscripts/copy_data_raw.sh
+      # - name: Copy Raw files to public directory
+      #   run: |
+      #     ./scripts/shellscripts/copy_data_raw.sh
       - name: Cache the site
         uses: actions/cache@v3
         env:
@@ -68,9 +68,9 @@ jobs:
           restore-keys: |
             build-${{ env.cache-name }}-
             build-
-      - name: Copy Raw files to public directory
-        run: |
-          ./scripts/shellscripts/copy_data_public.sh
+      # - name: Copy Raw files to public directory
+      #   run: |
+      #     ./scripts/shellscripts/copy_data_public.sh
       - name: Install, build, and upload your site
         uses: withastro/action@v2
         with:

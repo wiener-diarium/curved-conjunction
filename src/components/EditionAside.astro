@@ -3,7 +3,18 @@ import EditionEditor from "./EditionEditor.astro";
 
 const { textcolor, baseurl, backgroundcolor, width, issue, corpus, date, name } = Astro.props;
 
-//`https://id.acdh.oeaw.ac.at/digitarium/${name.replace(".html", ".xml")}?format=raw`
+function verifyArche() {
+	const format = "?format=raw";
+	if (corpus === "1") {
+		const url = "https://id.acdh.oeaw.ac.at/digitarium/";
+		const doc = "edoc_" + name.replace(".html", ".xml");
+		return url + doc + format;
+	} else {
+		const url = "https://id.acdh.oeaw.ac.at/digitarium2/";
+		const doc = name.replace(".html", ".xml");
+		return url + doc + format;
+	}
+}
 ---
 
 <aside class=`${width} ${backgroundcolor} ${textcolor}`>
@@ -81,7 +92,7 @@ const { textcolor, baseurl, backgroundcolor, width, issue, corpus, date, name } 
 					}
 				</p>
 				<p class="mt-4 flex justify-center">
-					<a href=`/editions/${name.replace("html", "xml")}` aria-label="Download" target="_blank">
+					<a href={verifyArche()} aria-label="Download" target="_blank">
 						<svg width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
 							<path
 								d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"
