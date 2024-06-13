@@ -22,7 +22,7 @@ const calendar: Array<Calendar> = [];
 for (const [key, value] of Object.entries(data)) {
 	calendar.push({
 		date: value.corpus === "1" ? key.replace("edoc_wd_", "") : key.replace("wr_", ""),
-		url: key,
+		url: value.corpus === "1" ? key.replace("edoc_wd_", "") : key,
 		label: value.title,
 		kind: value.corpus,
 	});
@@ -34,7 +34,6 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 <Page title="Kalender" baseurl={baseurl}>
 	<div class="md:py-4 sm:py-4">
 		<h1 class="p-6 text-center text-4xl">Kalender</h1>
-		<!-- @eslint ignore -->
 		<acdh-ch-calendar>
 			<label>
 				<span>Jahr:</span>
@@ -95,12 +94,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		} else {
 			const calendar = document.getElementById("calendar");
 			calendar.innerHTML = events.map((event) => {
-				return `<a href="edition/${event.url}" class="block p-2 hover:bg-gray-100 cursor">
+				return `<a href="edition/${event.url}" class="inline p-2 hover:bg-gray-100 cursor">
 									${event.label}
 								</a>`;
 			});
 		}
-		//window.location.href = "edition/" + events.url;
 	}
 
 	try {
@@ -123,11 +121,11 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	} */
 
 	acdh-ch-calendar-year table > tr > td button[data-event-kinds="1"] {
-		border-bottom: 2px solid cyan;
+		border: 2px solid cyan;
 	}
 
 	acdh-ch-calendar-year table > tr > td button[data-event-kinds="2"] {
-		border-bottom: 2px solid blue;
+		border: 2px solid blue;
 	}
 
 	acdh-ch-calendar-year {
