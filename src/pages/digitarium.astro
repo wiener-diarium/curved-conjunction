@@ -34,7 +34,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	<div class="my-[4%] flex flex-col">
 		<figure class="block self-center">
 			<img
-				class="float-left max-w-[800px] rounded-lg border shadow-md"
+				class="float-left max-w-[800px] rounded-lg border shadow-md sm:max-w-[300px] md:max-w-[400px]"
 				src={`${baseurl}acdh-digitarium-TagdesDenkmals-03-ÖAW_APA-Fotoservice_Schedl.jpg`}
 				alt="Wiener Diarium"
 			/>
@@ -211,6 +211,22 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			margin-left: 0.5rem;
 			padding: 0.5rem;
 			font-size: 1rem;
+		}
+
+		@media screen and (max-width: 1024px) {
+			acdh-ch-calendar-year {
+				grid-template-columns: repeat(3, 1fr);
+			}
+		}
+		@media screen and (max-width: 768px) {
+			acdh-ch-calendar-year {
+				grid-template-columns: repeat(2, 1fr);
+			}
+		}
+		@media screen and (max-width: 640px) {
+			acdh-ch-calendar-year {
+				grid-template-columns: repeat(1, 1fr);
+			}
 		}
 	</style>
 </Page>
