@@ -73,7 +73,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 	var project_collection_name = "gestrich_index";
 	const annoUrl = "https://anno.onb.ac.at/cgi-content/anno?aid=wrz&datum=";
 	const annoImgUrl = "https://anno.onb.ac.at/cgi-content/annoshow?call=wrz|";
-	const digitUrl = "https://diarium-images.acdh-dev.oeaw.ac.at/";
+	const acdhIIIF = "https://iiif.acdh.oeaw.ac.at/iiif/images/digitarium/";
 	const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 
 	function weekdayToString(weekday: any) {
@@ -118,19 +118,21 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		return `${annoImgUrl}${hitDate}|${hitPage}|10.0|0`;
 	}
 	function makeDigitImgUrl(hit: any) {
-		let date = String(hit.day);
-		let page = String(hit.page);
-		let part1 = `${date.slice(0, 3)}x`;
-		let part2 = date.slice(0, 4);
-		let part3 = date.slice(4, 6);
-		let part4 = date;
-		let part5 = `${date}-000`;
-		let part6 = "full/full/0/default.jpg";
-		return `${digitUrl}${part1}/${part2}/${part3}/${part4}/${part5}/${part6}`;
+		// let part1 = `${date.slice(0, 3)}x`;
+		// let part2 = date.slice(0, 4);
+		// let part3 = date.slice(4, 6);
+		// let part4 = date;
+		// let part5 = `${date}-000`;
+		// let part6 = "full/full/0/default.jpg";
+		// return `${digitUrl}${part1}/${part2}/${part3}/${part4}/${part5}/${part6}`;
+		let hitDate = hit.day;
+		let hitPage = String(Number(hit.page) - 1);
+		let hitPageTrailingZeros = hitPage.padStart(3, "0");
+		return `${acdhIIIF}${hitDate}-${hitPageTrailingZeros}.jp2/full/400,/0/default.jpg`;
 	}
 	function whichEdition(hit: any) {
-		let hitDigit = hit.digitarium_issue;
-		if (hitDigit) {
+		let hitday = String(hit.day);
+		if (hitday.startsWith("1703")) {
 			return makeDigitImgUrl(hit);
 		} else {
 			return makeAnnoImgUrl(hit);
