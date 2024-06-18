@@ -70,6 +70,10 @@ for (const [id, { title, corpus }] of Object.entries(meta)) {
 		layout: "fitColumns",
 		pagination: true,
 		headerFilterLiveFilterDelay: 600,
+		initialSort: [
+			{ column: "date", dir: "asc" }, //sort by this first
+			{ column: "corpus", dir: "asc" }, //then sort by this second
+		],
 		columns: [
 			{
 				title: "Datum",

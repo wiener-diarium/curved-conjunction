@@ -100,12 +100,15 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 					<div class="my-6">
 						<h2 class="mb-2 block">Legende:</h2>
 						<div class="flex">
-							<div class="mr-4 size-[20px] bg-orange-500"></div> Korpus 1: Alle Ausgaben 18. Jahrhundert
+							<div class="mr-4 size-[20px] bg-cyan-300"></div> Korpus 1: Alle Ausgaben 18. Jahrhundert
 						</div>
 
 						<div class="flex">
-							<div class="mr-4 size-[20px] bg-violet-500"></div> Korpus 2: Ausgewählte Ausgaben Siebenjähriger
+							<div class="mr-4 size-[20px] bg-cyan-500"></div> Korpus 2: Ausgewählte Ausgaben Siebenjähriger
 							Krieg
+						</div>
+						<div class="flex">
+							<div class="mr-4 size-[20px] bg-cyan-700"></div> Korpus 1 und 2
 						</div>
 					</div>
 				</div>
@@ -121,7 +124,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		 *
 		 * To display a `<select>` instead, use `register({ picker: "select" });`.
 		 */
-		register({ picker: "select" });
+		register();
 
 		const de = {
 			months: [
@@ -147,7 +150,7 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 				calendar.setI18n(i18n);
 			}
 
-			calendar.setData({ events });
+			calendar.setData({ events, currentYear: 1703 });
 
 			calendar.addEventListener("calendar-event-click", onEventClick);
 		}
@@ -188,17 +191,18 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 		border-bottom: 2px solid dodgerblue;
 	} */
 
-		acdh-ch-calendar-year table > tr > td button[data-event-kinds="1"] {
+		/* acdh-ch-calendar-year table > tr > td button[data-event-kinds="1"] {
 			border: 2px solid orangered;
 		}
 
 		acdh-ch-calendar-year table > tr > td button[data-event-kinds="2"] {
 			border: 2px solid blueviolet;
-		}
+		} */
 
 		acdh-ch-calendar-year {
 			display: grid;
 			grid-template-columns: repeat(4, 1fr);
+			gap: 1rem;
 		}
 
 		acdh-ch-calendar-year table > tr > td {
@@ -211,6 +215,43 @@ const baseurl = import.meta.env.BASE_URL ? import.meta.env.BASE_URL : "";
 			margin-left: 0.5rem;
 			padding: 0.5rem;
 			font-size: 1rem;
+		}
+
+		acdh-ch-calendar {
+			display: grid;
+			gap: 4rem;
+		}
+
+		acdh-ch-calendar > label > span {
+			display: block;
+			font-weight: 600;
+			margin-block-end: 1rem;
+		}
+
+		acdh-ch-calendar-year-picker div[role="radiogroup"] {
+			gap: 0 2rem;
+		}
+
+		acdh-ch-calendar-year-picker div[role="radiogroup"] > label {
+			line-height: 2rem;
+		}
+
+		/** When using tailwindcss, explicitly set text and background colors of events. */
+		acdh-ch-calendar-year td > * {
+			background-color: var(--calendar-cell-color);
+			color: var(--calendar-cell-color-foreground);
+		}
+
+		acdh-ch-calendar-year td > button[data-event-kinds="1"] {
+			--calendar-cell-color: #02c7c7;
+		}
+
+		acdh-ch-calendar-year td > button[data-event-kinds="2"] {
+			--calendar-cell-color: #00a5a5;
+		}
+
+		acdh-ch-calendar-year td > button[data-event-kinds-count="2"] {
+			--calendar-cell-color: #006363;
 		}
 
 		@media screen and (max-width: 1024px) {
